@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>PDF Express</title>
+    <style>
+      body { margin: 30px; background: Aquamarine; font: 30px/1.5 "Futura"; display: flex; }
+      header { margin-right: 80px; }
+      ul { list-style: none; padding-left: 0; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>
+      </h1>
+      <ul>
+        <% files.map(file => { %>
+          <li>
+            <a href="<%= file.url %>"><%= file.name %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </header>
+
+
+
+        <section>
+            <% if((typeof(file) !== 'undefined')) { %>
+                <embed src="<%= file.url %>" width="500" height="646">
+            <% } %>
+        </section>
+  </body>
+</html>

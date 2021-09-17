@@ -1,0 +1,187 @@
+#myInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+
+    border: none;
+    border: 3px solid rgb(136, 0, 0);
+    border-radius: 50px;
+  }
+
+
+thead {
+    border: 0px solid rgb(102, 0, 0);
+    margin-top: -1px; /* Prevent double borders */
+    background-color: rgb(243, 243, 243);
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+}
+
+tbody tr:hover:not(.header) {
+    background-color: rgb(255, 232, 232);
+    color: rgb(136, 0, 0); font-weight: 600;
+  }
+
+.sig-row {
+    background-color: rgb(255, 232, 232);
+    color: rgb(136, 0, 0); font-weight: 600;
+}
+
+
+#order-modify {  display: inline-block;  border-radius: 4px;  background-color: rgb(136, 0, 0);  border: none;  color: #FFFFFF;  text-align: center;  font-size: 12px;  padding: 5px;  width: 50px;  transition: all 0.5s;  cursor: pointer;}
+
+#order-make-changes {  display: inline-block;  border-radius: 4px;  background-color: rgb(136, 0, 0);  border: none;  color: #FFFFFF;  text-align: center;  font-size: 12px;  padding: 5px;  width: 200px;  transition: all 0.5s;  cursor: pointer;}
+
+.sig-order {background-color: rgb(255, 232, 232);}
+
+.sig-links {text-decoration: none; cursor: pointer; color: inherit; outline: none;}
+
+
+.sig-links-main {text-decoration: none; cursor: pointer; color: inherit; outline: none;}
+
+
+.sig-links-main:hover {
+  color: #fff;
+}
+
+
+.sig-table-row {background-color: rgb(255, 232, 232);
+    color: rgb(136, 0, 0);
+    font-weight: 600;
+    font-size: 20px;}
+
+.sig-table-input {border: 2px solid rgb(136, 0, 0);}
+
+
+
+/* .status-list {padding: 10px; margin: 20px; background-color: rgb(255, 232, 232); color: rgb(136, 0, 0); border: 2px dashed rgb(136, 0, 0); border-radius: 50px;} */
+.status-list {margin: 20px; background-color: rgb(255, 232, 232); color: rgb(136, 0, 0); border: 2px dashed rgb(136, 0, 0);}
+
+.per-status {padding: 10px; text-align: center; border-right: 1px solid rgb(136, 0, 0);}
+
+
+.sig-pdf {width: 100%; height: 900px;}
+
+
+.sig-center {text-align: center;}
+
+.month-list {margin-top: 20px; padding: 10px; background-color: rgb(255, 232, 232); color: rgb(136, 0, 0); border: 2px dashed rgb(136, 0, 0); border-radius: 50px;}
+
+.sig-logo {display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;}
+
+.table-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  width: 100%;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: rgb(255, 232, 232);
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+.button:hover {
+  background-color: #00b46c;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.font-inherit {
+  font-size: inherit;
+}
+
+
+
+
+
+
+.col-printed {
+  background-color: #a6a6a6;
+}
+
+.col-east {
+  background-color: #ffdf7e;
+}
+
+.col-west {
+  background-color: #6fd9ff;
+}
+
+.col-parts {
+  background-color: #ffff74;
+}
+
+.col-quarantine {
+  background-color: #ff8b6e;
+}
+
+.col-shipped {
+  background-color: #c0ff7d;
+}
+
+.col-invoiced {
+  background-color: #dcadff;
+}
+
+.col-archived {
+  background-color: #ffffff;
+}
+
+
+
+
+
+
+.table-sortable th {
+  cursor: pointer;
+}
+
+.table-sortable .th-sort-asc::after {
+  content: "\25b4";
+}
+
+.table-sortable .th-sort-desc::after {
+  content: "\25be";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+  margin-left: 5px;
+}
+
+.table-sortable .th-sort-asc,
+.table-sortable .th-sort-desc {
+  background: rgba(0, 0, 0, 0.1);
+}

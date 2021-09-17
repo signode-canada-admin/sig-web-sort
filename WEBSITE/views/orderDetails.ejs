@@ -1,0 +1,113 @@
+<%- include("./partials/headnocontainer.ejs") %>
+
+<br>
+
+<h2 style="color:rgb(136,0,0); padding-left: 20px; text-transform: capitalize;"><%= site %> &#8594; <%= orderdata._id %></h2>
+
+<br>
+
+
+<table class="table">
+
+
+    <thead>
+        <th>Order #</th>
+        <th>PO #</th>
+        <th>Ship To</th>
+        <th>Via</th>
+        <th>Date Received</th>
+        <th>Hours Since Printed</th>
+        <th>Date Shipped</th>
+        <th>Date Invoiced</th>
+        <th>Status</th>
+        <th>Month</th>
+        <th>Original Print</th>
+    </thead>
+    <tbody id="mainList">
+
+
+
+
+            <tr class="sig-row">
+                <td><%= orderdata._id %></td>
+                <td><%= orderdata["PO"] %></td>
+                <td><%= orderdata["shipTo"] %></td>
+                <td><%= orderdata["via"] %></td>
+                <td><%= orderdata["dateReceived"].toUTCString().slice(0, orderdata["dateReceived"].toString().indexOf("GMT")) %></td>
+                <td><%= Math.round(((new Date() - orderdata["dateReceived"])/36e5)-4) %></td>
+
+
+                <% if (orderdata["shippedDate"] !== null) {%>
+                    <td><%= orderdata["shippedDate"].toUTCString().slice(0, orderdata["shippedDate"].toUTCString().indexOf("GMT")) %></td>
+                <% } else { %>
+                    <td>NONE</td>
+                <% } %>
+
+                <% if (orderdata["invoicedDate"] !== null) {%>
+                    <td><%= orderdata["invoicedDate"].toUTCString().slice(0, orderdata["invoicedDate"].toString().indexOf("GMT")) %></td>
+                <% } else { %>
+                    <td>NONE</td>
+                <% } %>
+
+                <td class="stat"><%= orderdata["status"] %></td>
+                <td><%= orderdata["month"] %></td>
+                <td><%= orderdata["originalPrint"] %></td>
+            </tr>
+
+
+
+
+
+    </tbody>
+
+</table>
+
+
+<section>
+    <% if((typeof(file) !== 'undefined')) { %>
+        <embed class="sig-pdf" src="<%= file %>">
+    <% } %>
+</section>
+
+
+
+   <!-- <%= orderdata["fileDirectory"] %> -->
+
+
+
+
+
+<script>
+    let temp = document.getElementsByClassName("stat");
+        let arr = Array.prototype.slice.call( temp );
+        arr.forEach((e) => {
+
+            if (e.textContent.toLowerCase() == "printed"){
+                e.classList.add("col-printed");
+            } else if (e.textContent.toLowerCase() == "east") {
+                e.classList.add("col-east");
+            } else if (e.textContent.toLowerCase() == "west") { 
+                e.classList.add("col-west");
+            } else if (e.textContent.toLowerCase() == "parts") {
+                e.classList.add("col-parts");
+            } else if (e.textContent.toLowerCase() == "quarantine") {
+                e.classList.add("col-quarantine");
+            } else if (e.textContent.toLowerCase() == "shipped") {
+                e.classList.add("col-shipped");
+            } else if (e.textContent.toLowerCase() == "invoiced") {
+                e.classList.add("col-invoiced");
+            }  else if (e.textContent.toLowerCase() == "archived") {
+                e.classList.add("col-archived");
+            }
+
+    });
+</script>
+
+   
+
+
+
+
+
+
+<%- include("./partials/footnocontainer.ejs") %>

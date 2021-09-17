@@ -1,0 +1,19 @@
+{
+  "name": "ci-team-picktickets",
+  "version": "1.0.0",
+  "description": "database for pick ticket project ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ci-team",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.5"
+  }
+}

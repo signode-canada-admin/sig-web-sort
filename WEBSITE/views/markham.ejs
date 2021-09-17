@@ -1,0 +1,50 @@
+<%- include("./partials/head.ejs") %>
+
+<br>
+<br>
+
+
+<img class="sig-logo" src="/images/SignodeLogo_RGB_FOR PPT AND SCREEN USE.png" alt="SIGNODE LOGO GOES HERE" height="50%" width="50%">
+
+
+
+<h2 style="color:rgb(136,0,0); padding-left: 20px; text-align: center;"><%= title %></h2>
+<br>
+
+
+<table class="table">
+
+
+    <thead>
+
+
+        <th>Months</th>
+
+
+    </thead>
+    <tbody id="mainList">
+
+
+        
+        <% if (lst.length != 0) { %>
+            <% lst.forEach((month)=>{ %>
+                <tr>
+                    <td class="sig-order"><a class='sig-links' href="/mainPage/<%= title.toLowerCase() %>/<%= month %>"><%= month %></a></td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+                <tr>
+                    <td>No Entries Here</td>
+                </tr>
+        <% } %>
+        
+
+
+    </tbody>
+
+</table>
+
+
+
+
+<%- include("./partials/foot.ejs") %>

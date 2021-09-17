@@ -1,0 +1,89 @@
+<%- include("./partials/head.ejs") %>
+
+<br>
+
+<p style="color:rgb(136,0,0);">Modify Order:</p>
+<h2 style="color:rgb(136,0,0);"><%= order %></h2>
+
+<br>
+
+
+
+<table class="table">
+
+
+    <thead>
+        <th>Order #</th>
+        <th>Ship To</th>
+        <th>Via</th>
+        <th>Date Received</th>
+        <th>Hours Since Printed</th>
+        <th>Date Shipped</th>
+        <th>Date Billed</th>
+        <th>Status</th>
+        <th>Original Print</th>
+        <th>Is Excel Updated</th>
+    </thead>
+    <tbody id="mainList">
+
+
+
+
+            <tr class="sig-row">
+                <td><%= order %></td>
+                <td><%= orderdata["shipTo"] %></td>
+                <td><%= orderdata["via"] %></td>
+                <td><%= orderdata["dateReceived"] %></td>
+                <td><%= Math.round(((new Date() - orderdata["dateReceived"])/36e5)-4) %></td>
+                <td><%= orderdata["shippedDate"] %></td>
+                <td><%= orderdata["billedDate"] %></td>
+                <td><%= orderdata["status"] %></td>
+                <td><%= orderdata["originalPrint"] %></td>
+                <td><%= orderdata["isExcelUpdated"] %></td>
+            </tr>
+
+
+
+
+
+    </tbody>
+
+</table>
+
+
+<br>
+
+
+
+<form action="/all/<%= order %>" method="POST">
+
+
+
+
+    <span style="display:block"><label class="sig-table-row">Order # = </label>
+    <span class="sig-table-input"><%= order %></span></span>
+
+    <span style="display:block"><label class="sig-table-row">Ship To = </label>
+    <span class="sig-table-input"><%= orderdata["shipTo"] %></span></span>
+
+    <span style="display:block"><label class="sig-table-row">Ship Via = </label>
+    <span class="sig-table-input"><%= orderdata["via"] %></span></span>
+
+    <span style="display:block"><label class="sig-table-row">Status = </label>
+    <input type="text" name='status' value="<%= orderdata['status'] %>" class="sig-table-input" required /></span>
+
+    <span style="display:block"><label class="sig-table-row">Is Excel Updated = </label>
+    <input type="text" name='isExcelUpdated' value="<%= orderdata['isExcelUpdated'] %>" class="sig-table-input" required /></span>
+
+    
+    <br>
+
+
+    <button id="order-make-changes"><a>Make Changes</a></button>
+
+
+
+</form>
+
+
+<%- include("./partials/foot.ejs") %>

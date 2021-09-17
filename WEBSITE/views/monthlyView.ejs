@@ -1,0 +1,181 @@
+<%- include("./partials/head.ejs") %>
+
+<br>
+
+
+<h2 style="color:rgb(136,0,0); text-transform: capitalize;"><%= site %> &#8594; <%= status %></h2>    
+
+
+
+<br>
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Orders, PO, Ship To, Via, Status, Date ..">
+
+<% if (site.toLowerCase() == "markham") { %>
+    <%- include ("./partials/status-Mar.ejs") %>
+<% } else { %>
+    <%- include ("./partials/status-Surr.ejs") %>
+<% } %>
+
+
+<table class="table table-sortable">
+
+    <thead>
+        <tr>
+        <th>Order #</th>
+        <th>PO #</th>
+        <th>Ship To</th>
+        <th>Via</th>
+        <th>Date Received</th>
+        <th>Hours Since Printed</th>
+        <th>Month</th>
+        <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody id="mainList">
+
+
+        <% if (lst_orders.length != 0) { %>
+
+            <% lst_orders.forEach((order)=>{ %>
+
+                <tr>
+                    <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
+                    <td><%= order["PO"] %></td>
+                    <td><%= order["shipTo"] %></td>
+                    <td><%= order["via"] %></td>
+                    <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
+                    <td><%= Math.round(((new Date() - order["dateReceived"])/36e5)-4) %></td>
+                    <td><%= order["month"] %></td>
+                    <td class="stat"><%= order["status"] %></td>
+                </tr>
+                
+
+
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td>NO</td>
+                <td>ORDERS</td>
+                <td>YET</td>
+            </tr>
+        <% } %>
+
+
+    </tbody>
+
+</table>
+
+
+<script>
+
+
+
+    function myFunction() {
+
+        let input, filter, table, main;
+
+
+        input = document.getElementById('myInput');
+        target = input.value.toLowerCase();
+        main = document.getElementById("mainList");
+
+
+        for (let i=0; i<main.rows.length; i++){
+
+                let order = main.rows[i].cells[0].textContent.toLowerCase().indexOf(target);
+                let po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
+                let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
+                let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
+                let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
+                let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
+                let status= main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
+
+                
+
+
+                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 || month > -1){
+
+                    main.rows[i].style.display = "";
+
+
+                } else {
+
+                    main.rows[i].style.display = "none";
+
+                };
+            }
+        
+        }
+
+
+        let temp = document.getElementsByClassName("stat");
+        let arr = Array.prototype.slice.call( temp );
+        arr.forEach((e) => {
+
+            if (e.textContent.toLowerCase() == "printed"){
+                e.classList.add("col-printed");
+            } else if (e.textContent.toLowerCase() == "carlos") {
+                e.classList.add("col-east");
+            } else if (e.textContent.toLowerCase() == "todd") { 
+                e.classList.add("col-west");
+            } else if (e.textContent.toLowerCase() == "parts") {
+                e.classList.add("col-parts");
+            } else if (e.textContent.toLowerCase() == "other") {
+                e.classList.add("col-quarantine");
+            } else if (e.textContent.toLowerCase() == "shipped") {
+                e.classList.add("col-shipped");
+            } else if (e.textContent.toLowerCase() == "invoiced") {
+                e.classList.add("col-invoiced");
+            }  else if (e.textContent.toLowerCase() == "archived") {
+                e.classList.add("col-archived");
+            }
+
+    });
+
+
+    function sortTableByColumn(table, column, asc = true) {
+        const dirModifier = asc ? 1 : -1;
+        const tBody = table.tBodies[0];
+        const rows = Array.from(tBody.querySelectorAll("tr"));
+
+        // Sort each row
+        const sortedRows = rows.sort((a, b) => {
+            const aColText = a.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+            const bColText = b.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+
+            return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+        });
+
+        // Remove all existing TRs from the table
+        while (tBody.firstChild) {
+            tBody.removeChild(tBody.firstChild);
+        }
+
+        // Re-add the newly sorted rows
+        tBody.append(...sortedRows);
+
+        // Remember how the column is currently sorted
+        table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+        table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-asc", asc);
+        table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-desc", !asc);
+    }
+
+    document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+        headerCell.addEventListener("click", () => {
+            const tableElement = headerCell.parentElement.parentElement.parentElement;
+            const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+            const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+            sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+        });
+    });
+
+
+
+</script>
+
+
+<%- include("./partials/foot.ejs") %>
