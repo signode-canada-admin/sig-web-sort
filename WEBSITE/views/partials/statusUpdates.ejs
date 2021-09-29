@@ -1,0 +1,42 @@
+<% const get_status = (lst_status, order) => {
+    ret  = lst_status.filter(obj => obj["_id"] === order)
+    return ret
+} %>
+
+
+
+<td class="stat td-grid">
+    <div class="grid-item">
+            <% if (order["status"].toLowerCase() === 'other') {%>
+                <% const otherOrderStat = get_status(lst_status, order["_id"]) %>
+                <% if (otherOrderStat) { %>
+                    <% const detStat = otherOrderStat[0]["detailedStatus"] %>
+                    <% if (detStat) { %>
+                        <%= detStat[1].slice(2) %>
+                    <% } else { %>
+                        <%= order["status"] %>
+                    <% } %> 
+                <% } else { %>
+                    <%= order["status"] %>
+                <% } %>
+            <% } else { %>
+                <%= order["status"] %>
+            <% } %>
+    </div>
+    <div class="grid-item">
+        
+            <% const orderStat = get_status(lst_status, order["_id"]); %>
+            <% if (orderStat) { %>
+                <% if (orderStat[0]["staged"]) { %>
+                    <span class="stageHighlight">
+                        <%= "STAGED" %>
+                    </span>
+                <% } else { %>
+                        <%= "" %>
+                <% } %>
+            <% } else { %>
+                <%= "" %>
+            <% } %>
+        
+    </div>
+</td>

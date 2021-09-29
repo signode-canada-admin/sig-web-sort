@@ -1,0 +1,20 @@
+<% const get_status = (lst_status, order) => {
+    ret  = lst_status.filter(obj => obj["_id"] === order)
+    return ret
+} %>
+
+
+<div class="stageSearchHighlight">
+    <% const orderStat = get_status(lst_status, order["_id"]); %>
+    <% if (orderStat) { %>
+        <% if (orderStat[0]["staged"]) { %>
+            <span>
+                <%= "STAGED" %>
+            </span>
+        <% } else { %>
+                <%= "" %>
+        <% } %>
+    <% } else { %>
+        <%= "" %>
+    <% } %>
+</div>

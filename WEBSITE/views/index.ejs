@@ -16,7 +16,7 @@
 <!-- TABLE VISIBLE ONLY WHILE SEARCHING -->
 
     <!-- MARKHAM -->
-    <table class="table-center" id="table-mar" style="display: none;">
+    <table class="table-search table-center" id="table-mar" style="display: none; width: 100%;">
 
         <h5 style="color:rgb(136,0,0); display: none;" id="mar-title">Markham</h5>
     
@@ -27,8 +27,6 @@
             <th>Ship To</th>
             <th>Via</th>
             <th>Date Received</th>
-            <th>Hours Since Printed</th>
-            <th>Month</th>
             <th>Status</th>
         </thead>
         <tbody id="mainList-mar">
@@ -44,9 +42,7 @@
                         <td><%= order["shipTo"] %></td>
                         <td><%= order["via"] %></td>
                         <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= Math.round(((new Date() - order["dateReceived"])/36e5)-4) %></td>
-                        <td><%= order["month"] %></td>
-                        <td><%= order["status"] %></td>
+                        <td><%= order["status"] %> <%- include("./partials/searchStaged.ejs", {lst_status: marStat, order}) %></td>
                     </tr>
 
     
@@ -55,7 +51,7 @@
                 <tr>
                     <td>NO</td>
                     <td>ORDERS</td>
-                    <td>YET</td>
+                    <td>FOUND</td>
                 </tr>
             <% } %>
     
@@ -67,7 +63,7 @@
     
     
     <!-- SURREY -->
-    <table class="table-center" id="table-surr" style="display: none;">
+    <table class="table-search table-center" id="table-surr" style="display: none; width: 100%;">
     
     
         <h5 style="color:rgb(136,0,0); display: none;" id="surr-title">Surrey</h5>
@@ -79,8 +75,6 @@
             <th>Ship To</th>
             <th>Via</th>
             <th>Date Received</th>
-            <th>Hours Since Printed</th>
-            <th>Month</th>
             <th>Status</th>
         </thead>
         <tbody id="mainList-surr">
@@ -96,9 +90,7 @@
                         <td><%= order["shipTo"] %></td>
                         <td><%= order["via"] %></td>
                         <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= Math.round(((new Date() - order["dateReceived"])/36e5)-4) %></td>
-                        <td><%= order["month"] %></td>
-                        <td><%= order["status"] %></td>
+                        <td><%= order["status"] %> <%- include("./partials/searchStaged.ejs", {lst_status: surrStat, order}) %></td>
                     </tr>
                     
     
@@ -108,7 +100,7 @@
                 <tr>
                     <td>NO</td>
                     <td>ORDERS</td>
-                    <td>YET</td>
+                    <td>FOUND</td>
                 </tr>
             <% } %>
     
@@ -119,7 +111,7 @@
 
 
     <!-- GLENVIEW -->
-    <table class="table-center" id="table-glen" style="display: none;">
+    <table class="table-search table-center" id="table-glen" style="display: none; width: 100%;">
 
         <h5 style="color:rgb(136,0,0); display: none;" id="glen-title">Glenview</h5>
     
@@ -130,8 +122,6 @@
             <th>Ship To</th>
             <th>Via</th>
             <th>Date Received</th>
-            <th>Hours Since Printed</th>
-            <th>Month</th>
             <th>Status</th>
         </thead>
         <tbody id="mainList-glen">
@@ -147,9 +137,7 @@
                         <td><%= order["shipTo"] %></td>
                         <td><%= order["via"] %></td>
                         <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= Math.round(((new Date() - order["dateReceived"])/36e5)-4) %></td>
-                        <td><%= order["month"] %></td>
-                        <td><%= order["status"] %></td>
+                        <td><%= order["status"] %> <%- include("./partials/searchStaged.ejs", {lst_status: glenStat, order}) %></td>
                     </tr>
                     
     
@@ -159,7 +147,7 @@
                 <tr>
                     <td>NO</td>
                     <td>ORDERS</td>
-                    <td>YET</td>
+                    <td>FOUND</td>
                 </tr>
             <% } %>
     
@@ -213,7 +201,6 @@
 
 
 <script>
-console.log(Math.round)
     
 function searchTable() {
 
@@ -254,11 +241,11 @@ function searchTable() {
                 let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
                 let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
                 let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
-                let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
-                let status= main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
+                // let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
+                let status= main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
                 
 
-                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 || month > -1){
+                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 ){
 
                     main.rows[i].style.display = "";
 
@@ -276,9 +263,11 @@ function searchTable() {
 
         tableMar.style.display = "none";
         tableSurr.style.display = "none";
+        tableGlen.style.display = "none";
 
         martitle.style.display = "none";
         surrtitle.style.display = "none";
+        glentitle.style.display = "none";
 
     };
 

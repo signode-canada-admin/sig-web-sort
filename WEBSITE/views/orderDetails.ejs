@@ -2,7 +2,22 @@
 
 <br>
 
-<h2 style="color:rgb(136,0,0); padding-left: 20px; text-transform: capitalize;"><%= site %> &#8594; <%= orderdata._id %></h2>
+
+<div class="orderDetails-grid">
+    <div class="grid-item">
+        <h2 style="color:rgb(136,0,0); padding-left: 20px; text-transform: capitalize;">
+            <%= site %> &#8594; <%= orderdata._id %> 
+       </h2>
+    </div>
+    <div class="grid-item">
+        <h3 style="color:rgb(136,0,0); padding-left: 20px; text-transform: capitalize;">
+            
+        </h3>
+    </div>
+    <div class="sig-center grid-item">
+       
+    </div>                                                                         
+</div>
 
 <br>
 
@@ -82,22 +97,24 @@
         let arr = Array.prototype.slice.call( temp );
         arr.forEach((e) => {
 
-            if (e.textContent.toLowerCase() == "printed"){
+            if (e.textContent.toLowerCase().includes("printed")){
                 e.classList.add("col-printed");
-            } else if (e.textContent.toLowerCase() == "east") {
+            } else if (e.textContent.toLowerCase().includes("carlos")) {
                 e.classList.add("col-east");
-            } else if (e.textContent.toLowerCase() == "west") { 
+            } else if (e.textContent.toLowerCase().includes("todd")) { 
                 e.classList.add("col-west");
-            } else if (e.textContent.toLowerCase() == "parts") {
+            } else if (e.textContent.toLowerCase().includes("parts")){
                 e.classList.add("col-parts");
-            } else if (e.textContent.toLowerCase() == "quarantine") {
+            } else if (e.textContent.toLowerCase().includes("other")) {
                 e.classList.add("col-quarantine");
-            } else if (e.textContent.toLowerCase() == "shipped") {
+            } else if (e.textContent.toLowerCase().includes("shipped")) {
                 e.classList.add("col-shipped");
-            } else if (e.textContent.toLowerCase() == "invoiced") {
+            } else if (e.textContent.toLowerCase().includes("invoiced")) {
                 e.classList.add("col-invoiced");
-            }  else if (e.textContent.toLowerCase() == "archived") {
+            }  else if (e.textContent.toLowerCase().includes("archived")) {
                 e.classList.add("col-archived");
+            } else {
+                e.classList.add("col-quarantine");
             }
 
     });

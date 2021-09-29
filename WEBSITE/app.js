@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require("path");
 const mongoose = require("mongoose");
 const { MongoClient } = require("mongodb");
+const { type } = require("os");
 const PORT = 3000;
 
 
@@ -29,7 +30,9 @@ const collectMar = 'markham';
 const collectSurr = "surrey";
 const collectGlen = "glenview";
 
-
+const collectMarkhamStatus = "markhamStatus"
+const collectSurreyStatus = "surreyStatus"
+const collectGlenviewStatus = "glenviewStatus"
 
 
 const client = new MongoClient(uri, {
@@ -55,7 +58,9 @@ const markham = database.collection(collectMar);
 const surrey = database.collection(collectSurr);
 const glenview = database.collection(collectGlen);
 
-
+const markhamStatus = database.collection(collectMarkhamStatus)
+const surreyStatus = database.collection(collectSurreyStatus)
+const glenviewStatus = database.collection(collectGlenviewStatus)
 
 // file is deprecated (to be removed)
 
@@ -88,7 +93,14 @@ app.use(express.static(db.glenview.pdfdb));
 
 //***************************************** ALL ROUTES *************************************//
 
+//***************************************TEST FUNCTIONS ***********************************************/
 
+
+    
+    // await statusUpdates.findOne({"_id": order}, (err, result)
+
+
+//***************************************TEST FUNCTIONS ***********************************************/
 
 // "/"
 app.get("/", (req, res)=>{
@@ -97,18 +109,37 @@ app.get("/", (req, res)=>{
 
 
 // /mainPage
-app.get("/mainPage", (req, res)=>{
+// app.get("/mainPage", (req, res)=>{
 
-    markham.find({}).toArray().then((marlst)=>{
-        surrey.find({}).toArray().then((surrlst)=>{
-            glenview.find({}).toArray().then((glenlst)=>{
-                let context = {title: "Main Page", marlst, surrlst, glenlst};
-                res.render("index", context);
+//     markham.find({}).toArray().then((marlst)=>{
+//         markhamStatus.find({}).toArray().then((statusResults) => {
+//             let mar_lst_status = statusResults
+//         surrey.find({}).toArray().then((surrlst)=>{
+//             glenview.find({}).toArray().then((glenlst)=>{
+//                 let context = {title: "Main Page", marlst, surrlst, glenlst};
+//                 res.render("index", context);
+//             })
+//         });
+//     });
+// });
+
+
+app.get("/mainPage", (req, res) => {
+    markham.find({}).toArray().then((marlst) => {
+        markhamStatus.find({}).toArray().then((marStat => {
+            surrey.find({}).toArray().then((surrlst) => {
+                surreyStatus.find({}).toArray().then((surrStat) => {
+                    glenview.find({}).toArray().then((glenlst) => {
+                        glenviewStatus.find({}).toArray().then((glenStat) => {
+                            let context = {title: "Main Page", marlst, marStat, surrlst, surrStat, glenlst, glenStat};
+                            res.render("index", context);
+                        })
+                    })
+                })
             })
-        });
-    });
-});
-
+        }))
+    })
+})
 
 
 /// Month webpage is deprecated, is now redirected to Allorders
@@ -144,16 +175,17 @@ app.get("/mainPage/glenview", (req, res)=>{
 app.get("/mainPage/markham/allOrders", (req, res)=>{
 
     markham.find({}).sort({dateReceived: -1}).toArray().then((result)=>{
+        markhamStatus.find({}).toArray().then((statusResults) => {
+            let lst_status = statusResults
+            let lst_orders = result;
+            const site = db.markham.name;
+            const status = "All Orders";
+            
+            context = {title : site, lst_orders, site, status, lst_status};
+            res.render("monthlyView", context);
 
-        lst_orders = result;
-        const site = db.markham.name;
-        const status = "All Orders";
-
-        context = {title : site, lst_orders, site, status};
-        res.render("monthlyView", context);
-
+        })
     });
-
 });
 
 
@@ -161,32 +193,34 @@ app.get("/mainPage/markham/allOrders", (req, res)=>{
 app.get("/mainPage/surrey/allOrders", (req, res)=>{
 
     surrey.find({}).sort({dateReceived: -1}).toArray().then((result)=>{
+        surreyStatus.find({}).toArray().then((statusResults) => {
+            let lst_status = statusResults
+            let lst_orders = result;
+            const site = db.surrey.name;
+            const status = "All Orders";
+            
+            context = {title : site, lst_orders, site, status, lst_status};
+            res.render("monthlyView", context);
 
-        lst_orders = result;
-        const site = db.surrey.name;
-        const status = "All Orders";
-
-        context = {title : site, lst_orders, site, status};
-        res.render("monthlyView", context);
-
+        })
     });
-
 });
 
 // mainPage/markham/allOrders
 app.get("/mainPage/glenview/allOrders", (req, res)=>{
 
     glenview.find({}).sort({dateReceived: -1}).toArray().then((result)=>{
+        glenviewStatus.find({}).toArray().then((statusResults) => {
+            let lst_status = statusResults
+            let lst_orders = result;
+            const site = db.glenview.name;
+            const status = "All Orders";
+    
+            context = {title : site, lst_orders, site, status, lst_status};
+            res.render("monthlyView", context);
 
-        lst_orders = result;
-        const site = db.glenview.name;
-        const status = "All Orders";
-
-        context = {title : site, lst_orders, site, status};
-        res.render("monthlyView", context);
-
+        })
     });
-
 });
 
 
@@ -207,17 +241,16 @@ app.get("/mainPage/markham/allorders/:status", (req, res)=>{
     } else {
 
         markham.find({"status": status}).sort({dateReceived: -1}).toArray().then((result)=>{
-
-            let lst_orders = result;
-
-            context = {title: site, lst_orders, status, site};
-
-            res.render("monthlyView", context);
+            markhamStatus.find({"status": status}).toArray().then((statusResults) => {
+                let lst_status = statusResults
+                let lst_orders = result
     
+                context = {title: site, lst_orders, status, site, lst_status};
+
+                res.render("monthlyView", context);
+            })
         });
-
     }
-
 });
 
 
@@ -237,17 +270,16 @@ app.get("/mainPage/surrey/allOrders/:status", (req, res)=>{
     } else {
 
         surrey.find({"status": status}).sort({dateReceived: -1}).toArray().then((result)=>{
-
-            let lst_orders = result;
-
-            context = {title: site, lst_orders, status, site};
-
-            res.render("monthlyView", context);
+            surreyStatus.find({"status": status}).toArray().then((statusResults) => {
+                let lst_status = statusResults
+                let lst_orders = result
     
+                context = {title: site, lst_orders, status, site, lst_status};
+
+                res.render("monthlyView", context);
+            })
         });
-
     }
-
 });
 
 
@@ -265,17 +297,16 @@ app.get("/mainPage/glenview/allOrders/:status", (req, res)=>{
     } else {
 
         glenview.find({"status": status}).sort({dateReceived: -1}).toArray().then((result)=>{
-
-            let lst_orders = result;
-
-            context = {title: site, lst_orders, status, site};
-
-            res.render("monthlyView", context);
+            glenviewStatus.find({"status": status}).toArray().then((statusResults) => {
+                let lst_status = statusResults
+                let lst_orders = result
     
+                context = {title: site, lst_orders, status, site, lst_status};
+
+                res.render("monthlyView", context);
+            })
         });
-
     }
-
 });
 
 
@@ -288,17 +319,16 @@ app.get("/orders/:order", (req, res)=>{
 
     markham.find({"_id":order}).toArray().then((result)=>{
 
-        if (result.length > 0){
+            if (result.length > 0){
+                const url = result[0]["fileDirectory"].split("\\").join("/");
+                const file = url.replace(db.markham.pdfdb, "");
+                const site = db.markham.name;
 
-            const url = result[0]["fileDirectory"].split("\\").join("/");
-            const file = url.replace(db.markham.pdfdb, "");
-            const site = db.markham.name;
+                const orderdata = result[0];
 
-            const orderdata = result[0];
+                let context = {title : `${order}`, orderdata, file, site};
 
-            let context = {title : `${order}`, orderdata, file, site};
-
-            res.render("orderDetails", context);
+                res.render("orderDetails", context); 
 
         } else {
             surrey.find({"_id":order}).toArray().then((result)=>{

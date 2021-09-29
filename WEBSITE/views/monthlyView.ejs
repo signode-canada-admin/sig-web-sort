@@ -18,6 +18,29 @@
     <%- include ("./partials/status-Surr.ejs") %>
 <% } %>
 
+<!-- TEST ONLY -->
+
+
+
+<% function timeSince(date) {
+
+    d = new Date()
+    d.setHours(d.getHours() - 4)
+
+    var seconds = Math.floor((d  - date) / 1000);
+  
+    var interval = seconds / 31536000;
+  
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+
+    return "0 hour"
+} %>
+
+
+<!-- TEST ONLY -->
 
 <table class="table table-sortable">
 
@@ -28,7 +51,7 @@
         <th>Ship To</th>
         <th>Via</th>
         <th>Date Received</th>
-        <th>Hours Since Printed</th>
+        <th>Time Since Printed</th>
         <th>Month</th>
         <th>Status</th>
         </tr>
@@ -47,9 +70,9 @@
                     <td><%= order["shipTo"] %></td>
                     <td><%= order["via"] %></td>
                     <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                    <td><%= Math.round(((new Date() - order["dateReceived"])/36e5)-4) %></td>
+                    <td><%= timeSince(order["dateReceived"]) %></td>
                     <td><%= order["month"] %></td>
-                    <td class="stat"><%= order["status"] %></td>
+                    <%- include("./partials/statusUpdates.ejs", { order }) %>
                 </tr>
                 
 
@@ -72,7 +95,6 @@
 <script>
 
 
-
     function myFunction() {
 
         let input, filter, table, main;
@@ -90,13 +112,14 @@
                 let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
                 let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
                 let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
-                let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
-                let status= main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
+
+                let month = main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
+                // let status= main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
 
                 
 
 
-                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 || month > -1){
+                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || month > -1){
 
                     main.rows[i].style.display = "";
 
@@ -115,22 +138,24 @@
         let arr = Array.prototype.slice.call( temp );
         arr.forEach((e) => {
 
-            if (e.textContent.toLowerCase() == "printed"){
+            if (e.textContent.toLowerCase().includes("printed")){
                 e.classList.add("col-printed");
-            } else if (e.textContent.toLowerCase() == "carlos") {
+            } else if (e.textContent.toLowerCase().includes("carlos")) {
                 e.classList.add("col-east");
-            } else if (e.textContent.toLowerCase() == "todd") { 
+            } else if (e.textContent.toLowerCase().includes("todd")) { 
                 e.classList.add("col-west");
-            } else if (e.textContent.toLowerCase() == "parts") {
+            } else if (e.textContent.toLowerCase().includes("parts")){
                 e.classList.add("col-parts");
-            } else if (e.textContent.toLowerCase() == "other") {
+            } else if (e.textContent.toLowerCase().includes("other")) {
                 e.classList.add("col-quarantine");
-            } else if (e.textContent.toLowerCase() == "shipped") {
+            } else if (e.textContent.toLowerCase().includes("shipped")) {
                 e.classList.add("col-shipped");
-            } else if (e.textContent.toLowerCase() == "invoiced") {
+            } else if (e.textContent.toLowerCase().includes("invoiced")) {
                 e.classList.add("col-invoiced");
-            }  else if (e.textContent.toLowerCase() == "archived") {
+            }  else if (e.textContent.toLowerCase().includes("archived")) {
                 e.classList.add("col-archived");
+            } else {
+                e.classList.add("col-quarantine");
             }
 
     });
@@ -162,6 +187,8 @@
         table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-asc", asc);
         table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-desc", !asc);
     }
+
+
 
     document.querySelectorAll(".table-sortable th").forEach(headerCell => {
         headerCell.addEventListener("click", () => {

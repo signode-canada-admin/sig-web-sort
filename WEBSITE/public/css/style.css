@@ -26,7 +26,7 @@ thead {
 
 tbody tr:hover:not(.header) {
     background-color: rgb(255, 232, 232);
-    color: rgb(136, 0, 0); font-weight: 600;
+    color: rgb(136, 0, 0);
   }
 
 .sig-row {
@@ -144,7 +144,7 @@ tbody tr:hover:not(.header) {
 }
 
 .col-quarantine {
-  background-color: #ff8b6e;
+  background-color: #ffb5a2;
 }
 
 .col-shipped {
@@ -184,4 +184,66 @@ tbody tr:hover:not(.header) {
 .table-sortable .th-sort-asc,
 .table-sortable .th-sort-desc {
   background: rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.td-grid{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.stageHighlight{
+  background-color: #ff7300;
+  color: #1d1d1e;
+  border-radius: 10px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 5px 0 5px;
+}
+
+
+.table tr {
+  text-align: center; 
+  vertical-align: middle;
+}
+
+.table td {
+  text-align: center; 
+  vertical-align: middle;
+}
+
+.table-search tr {
+  text-align: center; 
+  vertical-align: middle;
+}
+
+.table-search td {
+  text-align: center; 
+  vertical-align: middle;
+}
+
+
+
+.orderDetails-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.searchStaged-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.stageSearchHighlight{
+  background-color: #ffa052;
+  color: #1d1d1e;
+  border-radius: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  display: inline;
+  /* padding: 0 2px 0 2px;  */
+  /* margin-left: 5px; */
 }
