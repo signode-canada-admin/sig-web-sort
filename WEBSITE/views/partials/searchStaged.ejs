@@ -6,7 +6,7 @@
 
 <div class="stageSearchHighlight">
     <% const orderStat = get_status(lst_status, order["_id"]); %>
-    <% if (orderStat) { %>
+    <% if (orderStat[0]) { %>
         <% if (orderStat[0]["staged"]) { %>
             <span>
                 <%= "STAGED" %>

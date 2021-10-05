@@ -174,7 +174,7 @@ app.get("/mainPage/glenview", (req, res)=>{
 // mainPage/markham/allOrders
 app.get("/mainPage/markham/allOrders", (req, res)=>{
 
-    markham.find({}).sort({dateReceived: -1}).toArray().then((result)=>{
+    markham.find({"status": {$ne: "Archived"}}).sort({dateReceived: -1}).toArray().then((result)=>{
         markhamStatus.find({}).toArray().then((statusResults) => {
             let lst_status = statusResults
             let lst_orders = result;
@@ -192,7 +192,7 @@ app.get("/mainPage/markham/allOrders", (req, res)=>{
 // mainPage/surrey/allOrders
 app.get("/mainPage/surrey/allOrders", (req, res)=>{
 
-    surrey.find({}).sort({dateReceived: -1}).toArray().then((result)=>{
+    surrey.find({"status": {$ne: "Archived"}}).sort({dateReceived: -1}).toArray().then((result)=>{
         surreyStatus.find({}).toArray().then((statusResults) => {
             let lst_status = statusResults
             let lst_orders = result;
@@ -209,7 +209,7 @@ app.get("/mainPage/surrey/allOrders", (req, res)=>{
 // mainPage/markham/allOrders
 app.get("/mainPage/glenview/allOrders", (req, res)=>{
 
-    glenview.find({}).sort({dateReceived: -1}).toArray().then((result)=>{
+    glenview.find({"status": {$ne: "Archived"}}).sort({dateReceived: -1}).toArray().then((result)=>{
         glenviewStatus.find({}).toArray().then((statusResults) => {
             let lst_status = statusResults
             let lst_orders = result;
