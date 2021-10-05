@@ -52,7 +52,7 @@
         <th>Via</th>
         <th>Date Received</th>
         <th>Time Since Printed</th>
-        <th>Month</th>
+        <!-- <th>Month</th> -->
         <th>Status</th>
         </tr>
     </thead>
@@ -71,7 +71,7 @@
                     <td><%= order["via"] %></td>
                     <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
                     <td><%= timeSince(order["dateReceived"]) %></td>
-                    <td><%= order["month"] %></td>
+                    <!-- <td><%= order["month"] %></td> -->
                     <%- include("./partials/statusUpdates.ejs", { order }) %>
                 </tr>
                 
@@ -113,13 +113,13 @@
                 let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
                 let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
 
-                let month = main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
+                let status = main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
                 // let status= main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
 
                 
 
 
-                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || month > -1){
+                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1){
 
                     main.rows[i].style.display = "";
 

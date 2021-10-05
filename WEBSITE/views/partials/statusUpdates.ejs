@@ -9,7 +9,7 @@
     <div class="grid-item">
             <% if (order["status"].toLowerCase() === 'other') {%>
                 <% const otherOrderStat = get_status(lst_status, order["_id"]) %>
-                <% if (otherOrderStat) { %>
+                <% if (otherOrderStat[0]) { %>
                     <% const detStat = otherOrderStat[0]["detailedStatus"] %>
                     <% if (detStat) { %>
                         <%= detStat[1].slice(2) %>
@@ -26,7 +26,7 @@
     <div class="grid-item">
         
             <% const orderStat = get_status(lst_status, order["_id"]); %>
-            <% if (orderStat) { %>
+            <% if (orderStat[0]) { %>
                 <% if (orderStat[0]["staged"]) { %>
                     <span class="stageHighlight">
                         <%= "STAGED" %>
