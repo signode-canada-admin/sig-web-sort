@@ -1,282 +1,291 @@
 <%- include("./partials/head.ejs") %>
 
-<br>
-<br>
+<br />
+<br />
 
-
-
-
-
-
-<input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for Orders, PO , Ship To, Via, Status, Date ..">
-
-
-
+<input
+  type="text"
+  id="myInput"
+  onkeyup="searchTable()"
+  placeholder="Search for Orders, PO , Ship To, Via, Status, Date .."
+/>
 
 <!-- TABLE VISIBLE ONLY WHILE SEARCHING -->
 
-    <!-- MARKHAM -->
-    <table class="table-search table-center" id="table-mar" style="display: none; width: 100%;">
+<!-- MARKHAM -->
+<table
+  class="table-search table-center"
+  id="table-mar"
+  style="display: none; width: 100%"
+>
+  <h5 style="color: rgb(136, 0, 0); display: none" id="mar-title">Markham</h5>
 
-        <h5 style="color:rgb(136,0,0); display: none;" id="mar-title">Markham</h5>
-    
-    
-        <thead>
-            <th>Order #</th>
-            <th>PO #</th>
-            <th>Ship To</th>
-            <th>Via</th>
-            <th>Date Received</th>
-            <th>Status</th>
-        </thead>
-        <tbody id="mainList-mar">
-    
-    
-            <% if (marlst.length != 0) { %>
-    
-                <% marlst.forEach((order)=>{ %>
-    
-                    <tr>
-                        <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order._id %></a></td>
-                        <td><%= order["PO"] %></td>
-                        <td><%= order["shipTo"] %></td>
-                        <td><%= order["via"] %></td>
-                        <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= order["status"] %> <%- include("./partials/searchStaged.ejs", {lst_status: marStat, order}) %></td>
-                    </tr>
+  <thead>
+    <th>Order #</th>
+    <th>PO #</th>
+    <th>Ship To</th>
+    <th>Via</th>
+    <th>Date Received</th>
+    <th>Status</th>
+  </thead>
+  <tbody id="mainList-mar">
+    <% if (marlst.length != 0) { %> <% marlst.forEach((order)=>{ %>
 
-    
-                <% }) %>
-            <% } else { %>
-                <tr>
-                    <td>NO</td>
-                    <td>ORDERS</td>
-                    <td>FOUND</td>
-                </tr>
-            <% } %>
-    
-    
-        </tbody>
-    
-    </table>
-    
-    
-    
-    <!-- SURREY -->
-    <table class="table-search table-center" id="table-surr" style="display: none; width: 100%;">
-    
-    
-        <h5 style="color:rgb(136,0,0); display: none;" id="surr-title">Surrey</h5>
-    
-    
-        <thead>
-            <th>Order #</th>
-            <th>PO #</th>
-            <th>Ship To</th>
-            <th>Via</th>
-            <th>Date Received</th>
-            <th>Status</th>
-        </thead>
-        <tbody id="mainList-surr">
-    
-    
-            <% if (surrlst.length != 0) { %>
-    
-                <% surrlst.forEach((order)=>{ %>
-    
-                    <tr>
-                        <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order._id %></a></td>
-                        <td><%= order["PO"] %></td>
-                        <td><%= order["shipTo"] %></td>
-                        <td><%= order["via"] %></td>
-                        <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= order["status"] %> <%- include("./partials/searchStaged.ejs", {lst_status: surrStat, order}) %></td>
-                    </tr>
-                    
-    
-    
-                <% }) %>
-            <% } else { %>
-                <tr>
-                    <td>NO</td>
-                    <td>ORDERS</td>
-                    <td>FOUND</td>
-                </tr>
-            <% } %>
-    
-    
-        </tbody>
-    
-    </table>
+    <tr>
+      <td class="sig-order">
+        <a class="sig-links" href="/orders/<%= order._id %>"
+          ><%= order._id %></a
+        >
+      </td>
+      <td><%= order["PO"] %></td>
+      <td><%= order["shipTo"] %></td>
+      <td><%= order["via"] %></td>
+      <td>
+        <%= order["dateReceived"].toUTCString().slice(4,
+        order["dateReceived"].toUTCString().indexOf("GMT")) %>
+      </td>
+      <td>
+        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
+        {lst_status: marStat, order}) %>
+      </td>
+    </tr>
 
+    <% }) %> <% } else { %>
+    <tr>
+      <td>NO</td>
+      <td>ORDERS</td>
+      <td>FOUND</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
 
-    <!-- GLENVIEW -->
-    <table class="table-search table-center" id="table-glen" style="display: none; width: 100%;">
+<!-- SURREY -->
+<table
+  class="table-search table-center"
+  id="table-surr"
+  style="display: none; width: 100%"
+>
+  <h5 style="color: rgb(136, 0, 0); display: none" id="surr-title">Surrey</h5>
 
-        <h5 style="color:rgb(136,0,0); display: none;" id="glen-title">Glenview</h5>
-    
-    
-        <thead>
-            <th>Order #</th>
-            <th>PO #</th>
-            <th>Ship To</th>
-            <th>Via</th>
-            <th>Date Received</th>
-            <th>Status</th>
-        </thead>
-        <tbody id="mainList-glen">
-    
-    
-            <% if (glenlst.length != 0) { %>
-    
-                <% glenlst.forEach((order)=>{ %>
-    
-                    <tr>
-                        <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order._id %></a></td>
-                        <td><%= order["PO"] %></td>
-                        <td><%= order["shipTo"] %></td>
-                        <td><%= order["via"] %></td>
-                        <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= order["status"] %> <%- include("./partials/searchStaged.ejs", {lst_status: glenStat, order}) %></td>
-                    </tr>
-                    
-    
-    
-                <% }) %>
-            <% } else { %>
-                <tr>
-                    <td>NO</td>
-                    <td>ORDERS</td>
-                    <td>FOUND</td>
-                </tr>
-            <% } %>
-    
-    
-        </tbody>
-    
-    </table>
+  <thead>
+    <th>Order #</th>
+    <th>PO #</th>
+    <th>Ship To</th>
+    <th>Via</th>
+    <th>Date Received</th>
+    <th>Status</th>
+  </thead>
+  <tbody id="mainList-surr">
+    <% if (surrlst.length != 0) { %> <% surrlst.forEach((order)=>{ %>
 
+    <tr>
+      <td class="sig-order">
+        <a class="sig-links" href="/orders/<%= order._id %>"
+          ><%= order._id %></a
+        >
+      </td>
+      <td><%= order["PO"] %></td>
+      <td><%= order["shipTo"] %></td>
+      <td><%= order["via"] %></td>
+      <td>
+        <%= order["dateReceived"].toUTCString().slice(4,
+        order["dateReceived"].toUTCString().indexOf("GMT")) %>
+      </td>
+      <td>
+        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
+        {lst_status: surrStat, order}) %>
+      </td>
+    </tr>
+
+    <% }) %> <% } else { %>
+    <tr>
+      <td>NO</td>
+      <td>ORDERS</td>
+      <td>FOUND</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<!-- GLENVIEW -->
+<table
+  class="table-search table-center"
+  id="table-glen"
+  style="display: none; width: 100%"
+>
+  <h5 style="color: rgb(136, 0, 0); display: none" id="glen-title">Glenview</h5>
+
+  <thead>
+    <th>Order #</th>
+    <th>PO #</th>
+    <th>Ship To</th>
+    <th>Via</th>
+    <th>Date Received</th>
+    <th>Status</th>
+  </thead>
+  <tbody id="mainList-glen">
+    <% if (glenlst.length != 0) { %> <% glenlst.forEach((order)=>{ %>
+
+    <tr>
+      <td class="sig-order">
+        <a class="sig-links" href="/orders/<%= order._id %>"
+          ><%= order._id %></a
+        >
+      </td>
+      <td><%= order["PO"] %></td>
+      <td><%= order["shipTo"] %></td>
+      <td><%= order["via"] %></td>
+      <td>
+        <%= order["dateReceived"].toUTCString().slice(4,
+        order["dateReceived"].toUTCString().indexOf("GMT")) %>
+      </td>
+      <td>
+        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
+        {lst_status: glenStat, order}) %>
+      </td>
+    </tr>
+
+    <% }) %> <% } else { %>
+    <tr>
+      <td>NO</td>
+      <td>ORDERS</td>
+      <td>FOUND</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
 
 <!-- /////////////////////////////////////// END OF TABLES ///////////////////////////////////////// -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<img class="sig-logo" src="/images/SignodeLogo_RGB_FOR PPT AND SCREEN USE.png" alt="SIGNODE LOGO GOES HERE" height="50%" width="50%">
+<img
+  class="sig-logo"
+  src="/images/SignodeLogo_RGB_FOR PPT AND SCREEN USE.png"
+  alt="SIGNODE LOGO GOES HERE"
+  height="50%"
+  width="50%"
+/>
 
 <!-- ALL ORDERS LINK IS DEPRECATED -->
 
-
-
 <div class="">
-    <button class="button font-inherit"><a class='sig-links-main' href="/mainPage/markham">Markham</a></button>
+  <button class="button font-inherit">
+    <a class="sig-links-main" href="/mainPage/markham">Markham</a>
+  </button>
 </div>
 
-<br>
+<br />
 
 <div class="">
-    <button class="button font-inherit"><a class='sig-links-main' href="/mainPage/surrey">Surrey</a></button>
+  <button class="button font-inherit">
+    <a class="sig-links-main" href="/mainPage/surrey">Surrey</a>
+  </button>
 </div>
 
-<br>
+<br />
 
 <div class="">
-    <button class="button font-inherit"><a class='sig-links-main' href="/mainPage/glenview">Glenview</a></button>
+  <button class="button font-inherit">
+    <a class="sig-links-main" href="/mainPage/glenview">Glenview</a>
+  </button>
 </div>
-
-
-
-
-
 
 <script>
-    
-function searchTable() {
+  function searchTable() {
+    let input,
+      tableMar,
+      tableSurr,
+      tableGlen,
+      mainMar,
+      mainSurr,
+      mainGlen,
+      marrtitle,
+      surrtitle,
+      glentitle;
 
+    tableMar = document.getElementById("table-mar");
+    tableSurr = document.getElementById("table-surr");
+    tableGlen = document.getElementById("table-glen");
 
-    let input, tableMar, tableSurr, tableGlen, mainMar, mainSurr, mainGlen, marrtitle, surrtitle, glentitle;
-
-    tableMar = document.getElementById('table-mar');
-    tableSurr = document.getElementById('table-surr');
-    tableGlen = document.getElementById('table-glen');
-
-    input = document.getElementById('myInput');
+    input = document.getElementById("myInput");
     target = input.value.toLowerCase();
+
+    let temp = []
+    fetch(`http://localhost:4000/api/search/markham/${target}`)
+      .then((res) => res.json())
+      .then((data) => {
+            console.log(`http://localhost:4000/api/search/markham/${target}`)
+            temp.push(data.data)
+            console.log(temp)
+        });
 
     mainMar = document.getElementById("mainList-mar");
     mainSurr = document.getElementById("mainList-surr");
     mainGlen = document.getElementById("mainList-glen");
 
-
     martitle = document.getElementById("mar-title");
     surrtitle = document.getElementById("surr-title");
-    glentitle = document.getElementById("glen-title"); 
+    glentitle = document.getElementById("glen-title");
 
-    if (input.value.length > 0){
+    if (input.value.length > 0) {
+      tableMar.style.display = "";
+      tableSurr.style.display = "";
+      tableGlen.style.display = "";
 
-        tableMar.style.display = "";
-        tableSurr.style.display = "";
-        tableGlen.style.display = "";
-
-        martitle.style.display = "";
-        surrtitle.style.display = "";
-        glentitle.style.display = "";
-
-        [mainMar, mainSurr, mainGlen].forEach((main) => {
-            for (let i=0; i<main.rows.length; i++){
-
-                let order = main.rows[i].cells[0].textContent.toLowerCase().indexOf(target);
-                let po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
-                let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
-                let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
-                let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
-                // let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
-                let status= main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
-                
-
-                if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 ){
-
-                    main.rows[i].style.display = "";
-
-                } else {
-
-                    main.rows[i].style.display = "none";
-
-                };
-            }
+      martitle.style.display = "";
+      surrtitle.style.display = "";
+      glentitle.style.display = "";
 
 
-        });
 
+      [mainMar, mainSurr, mainGlen].forEach((main) => {
+        for (let i = 0; i < main.rows.length; i++) {
+          let order = main.rows[i].cells[0].textContent
+            .toLowerCase()
+            .indexOf(target);
+          let po = main.rows[i].cells[1].textContent
+            .toLowerCase()
+            .indexOf(target);
+          let shipTo = main.rows[i].cells[2].textContent
+            .toLowerCase()
+            .indexOf(target);
+          let via = main.rows[i].cells[3].textContent
+            .toLowerCase()
+            .indexOf(target);
+          let date = main.rows[i].cells[4].textContent
+            .toLowerCase()
+            .indexOf(target);
+          // let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
+          let status = main.rows[i].cells[5].textContent
+            .toLowerCase()
+            .indexOf(target);
+
+          if (
+            order > -1 ||
+            po > -1 ||
+            shipTo > -1 ||
+            via > -1 ||
+            date > -1 ||
+            status > -1
+          ) {
+            main.rows[i].style.display = "";
+            // main.rows[i].cells[0].innerText = "Found"
+            // console.log(main.rows[i].cells[0].innerText);
+          } else {
+            main.rows[i].style.display = "none";
+          }
+        }
+      });
     } else {
+      tableMar.style.display = "none";
+      tableSurr.style.display = "none";
+      tableGlen.style.display = "none";
 
-        tableMar.style.display = "none";
-        tableSurr.style.display = "none";
-        tableGlen.style.display = "none";
-
-        martitle.style.display = "none";
-        surrtitle.style.display = "none";
-        glentitle.style.display = "none";
-
-    };
-
-
-
-};
-
+      martitle.style.display = "none";
+      surrtitle.style.display = "none";
+      glentitle.style.display = "none";
+    }
+  }
 </script>
-
-
 
 <%- include("./partials/foot.ejs") %>
