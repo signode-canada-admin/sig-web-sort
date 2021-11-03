@@ -82,6 +82,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(db.markham.pdfdb));
 app.use(express.static(db.surrey.pdfdb));
 app.use(express.static(db.glenview.pdfdb));
+app.use(express.static("Y:\\Pick Ticket Project\\EDI\\Premium_plus\\PDFS_PREMIUM_PLUS"));
 
 
 
@@ -99,13 +100,70 @@ app.use(express.static(db.glenview.pdfdb));
     
     // await statusUpdates.findOne({"_id": order}, (err, result)
 
-
 //***************************************TEST FUNCTIONS ***********************************************/
 
 // "/"
-app.get("/", (req, res)=>{
-    res.redirect("/mainPage");
+
+app.get("/", (req, res) => {
+    res.redirect("/mainPage")
+})
+// res.redirect("/mainPage");
+
+app.get("/edi", (req, res)=>{
+    
+    const spawn = require("child_process").spawn;
+    const pythonProcess = spawn('python',["../premium_plus_extraction/get_list_of_files.py"]);
+    pythonProcess.stdout.on('data', (data) => {
+        data = data.toString().replace(/'/g, '"')
+        const pdfList = JSON.parse(data)
+        return res.render('edi', {title: "EDI", pdfList})
+    });
 });
+
+
+app.get("/edi/:id", (req, res)=> {
+    const id = req.params.id
+    const spawn = require("child_process").spawn;   
+    const file = `Y:\\Pick Ticket Project\\EDI\\Premium_plus\\PDFS_PREMIUM_PLUS\\${id}.pdf`
+    const pythonProcess = spawn('python',["../premium_plus_extraction/premium_plus_data_extract.py", file]);
+    pythonProcess.stdout.on('data', (data) => {
+        data = data.toString().replace(/'/g, '"')
+        const pdfData = JSON.parse(data)
+        return res.render('ediId', {title: id, file: `${id}.pdf`, pdfData})
+    });
+})
+
+
+app.post('/edi/:id/post', (req, res) => {
+    let post_data = req.body;
+    const id = req.params.id;
+
+    let excel_data = {"line_items": []}
+    excel_data.ship_via = post_data.ship_via
+    excel_data.po_no = post_data.po_no
+
+    if (Array.isArray(post_data.prod_no)) {
+        post_data.prod_no.forEach((prod, i) => {
+            excel_data.num_line_items = post_data.prod_no.length
+            excel_data.line_items.push({"quantity": post_data.prod_qty[i], "product": prod})
+        })
+    } else {
+        excel_data.num_line_items = 1
+        excel_data.line_items.push({"quantity": post_data.prod_qty, "product": post_data.prod_no})
+    }
+
+    const spawn = require("child_process").spawn;   
+    const pythonProcess = spawn('python',["../premium_plus_extraction/premium_plus_excel_create.py", JSON.stringify(excel_data), id]);
+    pythonProcess.stdout.on('data', (data) => {
+        if (data.toString() != 'error'){
+            context = {title: data.toString()}
+            res.render('ediDone', context)
+        } else {
+            res.status.json({success: false, error: data.toString()})
+        }
+    });
+})
+
 
 
 // /mainPage
@@ -140,6 +198,7 @@ app.get("/mainPage", (req, res) => {
         }))
     })
 })
+
 
 
 /// Month webpage is deprecated, is now redirected to Allorders

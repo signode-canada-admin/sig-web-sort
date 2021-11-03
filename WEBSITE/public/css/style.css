@@ -62,7 +62,7 @@ tbody tr:hover:not(.header) {
 
 
 /* .status-list {padding: 10px; margin: 20px; background-color: rgb(255, 232, 232); color: rgb(136, 0, 0); border: 2px dashed rgb(136, 0, 0); border-radius: 50px;} */
-.status-list {margin: 20px; background-color: rgb(255, 232, 232); color: rgb(136, 0, 0); border: 2px solid rgb(136, 0, 0); border-radius: 2px;}
+.status-list {margin: 20px; background-color: rgb(255, 232, 232); color: rgb(136, 0, 0); border: 2px solid rgb(136, 0, 0); border-radius:5px;}
 
 .per-status {padding: 10px; text-align: center; border-right: 1px solid rgb(136, 0, 0);}
 
@@ -253,4 +253,12 @@ tbody tr:hover:not(.header) {
   display: inline;
   /* padding: 0 2px 0 2px;  */
   /* margin-left: 5px; */
+}
+
+
+#btn-back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  display: none;
 }
