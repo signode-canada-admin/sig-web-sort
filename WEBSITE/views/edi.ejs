@@ -1,0 +1,84 @@
+<%- include("./partials/head.ejs") %>
+
+<br>
+
+<img
+style='margin: 10px 10px 15px 10px'
+src="/images/monitor-screen.png"
+alt="SIGNODE LOGO GOES HERE"
+height="38px"
+width="38px"
+/>
+<h2 style="color:rgb(136,0,0); text-transform: capitalize; display: inline;">Order Entry EDI</h2><small style="color: green;">        <strong>BETA</strong></small> <button onClick="window.location.reload();" type="button" style="margin: 10px 10px 15px 10px; padding: 5px; float: right;" class="btn btn-outline-success">Refresh Page</button>
+<br>
+<br>
+
+
+<% if(pdfList.len) { %>
+  <div class="alert alert-success" role="alert">
+    <h7><strong>( <%= pdfList.len %> )</strong> Premium Plus PO(s) found, click on individual PO links below for more information</h7>
+  </div>
+  <br>
+    <div class="list-group" style="background-color: rgb(243, 243, 243);">
+        <% pdfList.list.forEach(pdf => { %>
+        <a style="text-align: center;"class="list-group-item list-group-item-action"  data-toggle="collapse" href="#collapseExample<%=pdf%>"  aria-expanded="false" aria-controls="collapseExample">
+            <b><%= pdf %></b>
+          </a>
+          <div class="collapse" id="collapseExample<%=pdf%>">
+            <section>
+                <embed class="sig-pdf" src="http://10.100.6.158:3000/edi/<%= pdf %>">
+            </section>
+          </div>
+        <% }) %>
+    </div>
+<% } else { %>
+
+  <div class="alert alert-info" role="alert">
+    <h6 class="alert-heading">There are no availabe Premium Plus PO's, please wait for <strong>Dept (Y:)</strong> drive to sync or try refreshing this page</h6>
+    <hr>
+    <p class="mb-0">If the problem persists, Please contact the CI-Team at <a class="sig-links" style="color: tomato;" href = "mailto: CITEAM@PKGconnect.onmicrosoft.com"><strong>CITEAM@PKGconnect.onmicrosoft.com</strong></a></p>
+  </div>
+
+<% } %>
+
+
+
+<button
+        type="button"
+        class="btn btn-info btn-floating btn-lg"
+        id="btn-back-to-top"
+        >
+  <i class="fas fa-arrow-up"></i>
+  <small style="display: block">Back to Top</small>
+</button>
+
+
+<script>
+  //Get the button
+let mybutton = document.getElementById("btn-back-to-top");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+<%- include("./partials/footnocontainer.ejs") %>

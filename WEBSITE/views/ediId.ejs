@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>Document</title>
+</head>
+<body style="background-color: 	rgb(220,220,220);">
+  <div style="max-width: 1000;" class="row">
+    <div class="col-20 col-md-8">
+        <section>
+            <embed src="http://10.100.6.158:4000/api/edi/<%= title %>#view=FitH" height=1000 width=650>
+        </section>
+    </div>
+    <div class="col-2 col-md-4">
+        <!-- <%= JSON.stringify(pdfData) %> -->
+        <form action="/edi/<%= title %>/post" method="POST">
+            <!-- <label for="file">Premium Plus File : </label><input type="text" placeholder="file" id="file" name="file" value="<%= title %>"> -->
+            <br>
+            <table>
+                <thead>
+                    <th>Ship Via: </th>
+                    <th>PO #: </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="<%= pdfData.ship_via %>"></td>
+                        <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="<%= pdfData.po_no %>"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <div class="alert alert-secondary" role="alert">
+                <h7>Total Line Items for <%= title %> : <strong>( <%= pdfData.num_line_items %> )</strong></h7>
+              </div>
+
+
+            <table>
+                <thead>
+                    <th>Part #</th>
+                    <th>Quantity</th>
+                </thead>
+                <tbody>
+            <% pdfData.line_items.forEach((item) => {%>
+                    <tr>
+                        <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="<%= item.product %>"></td>
+                        <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="<%= item.quantity %>"></td>
+                    </tr>
+            <% }) %>
+                </tbody>
+            </table>
+
+            <br>
+            <button type="submit" class="btn btn-success">Create Excel for SX</button>
+          </form>
+
+          <div style="margin: 80px 20px auto auto;"class="alert alert-info" role="alert">
+            <ul>
+                <li style="margin-left: -20px;">Please verify whether the above information is accurate as per the pdf file. Make required changes if any discrepancy is found</li>
+                <li style="margin-left: -20px;">Once verified click the <strong>Create Excel for SX</strong> button to generate an excel sheet in DEPT (Y:) drive</li>
+            </ul>
+          </div>
+    </div>
+
+
+  </div>
+
+</body>
+</html>
+
