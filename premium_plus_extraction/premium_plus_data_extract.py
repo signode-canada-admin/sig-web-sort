@@ -111,3 +111,5 @@ def premium_plus_extraction_algo(file):
 
 print(premium_plus_extraction_algo(rf"{sys.argv[1]}"))   
 sys.stdout.flush()
+
+# print(premium_plus_extraction_algo(rf"Y:\Pick Ticket Project\EDI\Premium_plus\PDFS_PREMIUM_PLUS\PP1.pdf"))
