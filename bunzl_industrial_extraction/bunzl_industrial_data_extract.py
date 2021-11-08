@@ -3,6 +3,48 @@ import os
 import glob
 import sys
 
+import pandas as pd
+import numpy
+from pymongo import MongoClient
+
+def insert_to_mongo(df):
+    '''
+    {
+        _id: Customer Product, (2)
+        customer: Customer, (0)
+        name: name, (1)
+        Sig_prod: Signode Product, (3)
+        desc: Descrip, (4)
+        category: Category (5)
+    }
+    '''
+    cluster = MongoClient("mongodb://127.0.0.1:27017/")
+    db = cluster["signode"]
+    collection_GF_EDI = db["BunzulProductCrossReference"]
+
+    ret_list = []
+    cols = df.columns.tolist()
+    values_lst = df.values.tolist()
+    for val in values_lst:
+        query = {
+            "_id": val[2],
+            "customer": val[0],
+            "name": val[1],
+            "sig_prod": val[3],
+            "desc": val[4],
+            "category": val[5]
+        }
+        ret_list.append(query)
+        collection_GF_EDI.insert_one(query)
+    return len(ret_list)
+
+
+def db_find_one(id):
+    cluster = MongoClient("mongodb://127.0.0.1:27017/")
+    db = cluster["signode"]
+    collection_GF_EDI = db["BunzulProductCrossReference"]
+    return collection_GF_EDI.find_one({"_id": id})
+
 
 def list_of_files(path, file_ending='*.pdf'):
     '''
@@ -94,7 +136,7 @@ def get_only_line_items(rows):
     return ret_arr
 
 
-def return_GF_dict(data=None, ship_via=None, po_no=None):
+def return_GF_dict(data=None, ship_via=None):
     '''
     data (type: []): first two columns of the table func => get_only_line_items(GF_data())
     
@@ -138,13 +180,12 @@ def return_GF_dict(data=None, ship_via=None, po_no=None):
         "num_line_items": len(line_items),
         "line_items": line_items,
         "errors": errors,
-        "ship_via": ship_via,
-        "po_no": po_no
+        "ship_via": ship_via
     }
 
 
 def bunzul_industrial_extraction_algo(file):
-    return return_GF_dict(GF_data(file), GENERAL_data(file, area=(226.0575, 124.69500000000001, 277.3125, 279.99))[-1], GENERAL_data(file, area=(61.5825, 469.96498443603514, 101.3625, 611.4899844360351))[0].split('#')[1])
+    return return_GF_dict(GF_data(file), GENERAL_data(file, area=(226.0575, 124.69500000000001, 277.3125, 279.99))[-1])
 
 
 print(bunzul_industrial_extraction_algo(rf"{sys.argv[1]}"))   
@@ -153,4 +194,5 @@ sys.stdout.flush()
 # file = rf"C:\Users\0235124\OneDrive - Signode Industrial Group\Desktop\SIGNODE PROJECTS\SIGNODE PYTHON JUPYTER\GF PO\Examples\GF2.pdf"
 # file = rf"Y:\Pick Ticket Project\EDI\Bunzl_industrial\PDFS_BUNZL_INDUSTRIAL\447767_000021_po41081615_11032021_000001.pdf"
 
-# bunzul_industrial_extraction_algo(file)
+# temp = bunzul_industrial_extraction_algo(file)
+# print(temp)
