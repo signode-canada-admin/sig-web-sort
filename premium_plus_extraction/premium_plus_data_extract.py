@@ -32,7 +32,7 @@ def move_files(src, dst):
 
 
 
-def GENERAL_data(file, area=(215.3475, 42.4575, 666.6975, 147.2625) , pages=1):
+def PP_data(file, area=(215.3475, 42.4575, 666.6975, 147.2625) , pages=1):
     '''
     file: source file (type: .pdf)
     pages: 1, 2, .. 1-2,   "all"
@@ -46,22 +46,6 @@ def GENERAL_data(file, area=(215.3475, 42.4575, 666.6975, 147.2625) , pages=1):
     rows_data = json_data[0]["data"]
     rows_text = [row[0]["text"] for row in rows_data]
     return rows_text
-
-
-def GF_data(file, area=(278.0775, 0.3825, 724.0725, 187.8075) , pages=1):
-    '''
-    file: source file (type: .pdf)
-    pages: 1, 2, .. 1-2,   "all"
-    return PP first column data (type: .json)
-    
-    area (line items) => area = (215.3475, 42.075, 668.2275, 127.755) (default)
-    area (ship Via) => area = (665.3007518796992, 42.94736842105263, 741.2255639097745, 406.4661654135338)
-    '''
-    
-    json_data = read_pdf(file, pages=f"{pages}", area=area, stream=True, output_format="json")
-    rows_data = json_data[0]["data"]
-    rows_text = [[row[0]["text"], row[1]["text"]] for row in rows_data]
-    return rows_text
     
 
 def ret_index(data):
@@ -71,32 +55,13 @@ def ret_index(data):
     
     item list starts at ret_index(data)+2
     '''
-    if 'quantity' in data[0][0].lower() or 'stock' in data[0][1].lower():
-        if "---" in data[1][0].lower():
-            return 2
-        return 1
-    elif "---" in data[0][0].lower():
+    if 'order' in data[0].lower():
         return 1
     return 0
 
-
-
-def get_only_line_items(rows):
-    rows = rows[ret_index(rows):]
-    ret_arr = []
-    temp = []
-    for row in rows:
-        if "---" in row[0]:
-            ret_arr.append(temp)
-            temp = []
-        else:
-            temp.append(row)
-    return ret_arr
-
-
-def return_GF_dict(data=None, ship_via=None, po_no=None):
+def return_PP_dict(data=None, via_data=None):
     '''
-    data (type: []): first two columns of the table func => get_only_line_items(GF_data())
+    data (type: []): first column of the table
     
     return (type: {}): 
     {
@@ -109,48 +74,40 @@ def return_GF_dict(data=None, ship_via=None, po_no=None):
         ], .....
     }
     '''
-    data = get_only_line_items(data)
-    line_items = []
     errors = []
-    for row in data:
-        try:
-            qty = row[0][0].split()[1]
-        except IndexError as e:
-            errors.append({"error": "sig quantity not found", "type": "quantity", "item": row[0], "mssg": repr(e)})
-        
-        try:
-            sig_prod = db_find_one(row[0][1].split()[0])["sig_prod"]
-        except IndexError as e:
-            errors.append({"error": "sig product ref. not found", "type": "product", "item": row[0][1].split()[0], "mssg": repr(e)})
-            sig_prod = row[0][1].split()[0]
-        except TypeError as e:
-            errors.append({"error": "sig product ref. not found", "type": "product", "item": row[0][1].split()[0], "mssg": repr(e)})
-            sig_prod = row[0][1].split()[0]
-            
-            
+
+    start_index = ret_index(data)
+    po_no = data[start_index].strip()
+    if isinstance(po_no, str):
+        po_no=str(po_no)
+    data = data[start_index+2:]
+    line_items = []
+    for line in data:
+        qty, part_no = line.split(" ")
+        if qty.strip().isdigit():
+            qty=int(qty.strip())
+        else:
+            errors.append({"error": "qty is not an integer", "type": "qty"})
+        if isinstance(part_no.strip(), str):
+            part_no=str(part_no.strip())
         line_items.append({
             "quantity": qty,
-            "product": sig_prod
+            "product": part_no
         })
-        
-    
+    if errors:
+        pass
+
     return {
+        "ship_via": via_data,
+        "po_no": po_no,
         "num_line_items": len(line_items),
-        "line_items": line_items,
-        "errors": errors,
-        "ship_via": ship_via,
-        "po_no": po_no
+        "line_items": line_items
     }
 
 
-def bunzul_industrial_extraction_algo(file):
-    return return_GF_dict(GF_data(file), GENERAL_data(file, area=(226.0575, 124.69500000000001, 277.3125, 279.99))[-1], GENERAL_data(file, area=(61.5825, 469.96498443603514, 101.3625, 611.4899844360351))[0].split('#')[1])
+def premium_plus_extraction_algo(file):
+    return return_PP_dict(PP_data(file), PP_data(file, area=(665.3007518796992, 42.94736842105263, 741.2255639097745, 406.4661654135338))[0].split()[-1])
 
 
-print(bunzul_industrial_extraction_algo(rf"{sys.argv[1]}"))   
+print(premium_plus_extraction_algo(rf"{sys.argv[1]}"))   
 sys.stdout.flush()
-
-# file = rf"C:\Users\0235124\OneDrive - Signode Industrial Group\Desktop\SIGNODE PROJECTS\SIGNODE PYTHON JUPYTER\GF PO\Examples\GF2.pdf"
-# file = rf"Y:\Pick Ticket Project\EDI\Bunzl_industrial\PDFS_BUNZL_INDUSTRIAL\447767_000021_po41081615_11032021_000001.pdf"
-
-# bunzul_industrial_extraction_algo(file)
