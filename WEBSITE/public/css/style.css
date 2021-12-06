@@ -262,3 +262,6 @@ tbody tr:hover:not(.header) {
   right: 50px;
   display: none;
 }
+
+
+.main-item { display: "inherit"; background-color: "antiquewhite"; padding: "10 px"}

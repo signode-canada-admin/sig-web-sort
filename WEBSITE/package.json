@@ -16,5 +16,8 @@
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.5",
     "node-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0"
   }
 }
