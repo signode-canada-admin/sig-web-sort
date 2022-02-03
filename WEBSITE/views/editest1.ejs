@@ -45,22 +45,12 @@
         }
 
         const temp_env = {
-            BASE_API_URL: "http://localhost:4000/api"
+            BASE_API_URL_TEMP: "http://localhost:4000/api",
+            BASE_API_URL: "http://10.100.6.111:4000/api",
+            BASE_WEB_URL_TEMP: "http://localhost:5000",
+            BASE_WEB_URL: "http://10.100.6.111:3000"
         }
 
-
-        // function main(customers, data) {
-        //     document.getElementById("main").innerHTML = `
-        //         ${customers.map(item => {
-        //             return `
-
-        //                 <h5 style="border-radius: 30px;display: inherit; background-color: antiquewhite; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
-                                                
-        //                 <div id="collapse-${item}" class="list-group" style="background-color: rgb(243, 243, 243);"></div>
-        //             `
-        //         }).join("")}
-        //     `
-        // }
 
         function main(customers, data) {
             document.getElementById("main").innerHTML = `
@@ -69,11 +59,24 @@
 
                         <h5 style="border-radius: 30px;display: inherit; background-color: antiquewhite; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
                                                 
-                        <div class="accordion list-group" id="collapse-${item}"></div>
+                        <div id="collapse-${item}" class="list-group" style="background-color: rgb(243, 243, 243);"></div>
                     `
                 }).join("")}
             `
         }
+
+        // function main(customers, data) {
+        //     document.getElementById("main").innerHTML = `
+        //         ${customers.map(item => {
+        //             return `
+
+        //                 <h5 style="border-radius: 30px;display: inherit; background-color: antiquewhite; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
+                                                
+        //                 <div class="accordion list-group" id="collapse-${item}"></div>
+        //             `
+        //         }).join("")}
+        //     `
+        // }
 
         async function listpdfs (site) {
             // const response = await fetch(`http://localhost:4000/api/edi/${site}/pdfs`)
@@ -134,7 +137,7 @@
 
                     <div class="collapse" id="collapseExample${id_line}">
                         <section>
-                            <embed class="sig-pdf" src="http://localhost:3000/edi/${site}/${line}">
+                            <embed class="sig-pdf" src="${temp_env.BASE_WEB_URL}/edi/${site}/${line}">
                         </section>
                     </div>
                     `
