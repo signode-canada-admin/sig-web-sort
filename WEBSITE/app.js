@@ -18,9 +18,6 @@ app.set("view engine", "ejs");
 // app.set("views", "myviews"); //looks for views directory by default for .ejs files
 
 
-
-
-
 // //*********************************** Database for markham and surrey orders *************************************//
 
 const uri = "mongodb://127.0.0.1:27017/";
@@ -62,7 +59,6 @@ const markhamStatus = database.collection(collectMarkhamStatus)
 const surreyStatus = database.collection(collectSurreyStatus)
 const glenviewStatus = database.collection(collectGlenviewStatus)
 
-// file is deprecated (to be removed)
 
 const db = {"markham" : {"pdfdb" : "C:/pickticket_test/OneDrive - Signode Industrial Group/Signode Canada Picktickets/Markham",
                         "name" : "markham"}, 
@@ -75,7 +71,6 @@ const db = {"markham" : {"pdfdb" : "C:/pickticket_test/OneDrive - Signode Indust
 
 
 
-
 //*********************************** Middleware *************************************//
 app.use(express.urlencoded({ extended: true })); // POST data is readable 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -83,12 +78,6 @@ app.use(express.static(db.markham.pdfdb));
 app.use(express.static(db.surrey.pdfdb));
 app.use(express.static(db.glenview.pdfdb));
 // app.use(express.static("Y:\\Pick Ticket Project\\EDI\\Premium_plus\\PDFS_PREMIUM_PLUS"));
-
-
-
-
-
-
 
 
 
@@ -104,28 +93,21 @@ app.use(express.static(db.glenview.pdfdb));
 
 // "/"
 
+const pickPATH = "./pages/picktickets"
+app.get("/orders", (req, res) => {
+    const p = "/orders.ejs"
+    res.render(`${pickPATH + p}`)
+})
+
 app.get("/", (req, res) => {
     res.redirect("/mainPage")
 })
-// res.redirect("/mainPage");
-
 
 // TEST
 app.get("/edi", (req, res) => {
     return res.render('editest1', {title: "EDI"})
 })
 
-// TEST
-
-// app.get("/edi", (req, res)=>{
-//     const spawn = require("child_process").spawn;
-//     const pythonProcess = spawn('python',["../premium_plus_extraction/get_list_of_files.py"]);
-//     pythonProcess.stdout.on('data', (data) => {
-//         data = data.toString().replace(/'/g, '"')
-//         const pdfList = JSON.parse(data)
-//         return res.render('edi', {title: "EDI", pdfList})
-//     });
-// });
 
 app.get("/edi/:site/:id", (req, res) => {
     const id = req.params.id
@@ -133,70 +115,11 @@ app.get("/edi/:site/:id", (req, res) => {
 })
 
 
-// app.get("/edi/:id", (req, res)=> {
-//     const id = req.params.id
-//     const spawn = require("child_process").spawn;   
-//     const file = `Y:\\Pick Ticket Project\\EDI\\Premium_plus\\PDFS_PREMIUM_PLUS\\${id}.pdf`
-//     const pythonProcess = spawn('python',["../premium_plus_extraction/premium_plus_data_extract.py", file]);
-//     pythonProcess.stdout.on('data', (data) => {
-//         data = data.toString().replace(/'/g, '"')
-//         const pdfData = JSON.parse(data)
-//         return res.render('ediId', {title: id, file: `${id}.pdf`, pdfData})
-//     });
-// })
-
-
 app.get("/edi/DONE", (req, res) => {
     const id = req.query.id
     res.render('ediDone', {title: id})
 })
 
-// app.post('/edi/:id/post', (req, res) => {
-//     let post_data = req.body;
-//     const id = req.params.id;
-
-//     let excel_data = {"line_items": []}
-//     excel_data.ship_via = post_data.ship_via
-//     excel_data.po_no = post_data.po_no
-
-//     if (Array.isArray(post_data.prod_no)) {
-//         post_data.prod_no.forEach((prod, i) => {
-//             excel_data.num_line_items = post_data.prod_no.length
-//             excel_data.line_items.push({"quantity": post_data.prod_qty[i], "product": prod})
-//         })
-//     } else {
-//         excel_data.num_line_items = 1
-//         excel_data.line_items.push({"quantity": post_data.prod_qty, "product": post_data.prod_no})
-//     }
-
-//     const spawn = require("child_process").spawn;   
-//     const pythonProcess = spawn('python',["../premium_plus_extraction/premium_plus_excel_create.py", JSON.stringify(excel_data), id]);
-//     pythonProcess.stdout.on('data', (data) => {
-//         if (data.toString() != 'error'){
-//             context = {title: data.toString()}
-//             res.render('ediDone', context)
-//         } else {
-//             res.status(400).json({success: false, error: data.toString()})
-//         }
-//     });
-// })
-
-
-
-// /mainPage
-// app.get("/mainPage", (req, res)=>{
-
-//     markham.find({}).toArray().then((marlst)=>{
-//         markhamStatus.find({}).toArray().then((statusResults) => {
-//             let mar_lst_status = statusResults
-//         surrey.find({}).toArray().then((surrlst)=>{
-//             glenview.find({}).toArray().then((glenlst)=>{
-//                 let context = {title: "Main Page", marlst, surrlst, glenlst};
-//                 res.render("index", context);
-//             })
-//         });
-//     });
-// });
 
 
 app.get("/mainPage", (req, res) => {
@@ -216,35 +139,22 @@ app.get("/mainPage", (req, res) => {
     })
 })
 
-
-
-/// Month webpage is deprecated, is now redirected to Allorders
-
 // mainPage/markham
 app.get("/mainPage/markham", (req, res)=>{
-
     res.redirect('/mainPage/markham/allOrders');
 });
 
 
 // mainPage/surrey
 app.get("/mainPage/surrey", (req, res)=>{
-
     res.redirect('/mainPage/surrey/allOrders');
 });
 
 
 // mainPage//glenview
 app.get("/mainPage/glenview", (req, res)=>{
-
     res.redirect('/mainPage/glenview/allOrders');
 })
-
-
-
-
-
-
 
 
 // mainPage/markham/allOrders
@@ -297,6 +207,18 @@ app.get("/mainPage/glenview/allOrders", (req, res)=>{
 
         })
     });
+});
+
+// mainPage/markham/allOrders/:status
+app.get("/markham", (req, res)=>{
+
+    const status = req.params.status;
+
+    const site = db.markham.name;
+
+    res.render("statusOrders");
+
+
 });
 
 
@@ -453,14 +375,6 @@ app.get("/orders/:order", (req, res)=>{
 
 // invalid routes
 app.use((req, res) => {
-
     let = context = {title :"404 ERROR"}
     res.status(404).render('404', context);
 });
-
-
-
-
-
-
-
