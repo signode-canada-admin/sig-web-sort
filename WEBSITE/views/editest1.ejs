@@ -41,7 +41,8 @@
         const SITES = {
         "pp": "Premium_plus",
         "srap": "Srap",
-        "bi": "Bunzl_industrial"
+        "bi": "Bunzl_industrial",
+        "str": "Srap_Tool_Repair",
         }
 
         const temp_env = {
@@ -95,11 +96,13 @@
         async function listPO (customers) {
             const pp = await fetch_data("pp")
             const srap = await fetch_data("srap")
+            const str = await fetch_data("str")
             const bi = await fetch_data("bi")
-            main(["pp", "srap", "bi"], {"pp": pp, "srap": srap, "bi": bi})
+            main(["pp", "srap", "bi", "str"], {"pp": pp, "srap": srap, "bi": bi, "str": str})
             // listStatus(pp)
             createCollapseList(pp, "pp")
             createCollapseList(srap, "srap")
+            createCollapseList(str, "str")
             createCollapseList(bi, "bi")
         }
 
