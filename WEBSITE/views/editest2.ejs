@@ -87,11 +87,13 @@
                     <thead>
                         <th>Ship Via: </th>
                         <th>PO #: </th>
+                        <th>Ship To/ Job: </th>
                     </thead>
                     <tbody>
                         <tr>
                             <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
                             <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
+                            <td><input type="text" placeholder="ship_to" id="ship_to" name="ship_to" value="${pdfData.ship_to}"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -137,7 +139,7 @@
         let inner = `${types.map(eachType => {
             return `
             <div style="background: aqua;">${eachType.type}</div>
-        <form action="${temp_env.BASE_API_URL}/edi/${site}/${id}/post" method="POST">
+        <form action="${temp_env.BASE_API_URL}/edi/${site}/${id-eachType.type}/post" method="POST">
                 <br>
                 <table class="table-danger">
                     <thead>
