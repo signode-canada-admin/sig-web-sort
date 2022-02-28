@@ -1,0 +1,235 @@
+<%- include("./partials/headnocontainer.ejs") %>
+
+    <div onmousemove="updateSXPOlist()" style="max-width: 90%; margin: 20px auto 20px auto;">
+    <br>
+
+    <img
+    style='margin: 10px 10px 15px 10px'
+    src="/images/monitor-screen.png"
+    alt="SIGNODE LOGO GOES HERE"
+    height="38px"
+    width="38px"
+    />
+    <h2 style="color:rgb(136,0,0); text-transform: capitalize; display: inline;">Order Entry EDI</h2><small style="color: green;">        <strong>BETA</strong></small> <button onClick="window.location.reload();" type="button" style="margin: 10px 10px 15px 10px; padding: 5px; float: right;" class="btn btn-outline-success">Refresh Page</button>
+    <br>
+    <br>
+    <div id="listStatus">
+
+    </div>
+    <br>
+    <div id="main"></div>
+    
+    <!-- <button onclick="post()" type="submit" class="btn btn-success">CREATE</button> -->
+    <!-- <div class="spinner-grow text-danger" role="status">
+        <span class="sr-only">Loading...</span>
+    </div> -->
+    
+    <nav style="background-color: rgb(0, 0, 0, 0.3);" class="navbar fixed-bottom">
+    <!-- <div id="POs_SX" class="h-100 d-flex flex-row justify-content-start align-items-star"></div> -->
+    <!-- <button onclick="post()" type="submit" class="btn btn-success">CREATE</button> -->
+    <div id="POs_SX" class="container-item-1" style="max-width: 90%;"></div>
+    <button id="submit_button" onclick="post()" type="submit" class="btn btn-success">CREATE <span id="no_of_sheets" class="badge badge-light"></span></button>
+    <div style="display:none" id="spinner" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </nav>
+    
+</div>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script>
+
+        const SITES = {
+        "pp": "Premium_plus",
+        "srap": "Srap",
+        "bi": "Bunzl_industrial",
+        "str": "Srap_Tool_Repair",
+        }
+
+        const temp_env = {
+            BASE_API_URL    : "http://localhost:4000/api",
+            BASE_API_URL_TEMP: "http://10.100.6.111:4000/api",
+            BASE_WEB_URL_TEMP: "http://localhost:3000",
+            BASE_WEB_URL: "http://10.100.6.111:3000"
+        }
+
+
+        function main(customers, data) {
+            document.getElementById("main").innerHTML = `
+                ${customers.map(item => {
+                    return `
+
+                        <h5 style="border-radius: 30px;display: inherit; background-color: antiquewhite; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
+                                                
+                        <div id="collapse-${item}" class="list-group" style="background-color: rgb(243, 243, 243);"></div>
+                    `
+                }).join("")}
+            `
+        }
+
+        // function main(customers, data) {
+        //     document.getElementById("main").innerHTML = `
+        //         ${customers.map(item => {
+        //             return `
+
+        //                 <h5 style="border-radius: 30px;display: inherit; background-color: antiquewhite; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
+                                                
+        //                 <div class="accordion list-group" id="collapse-${item}"></div>
+        //             `
+        //         }).join("")}
+        //     `
+        // }
+
+        async function listpdfs (site) {
+            // const response = await fetch(`http://localhost:4000/api/edi/${site}/pdfs`)
+            const response = await fetch(`${temp_env.BASE_API_URL}/edi/${site}/pdfs`)
+            const data = await response.json()
+            return data
+        }
+
+        async function fetch_data(site) {
+            // const response = await fetch(`http://localhost:4000/api/edi/${site}/pdfs`)
+            const response = await fetch(`${temp_env.BASE_API_URL}/edi/${site}/pdfs`)
+            const data = await response.json()
+            return data
+        }
+
+        async function listPO (customers) {
+            const pp = await fetch_data("pp")
+            const srap = await fetch_data("srap")
+            const str = await fetch_data("str")
+            const bi = await fetch_data("bi")
+            main(["pp", "srap", "bi", "str"], {"pp": pp, "srap": srap, "bi": bi, "str": str})
+            // listStatus(pp)
+            createCollapseList(pp, "pp")
+            createCollapseList(srap, "srap")
+            createCollapseList(str, "str")
+            createCollapseList(bi, "bi")
+        }
+
+        function listStatus (data) {
+            if (data.len != 0) {
+                document.getElementById("listStatus").innerHTML = `
+                <div class="alert alert-success" role="alert">
+                    <h7>
+                        <strong>( ${data.len} )</strong> Premium Plus PO(s) found, click on individual PO links below for more information
+                    </h7>
+                </div>
+                `
+            } else {
+                document.getElementById("listStatus").innerHTML = `
+                <div class="alert alert-info" role="alert">
+                    <h6 class="alert-heading">There are no availabe Premium Plus PO's, please wait for <strong>Dept (Y:)</strong> drive to sync or try refreshing this page</h6>
+                    <hr>
+                    <p class="mb-0">If the problem persists, Please contact the CI-Team at <a class="sig-links" style="color: tomato;" href = "mailto: CITEAM@PKGconnect.onmicrosoft.com"><strong>CITEAM@PKGconnect.onmicrosoft.com</strong></a></p>
+                </div>
+                `
+            }
+        }
+
+        function createCollapseList (data, site) {
+            const list_len = data.len;
+            const list = data.list
+            document.getElementById(`collapse-${site}`).innerHTML= `
+                ${list.map(line => {
+                    let id_line = line.split(" ").join("_")
+                  return `
+                  
+                    <a style="text-align: center; cursor: pointer;" class="list-group-item list-group-item-action"  data-toggle="collapse" href="#collapseExample${id_line}"  aria-expanded="false" aria-controls="collapseExample">
+                    <b>${line}</b>
+                    </a>
+
+                    <div class="collapse" id="collapseExample${id_line}">
+                        <section>
+                            <embed class="sig-pdf" src="${temp_env.BASE_WEB_URL_TEMP}/edi/${site}/${line}">
+                        </section>
+                    </div>
+                    `
+                }).join("")}
+            `
+        }
+
+        // function createCollapseList (data, site) {
+        //     const list_len = data.len;
+        //     const list = data.list
+        //     document.getElementById(`collapse-${site}`).innerHTML= `
+        //         ${list.map(line => {
+        //             let id_line = line.split(" ").join("_")
+        //           return `
+                  
+        //             <a style="text-align: center; cursor: pointer;" class="list-group-item list-group-item-action"  data-toggle="collapse" href="#collapseExample${id_line}"  aria-expanded="false" aria-controls="collapseExample">
+        //             <b>${line}</b>
+        //             </a>
+
+        //             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample${id_line}" aria-expanded="true" aria-controls="collapseOne">
+        //                 <b>${line}</b>
+        //             </button>
+
+        //             <div class="accordion-item" id="collapseExample${id_line}">
+        //                 <section>
+        //                     <embed class="sig-pdf" src="http://localhost:3000/edi/${site}/${line}">
+        //                 </section>
+        //             </div>
+        //             `
+        //         }).join("")}
+        //     `
+        // }
+
+        // function createCollapseList1 (data) {
+        //     const list_len = data.len;
+        //     const list = data.list
+        //     console.log(list)
+        //     document.getElementById("collapse-2").innerHTML= `
+        //         ${list.map(line => {
+        //             let id_line = line.split(" ").join("_")
+        //           return `
+        //             <a style="text-align: center;"class="list-group-item list-group-item-action"  data-toggle="collapse" href="#collapseExample${id_line}"  aria-expanded="false" aria-controls="collapseExample">
+        //             <b>${line}</b>
+        //             </a>
+
+        //             <div class="collapse" id="collapseExample${id_line}">
+        //                 <section>
+        //                     <embed class="sig-pdf" src="http://localhost:3000/edi/srap/${line}">
+        //                 </section>
+        //             </div>
+        //             `
+        //         }).join("")}
+        //     `
+        // }
+
+        async function post() {
+            const submit = document.getElementById("submit_button")
+            const spinner = document.getElementById("spinner")
+            submit.style.display = "none"
+            spinner.style.display = ""
+            const response = await fetch(`${temp_env.BASE_API_URL}/edi/createSX`)
+            const data = await response.json()
+            if (data.success) {
+                spinner.style.display = "none"
+                submit.style.display = ""
+            }
+            updateSXPOlist()
+            listPO()
+        } 
+
+        async function updateSXPOlist() {
+            const response = await fetch(`${temp_env.BASE_API_URL}/edimetadata`)
+            const data = await response.json()
+
+            document.getElementById("no_of_sheets").innerText = `${data.pdfs.length}`
+
+            document.getElementById("POs_SX").innerHTML = `
+                ${data.pdfs.map(pdf => {
+                    const temp = pdf.split("*SEPARATOR*")
+                    return `
+                        <h5 id="${temp[1]}_${temp[0]}" class="badge rounded-pill bg-info text-light"><span>${temp[1]} | </span>${temp[0]}</h5>
+                    `
+                }).join("")}
+            `   
+        }
+
+        listPO()
+
+    </script>
+
+
+<%- include("./partials/footnoSignodeCopyRight.ejs") %>

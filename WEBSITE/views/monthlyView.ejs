@@ -42,7 +42,7 @@
 
 <!-- TEST ONLY -->
 
-<table class="table table-sortable">
+<table id='my-table' class="table table-sortable">
 
     <thead>
         <tr>
@@ -52,7 +52,6 @@
         <th>Via</th>
         <th>Date Received</th>
         <th>Time Since Printed</th>
-        <!-- <th>Month</th> -->
         <th>Status</th>
         </tr>
     </thead>
@@ -71,7 +70,6 @@
                     <td><%= order["via"] %></td>
                     <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
                     <td><%= timeSince(order["dateReceived"]) %></td>
-                    <!-- <td><%= order["month"] %></td> -->
                     <%- include("./partials/statusUpdates.ejs", { order }) %>
                 </tr>
                 

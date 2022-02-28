@@ -210,14 +210,14 @@
     input = document.getElementById("myInput");
     target = input.value.toLowerCase();
 
-    let temp = []
-    fetch(`http://localhost:4000/api/search/markham/${target}`)
-      .then((res) => res.json())
-      .then((data) => {
-            console.log(`http://localhost:4000/api/search/markham/${target}`)
-            temp.push(data.data)
-            console.log(temp)
-        });
+    // let temp = []
+    // fetch(`http://localhost:4000/api/search/markham/${target}`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //         console.log(`http://localhost:4000/api/search/markham/${target}`)
+    //         temp.push(data.data)
+    //         console.log(temp)
+    //     });
 
     mainMar = document.getElementById("mainList-mar");
     mainSurr = document.getElementById("mainList-surr");

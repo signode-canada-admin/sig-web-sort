@@ -1,0 +1,353 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>Document</title>
+    <style>
+         .container-1 div {
+            border:1px rgb(255, 255, 255) solid;
+            padding:10px;
+        }
+
+        .container-1 {
+            display: flex;
+            flex-wrap:wrap;
+            justify-content:space-between;
+        }
+        .container-item-1 {
+            flex: 1;
+            flex-basis: 40%; 
+        }
+        .container-item-2 {
+            flex: 1;
+            flex-basis: 50%;
+        }
+    </style>
+</head>
+<body style="background-color: 	rgb(220,220,220);">
+
+
+    <div class="container-1">
+        <div id="pdf" class="container-item-1" style="max-width: 90%; margin: 20px auto 20px auto;"></div>
+        <div id="pdf-data" class="container-item-2">
+              <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
+            </nav>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    const temp_env = {
+            BASE_API_URL: "http://localhost:4000/api",
+            BASE_API_URL_TEMP: "http://10.100.6.111:4000/api"
+        }
+
+    function update () {
+        const currentURL = window.location.href.split("/")
+        const id = currentURL[currentURL.length -1]
+        const site = currentURL[currentURL.length -2]
+        updatePage(id, site)
+        updateData(id, site) 
+    }
+
+    function updatePage (id, site) {
+        document.getElementById("pdf").innerHTML =`
+            <section style="max-width=100%">
+                <embed src="${temp_env.BASE_API_URL}/edi/${site}/${id}#view=FitH" height=1100 width=800>
+            </section>
+        `
+    }
+
+    async function updateData (id, site) {
+        if (site !== "bi"){
+            const response  = await fetch(`${temp_env.BASE_API_URL}/edi/${site}/${id}/extract`)
+            const data = await response.json()
+            updateForm(data.pdfData, id, site)
+        } else {
+            const response  = await fetch(`${temp_env.BASE_API_URL}/edi/${site}/${id}/extract`)
+            const data = await response.json()
+            updateGFForm(data.pdfData, id, site)
+        }
+
+    }
+
+    function updateForm (pdfData, id, site) {
+        document.getElementById("pdf-data").innerHTML = `
+        <form action="${temp_env.BASE_API_URL}/edi/${site}/${id}/post" method="POST">
+                <br>
+                <table class="table-danger">
+                    <thead>
+                        <th>Ship Via: </th>
+                        <th>PO #: </th>
+                        <th>Ship To/ Job: </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
+                            <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
+                            <td><input type="text" placeholder="ship_to" id="ship_to" name="ship_to" value="${pdfData.ship_to}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+    
+                <br>
+                <div class="alert alert-secondary" role="alert">
+                    <h7>Total Line Items for ${id} : <strong>( ${pdfData.num_line_items} )</strong></h7>
+                  </div>
+    
+    
+                <table>
+                    <thead>
+                        <th style="padding-right: 10px;">#</th>
+                        <th>Part No.</th>
+                        <th>Quantity</th>
+                    </thead>
+                    <tbody>
+                ${pdfData.line_items.map((item, i) => {
+                    return `
+                    <tr>
+                        <td>${i+1}</td>    
+                        <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="${item.product}"></td>
+                        <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="${item.quantity}"></td>
+                        ${item.error === "true" ? "<td style='color: red; background: beige;'>Signode product # Not found</td>" : "<td></td>"}
+                    </tr>
+                    `
+                }).join("")}
+                    </tbody>
+                </table>
+    
+                <br>
+                <button type="submit" class="btn btn-success">Create Order</button>
+
+                <br>
+
+
+              </form>
+        `
+    }
+
+    function updateGFForm (pdfData, id, site) {
+        const types = [{type: "Consumables", data: pdfData.consumables}, {type: "Parts", data: pdfData.parts}, {type: "Other", data: pdfData.other}]
+        let inner = `${types.map(eachType => {
+            return `
+            <div style="background: aqua;">${eachType.type}</div>
+        <form action="${temp_env.BASE_API_URL}/edi/${site}/${id-eachType.type}/post" method="POST">
+                <br>
+                <table class="table-danger">
+                    <thead>
+                        <th>Ship Via: </th>
+                        <th>PO #: </th>
+                        <th>Ship To/ Job: </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
+                            <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
+                            <td><input type="text" placeholder="ship_to" id="ship_to" name="ship_to" value="${pdfData.ship_to}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+    
+                <br>
+                <div class="alert alert-secondary" role="alert">
+                    <h7>Total Line Items for ${id} - ${eachType.type} : <strong>( ${eachType.data.length} )</strong></h7>
+                  </div>
+    
+    
+                <table>
+                    <thead>
+                        <th style="padding-right: 10px;">#</th>
+                        <th>Part No.</th>
+                        <th>Quantity</th>
+                    </thead>
+                    <tbody>
+                ${eachType.data.map((item, i) => {
+                    return `
+                    <tr>
+                        <td>${i+1}</td>    
+                        <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="${item.product}"></td>
+                        <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="${item.quantity}"></td>
+                        ${item.error === "true" ? "<td style='color: red; background: beige;'>Signode product # Not found</td>" : "<td></td>"}
+                    </tr>
+                    `
+                }).join("")}
+                    </tbody>
+                </table>
+    
+                <br>
+                <button type="submit" class="btn btn-success">Create Order</button>
+
+
+              </form>
+            `
+
+        }).join("")}`
+
+        document.getElementById("pdf-data").innerHTML = inner;
+
+
+        // document.getElementById("pdf-data").innerHTML = `
+        // <span>CONSUMABLES</span>
+        // <form action="${temp_env.BASE_API_URL}/edi/${site}/${id}/post" method="POST">
+        //         <br>
+        //         <table class="table-danger">
+        //             <thead>
+        //                 <th>Ship Via: </th>
+        //                 <th>PO #: </th>
+        //             </thead>
+        //             <tbody>
+        //                 <tr>
+        //                     <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
+        //                     <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+    
+        //         <br>
+        //         <div class="alert alert-secondary" role="alert">
+        //             <h7>Total Line Items for ${id} : <strong>( ${pdfData.num_line_items} )</strong></h7>
+        //           </div>
+    
+    
+        //         <table>
+        //             <thead>
+        //                 <th style="padding-right: 10px;">#</th>
+        //                 <th>Part No.</th>
+        //                 <th>Quantity</th>
+        //             </thead>
+        //             <tbody>
+        //         ${pdfData.consumables.map((item, i) => {
+        //             return `
+        //             <tr>
+        //                 <td>${i+1}</td>    
+        //                 <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="${item.product}"></td>
+        //                 <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="${item.quantity}"></td>
+        //                 ${item.error === "true" ? "<td style='color: red; background: beige;'>Signode product # Not found</td>" : "<td></td>"}
+        //             </tr>
+        //             `
+        //         }).join("")}
+        //             </tbody>
+        //         </table>
+    
+        //         <br>
+        //         <button type="submit" class="btn btn-success">Create Order</button>
+
+
+        //       </form>
+
+        //       <span>PARTS</span>
+        //         <form action="${temp_env.BASE_API_URL}/edi/${site}/${id}/post" method="POST">
+        //         <br>
+        //         <table class="table-danger">
+        //             <thead>
+        //                 <th>Ship Via: </th>
+        //                 <th>PO #: </th>
+        //             </thead>
+        //             <tbody>
+        //                 <tr>
+        //                     <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
+        //                     <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+    
+        //         <br>
+        //         <div class="alert alert-secondary" role="alert">
+        //             <h7>Total Line Items for ${id} : <strong>( ${pdfData.num_line_items} )</strong></h7>
+        //           </div>
+    
+    
+        //         <table>
+        //             <thead>
+        //                 <th style="padding-right: 10px;">#</th>
+        //                 <th>Part No.</th>
+        //                 <th>Quantity</th>
+        //             </thead>
+        //             <tbody>
+        //         ${pdfData.parts.map((item, i) => {
+        //             return `
+        //             <tr>
+        //                 <td>${i+1}</td>    
+        //                 <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="${item.product}"></td>
+        //                 <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="${item.quantity}"></td>
+        //                 ${item.error === "true" ? "<td style='color: red; background: beige;'>Signode product # Not found</td>" : "<td></td>"}
+        //             </tr>
+        //             `
+        //         }).join("")}
+        //             </tbody>
+        //         </table>
+    
+        //         <br>
+        //         <button type="submit" class="btn btn-success">Create Order</button>
+
+        //         <br>
+
+
+        //       </form>
+
+        //       <span>OTHER</span>
+        //         <form action="${temp_env.BASE_API_URL}/edi/${site}/${id}/post" method="POST">
+        //         <br>
+        //         <table class="table-danger">
+        //             <thead>
+        //                 <th>Ship Via: </th>
+        //                 <th>PO #: </th>
+        //             </thead>
+        //             <tbody>
+        //                 <tr>
+        //                     <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
+        //                     <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+    
+        //         <br>
+        //         <div class="alert alert-secondary" role="alert">
+        //             <h7>Total Line Items for ${id} : <strong>( ${pdfData.num_line_items} )</strong></h7>
+        //           </div>
+    
+    
+        //         <table>
+        //             <thead>
+        //                 <th style="padding-right: 10px;">#</th>
+        //                 <th>Part No.</th>
+        //                 <th>Quantity</th>
+        //             </thead>
+        //             <tbody>
+        //         ${pdfData.other.map((item, i) => {
+        //             return `
+        //             <tr>
+        //                 <td>${i+1}</td>    
+        //                 <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="${item.product}"></td>
+        //                 <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="${item.quantity}"></td>
+        //                 ${item.error === "true" ? "<td style='color: red; background: beige;'>Signode product # Not found</td>" : "<td></td>"}
+        //             </tr>
+        //             `
+        //         }).join("")}
+        //             </tbody>
+        //         </table>
+    
+        //         <br>
+        //         <button type="submit" class="btn btn-success">Create Order</button>
+
+        //         <br>
+
+
+        //       </form>
+        // `
+    }
+
+    update()
+
+
+</script>
+</body>
+</html>
