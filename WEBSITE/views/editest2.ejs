@@ -111,6 +111,8 @@
                         <th style="padding-right: 10px;">#</th>
                         <th>Part No.</th>
                         <th>Quantity</th>
+                        <th></th>
+                        ${pdfData.customer_no ? `<th>Description</th>` : "<th></th>"}
                     </thead>
                     <tbody>
                 ${pdfData.line_items.map((item, i) => {
