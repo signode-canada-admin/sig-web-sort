@@ -88,16 +88,26 @@
                         <th>Ship Via: </th>
                         <th>PO #: </th>
                         <th>Ship To/ Job: </th>
-                        ${pdfData.customer_no ? `<th>Customer Number</th>` : "<th></th>"}
                     </thead>
                     <tbody>
                         <tr>
                             <td><input type="text" placeholder="ship_via" id="ship_via" name="ship_via" value="${pdfData.ship_via}"></td>
                             <td><input type="text" placeholder="po_no" id="po_no" name="po_no" value="${pdfData.po_no}"></td>
                             <td><input type="text" placeholder="ship_to" id="ship_to" name="ship_to" value="${pdfData.ship_to}"></td>
-                            ${pdfData.customer_no ? `<td><input type='text' placeholder = 'Enter Customer_No' id = 'cus_no' name = 'cus_no' value= '${pdfData.customer_no}'></td>` : "<td></td>"}
                         </tr>
                     </tbody>
+                    <thead>
+                        ${pdfData.customer_no ? `<th>Customer #</th>` : "<th></th>"}
+                        ${pdfData.customer_no ? `<th>Warehouse</th>` : "<th></th>"}
+                        ${pdfData.reference ? `<th>Service Order #</th>` : "<th></th>"}
+                    </thead>
+                    <tbody>
+                        <tr>
+                            ${pdfData.customer_no ? `<td><input type='text' placeholder = 'Enter Customer No' id = 'cus_no' name = 'cus_no' value= '${pdfData.customer_no}'></td>` : "<td></td>"}
+                            ${pdfData.warehouse ? `<td><input type='text' placeholder = 'Enter warehouse code' id = 'warehouse' name = 'warehouse' value= '${pdfData.warehouse}'></td>` : "<td></td>"}
+                            ${pdfData.reference ? `<td><input type='text' placeholder = 'Enter Service Order NO' id = 'reference' name = 'reference' value= '${pdfData.reference}'></td>` : "<td></td>"}
+                        </tr>
+                    <tbody>
                 </table>
     
                 <br>
