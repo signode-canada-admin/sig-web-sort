@@ -96,6 +96,18 @@
                             <td><input type="text" placeholder="ship_to" id="ship_to" name="ship_to" value="${pdfData.ship_to}"></td>
                         </tr>
                     </tbody>
+                    <thead>
+                        ${pdfData.customer_no ? `<th>Customer #</th>` : "<th></th>"}
+                        ${pdfData.customer_no ? `<th>Warehouse</th>` : "<th></th>"}
+                        ${pdfData.reference ? `<th>Service Order #</th>` : "<th></th>"}
+                    </thead>
+                    <tbody>
+                        <tr>
+                            ${pdfData.customer_no ? `<td><input type='text' placeholder = 'Enter Customer No' id = 'cus_no' name = 'cus_no' value= '${pdfData.customer_no}'></td>` : "<td></td>"}
+                            ${pdfData.warehouse ? `<td><input type='text' placeholder = 'Enter warehouse code' id = 'warehouse' name = 'warehouse' value= '${pdfData.warehouse}'></td>` : "<td></td>"}
+                            ${pdfData.reference ? `<td><input type='text' placeholder = 'Enter Service Order NO' id = 'reference' name = 'reference' value= '${pdfData.reference}'></td>` : "<td></td>"}
+                        </tr>
+                    <tbody>
                 </table>
     
                 <br>
@@ -109,6 +121,8 @@
                         <th style="padding-right: 10px;">#</th>
                         <th>Part No.</th>
                         <th>Quantity</th>
+                        <th></th>
+                        ${pdfData.customer_no ? `<th>Description</th>` : "<th></th>"}
                     </thead>
                     <tbody>
                 ${pdfData.line_items.map((item, i) => {
@@ -118,6 +132,8 @@
                         <td><input type="text" placeholder="enter product #" id="" name="prod_no" value="${item.product}"></td>
                         <td><input type="text" placeholder="enter product quantity" id="prod_qty" name="prod_qty" value="${item.quantity}"></td>
                         ${item.error === "true" ? "<td style='color: red; background: beige;'>Signode product # Not found</td>" : "<td></td>"}
+                        ${item.description ? `<td><input type='text' placeholder = 'enter description' id = 'desc' name = 'desc' value= '${item.description}'></td>` : "<td></td>"}
+                        
                     </tr>
                     `
                 }).join("")}

@@ -43,6 +43,8 @@
         "srap": "Srap",
         "bi": "Bunzl_industrial",
         "str": "Srap_Tool_Repair",
+        "am": "Arcelor_Mittal",
+        "service": "Service"
         }
 
         const temp_env = {
@@ -98,12 +100,16 @@
             const srap = await fetch_data("srap")
             const str = await fetch_data("str")
             const bi = await fetch_data("bi")
-            main(["pp", "srap", "bi", "str"], {"pp": pp, "srap": srap, "bi": bi, "str": str})
+            const am = await fetch_data("am")
+            const service = await fetch_data("service")
+            main(["pp", "srap", "bi", "str", "am", "service"], {"pp": pp, "srap": srap, "bi": bi, "str": str, "am": am, "service": service})
             // listStatus(pp)
             createCollapseList(pp, "pp")
             createCollapseList(srap, "srap")
             createCollapseList(str, "str")
             createCollapseList(bi, "bi")
+            createCollapseList(am, "am")
+            createCollapseList(service, "service")
         }
 
         function listStatus (data) {
