@@ -46,8 +46,8 @@
         }
 
         const temp_env = {
-            BASE_API_URL    : "http://localhost:4000/api",
-            BASE_API_URL_TEMP: "http://10.100.6.111:4000/api",
+            BASE_API_URL_TEMP: "http://localhost:4000/api",
+            BASE_API_URL: "http://10.100.6.111:4000/api",
             BASE_WEB_URL_TEMP: "http://localhost:3000",
             BASE_WEB_URL: "http://10.100.6.111:3000"
         }
@@ -140,7 +140,7 @@
 
                     <div class="collapse" id="collapseExample${id_line}">
                         <section>
-                            <embed class="sig-pdf" src="${temp_env.BASE_WEB_URL_TEMP}/edi/${site}/${line}">
+                            <embed class="sig-pdf" src="${temp_env.BASE_WEB_URL}/edi/${site}/${line}">
                         </section>
                     </div>
                     `

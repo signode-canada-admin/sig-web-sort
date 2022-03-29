@@ -46,8 +46,8 @@
 <script>
 
     const temp_env = {
-            BASE_API_URL: "http://localhost:4000/api",
-            BASE_API_URL_TEMP: "http://10.100.6.111:4000/api"
+            BASE_API_URL_TEMP: "http://localhost:4000/api",
+            BASE_API_URL: "http://10.100.6.111:4000/api"
         }
 
     function update () {
@@ -139,7 +139,7 @@
         let inner = `${types.map(eachType => {
             return `
             <div style="background: aqua;">${eachType.type}</div>
-        <form action="${temp_env.BASE_API_URL}/edi/${site}/${id-eachType.type}/post" method="POST">
+        <form action="${temp_env.BASE_API_URL}/edi/${site}/${id}-${eachType.type}/post" method="POST">
                 <br>
                 <table class="table-danger">
                     <thead>
