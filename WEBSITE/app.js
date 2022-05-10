@@ -49,7 +49,7 @@ const surreyStatus = database.collection('surreyStatus');
 const glenviewStatus = database.collection('glenviewStatus');
 
 
-// path of pickticket pdfs
+// path to retrieve pickticket pdfs
 const db = {
     "markham": {
         "pdfdb": "C:/pickticket_test/OneDrive - Signode Industrial Group/Signode Canada Picktickets/Markham",
@@ -76,16 +76,15 @@ app.use(express.static(db.surrey.pdfdb));
 app.use(express.static(db.glenview.pdfdb));
 
 
-// ********************* GET Requests ********************** //
-// Can maybe search from each collection at the same time instead of sequentially
+// ********************* Load data from all three locations when we're on the main page ********************** //
 app.get("/", (req, res) => {
-    markham.find({}).toArray().then((marlst) => {
+    markham.find({}).toArray().then((marList) => {
         markhamStatus.find({}).toArray().then((marStat => {
-            surrey.find({}).toArray().then((surrlst) => {
+            surrey.find({}).toArray().then((surrList) => {
                 surreyStatus.find({}).toArray().then((surrStat) => {
-                    glenview.find({}).toArray().then((glenlst) => {
+                    glenview.find({}).toArray().then((glenList) => {
                         glenviewStatus.find({}).toArray().then((glenStat) => {
-                            let context = { title: "Main Page", marlst, marStat, surrlst, surrStat, glenlst, glenStat };
+                            let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat };
                             res.render("index", context);
                         })
                     })
@@ -95,41 +94,21 @@ app.get("/", (req, res) => {
     })
 })
 
-// TEST
-app.get("/edi", (req, res) => {
-    return res.render('editest1', { title: "EDI" })
-})
-
-
-app.get("/edi/:site/:id", (req, res) => {
-    const id = req.params.id
-    return res.render('editest2', { title: id })
-})
-
-
-app.get("/edi/DONE", (req, res) => {
-    const id = req.query.id
-    res.render('ediDone', { title: id })
-})
-
-
+// redirects
 app.get("/mainPage", (req, res) => {
     res.redirect("/")
 })
 
-// mainPage/markham
 app.get("/mainPage/markham", (req, res) => {
     res.redirect('/mainPage/markham/allOrders');
 });
 
 
-// mainPage/surrey
 app.get("/mainPage/surrey", (req, res) => {
     res.redirect('/mainPage/surrey/allOrders');
 });
 
 
-// mainPage//glenview
 app.get("/mainPage/glenview", (req, res) => {
     res.redirect('/mainPage/glenview/allOrders');
 })
@@ -137,9 +116,8 @@ app.get("/mainPage/glenview", (req, res) => {
 
 // mainPage/markham/allOrders
 app.get("/mainPage/markham/allOrders", (req, res) => {
-
-    markham.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((result) => {
-        markhamStatus.find({}).toArray().then((statusResults) => {
+    markham.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((lst_orders) => { // find all non-archived documents -> sort in descending order by date received -> put in array
+        markhamStatus.find({}).toArray().then((lst_status) => {
             let lst_status = statusResults
             let lst_orders = result;
             const site = db.markham.name;
@@ -341,9 +319,6 @@ app.get("/orders/:order", (req, res) => {
                 }
             });
         }
-
-
-
     });
 });
 
