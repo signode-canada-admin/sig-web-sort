@@ -16,7 +16,7 @@ const app = express();
 app.set('view engine', 'ejs');
 
 
-// connect to MongoDB
+// ********************* Connect to MongoDB ********************** //
 const uri = 'mongodb://127.0.0.1:27017/';
 
 const client = new MongoClient(uri, {
@@ -38,18 +38,20 @@ client.connect()
     });
 
 
-// retrieve data from specified collections
+// ********************* Retrieve data from specified collections ********************** //
+
 const database = client.db('signode');
 
 const markham = database.collection('markham');
 const surrey = database.collection('surrey');
 const glenview = database.collection('glenview');
+
 const markhamStatus = database.collection('markhamStatus');
 const surreyStatus = database.collection('surreyStatus');
 const glenviewStatus = database.collection('glenviewStatus');
 
 
-// path of pickticket pdfs
+// paths of pickticket pdfs
 const db = {
     "markham": {
         "pdfdb": "C:/pickticket_test/OneDrive - Signode Industrial Group/Signode Canada Picktickets/Markham",
@@ -76,16 +78,15 @@ app.use(express.static(db.surrey.pdfdb));
 app.use(express.static(db.glenview.pdfdb));
 
 
-// ********************* GET Requests ********************** //
-// Can maybe search from each collection at the same time instead of sequentially
+// ********************* Load data from all three locations when we're on the main page ********************** //
 app.get("/", (req, res) => {
-    markham.find({}).toArray().then((marlst) => {
+    markham.find({}).toArray().then((marList) => {
         markhamStatus.find({}).toArray().then((marStat => {
-            surrey.find({}).toArray().then((surrlst) => {
+            surrey.find({}).toArray().then((surrList) => {
                 surreyStatus.find({}).toArray().then((surrStat) => {
-                    glenview.find({}).toArray().then((glenlst) => {
+                    glenview.find({}).toArray().then((glenList) => {
                         glenviewStatus.find({}).toArray().then((glenStat) => {
-                            let context = { title: "Main Page", marlst, marStat, surrlst, surrStat, glenlst, glenStat };
+                            let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat };
                             res.render("index", context);
                         })
                     })
@@ -95,17 +96,16 @@ app.get("/", (req, res) => {
     })
 })
 
-// TEST
+
+// EDI paths
 app.get("/edi", (req, res) => {
     return res.render('editest1', { title: "EDI" })
 })
-
 
 app.get("/edi/:site/:id", (req, res) => {
     const id = req.params.id
     return res.render('editest2', { title: id })
 })
-
 
 app.get("/edi/DONE", (req, res) => {
     const id = req.query.id
@@ -113,30 +113,10 @@ app.get("/edi/DONE", (req, res) => {
 })
 
 
-app.get("/mainPage", (req, res) => {
-    res.redirect("/")
-})
+// ********************* Display All Orders ********************** //
 
-// mainPage/markham
-app.get("/mainPage/markham", (req, res) => {
-    res.redirect('/mainPage/markham/allOrders');
-});
-
-
-// mainPage/surrey
-app.get("/mainPage/surrey", (req, res) => {
-    res.redirect('/mainPage/surrey/allOrders');
-});
-
-
-// mainPage//glenview
-app.get("/mainPage/glenview", (req, res) => {
-    res.redirect('/mainPage/glenview/allOrders');
-})
-
-
-// mainPage/markham/allOrders
-app.get("/mainPage/markham/allOrders", (req, res) => {
+// markham: all orders
+app.get("/markham/allOrders", (req, res) => {
 
     markham.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((result) => {
         markhamStatus.find({}).toArray().then((statusResults) => {
@@ -153,8 +133,8 @@ app.get("/mainPage/markham/allOrders", (req, res) => {
 });
 
 
-// mainPage/surrey/allOrders
-app.get("/mainPage/surrey/allOrders", (req, res) => {
+// surrey: all orders
+app.get("/surrey/allOrders", (req, res) => {
 
     surrey.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((result) => {
         surreyStatus.find({}).toArray().then((statusResults) => {
@@ -170,8 +150,8 @@ app.get("/mainPage/surrey/allOrders", (req, res) => {
     });
 });
 
-// mainPage/markham/allOrders
-app.get("/mainPage/glenview/allOrders", (req, res) => {
+// glenview: all orders
+app.get("/glenview/allOrders", (req, res) => {
 
     glenview.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((result) => {
         glenviewStatus.find({}).toArray().then((statusResults) => {
@@ -187,24 +167,11 @@ app.get("/mainPage/glenview/allOrders", (req, res) => {
     });
 });
 
-// mainPage/markham/allOrders/:status
-app.get("/markham", (req, res) => {
 
-    const status = req.params.status;
+// ********************* Display Orders Filtered by Status (printed, archived, etc.) ********************** //
 
-    const site = db.markham.name;
-
-    res.render("statusOrders");
-
-
-});
-
-
-
-
-
-// mainPage/markham/allOrders/:status
-app.get("/mainPage/markham/allorders/:status", (req, res) => {
+// markham: filter by status 
+app.get("/markham/allOrders/:status", (req, res) => {
 
     const status = req.params.status;
 
@@ -229,11 +196,8 @@ app.get("/mainPage/markham/allorders/:status", (req, res) => {
     }
 });
 
-
-
-
-// mainPage/surrey/allOrders/:status
-app.get("/mainPage/surrey/allOrders/:status", (req, res) => {
+// surrey: filter by status 
+app.get("/surrey/allOrders/:status", (req, res) => {
 
     const status = req.params.status;
 
@@ -258,9 +222,8 @@ app.get("/mainPage/surrey/allOrders/:status", (req, res) => {
     }
 });
 
-
-// mainPage/glenview/allOrders/:status
-app.get("/mainPage/glenview/allOrders/:status", (req, res) => {
+// glenview: filter by status 
+app.get("/glenview/allOrders/:status", (req, res) => {
 
     const status = req.params.status;
 
@@ -286,27 +249,25 @@ app.get("/mainPage/glenview/allOrders/:status", (req, res) => {
 });
 
 
-
-// Order details "all/:order"
+// ********************* Display order details (when you click a specific order) ********************** //
 app.get("/orders/:order", (req, res) => {
-
 
     const order = req.params.order;
 
     markham.find({ "_id": order }).toArray().then((result) => {
 
         if (result.length > 0) {
+
             const url = result[0]["fileDirectory"].split("\\").join("/");
             const file = url.replace(db.markham.pdfdb, "");
             const site = db.markham.name;
-
             const orderdata = result[0];
-
             let context = { title: `${order}`, orderdata, file, site };
 
             res.render("orderDetails", context);
 
         } else {
+
             surrey.find({ "_id": order }).toArray().then((result) => {
 
                 if (result.length > 0) {
@@ -314,9 +275,7 @@ app.get("/orders/:order", (req, res) => {
                     const url = result[0]["fileDirectory"].split("\\").join("/");
                     const file = url.replace(db.surrey.pdfdb, "");
                     const site = db.surrey.name;
-
                     const orderdata = result[0];
-
                     let context = { title: `${order}`, orderdata, file, site };
 
                     res.render("orderDetails", context);
@@ -341,17 +300,16 @@ app.get("/orders/:order", (req, res) => {
                 }
             });
         }
-
-
-
+    })
+    .catch(err => {
+        // res.status(404).render('404', { title: "404 ERROR" });
+        console.log("poop");
     });
 });
 
 
+// ********************* Error Page ********************** //
 
-
-
-// invalid routes
 app.use((req, res) => {
     let = context = { title: "404 ERROR" }
     res.status(404).render('404', context);
