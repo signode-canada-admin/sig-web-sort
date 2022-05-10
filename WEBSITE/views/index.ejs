@@ -6,7 +6,7 @@
 <input
   type="text"
   id="myInput"
-  onkeyup="searchTable()"
+  onkeyup="searchTable(event)"
   placeholder="Search for Orders, PO , Ship To, Via, Status, Date .."
 />
 
@@ -191,7 +191,7 @@
 </div>
 
 <script>
-  function searchTable() {
+  function searchTable(e) {
     let input,
       tableMar,
       tableSurr,
@@ -226,8 +226,10 @@
     martitle = document.getElementById("mar-title");
     surrtitle = document.getElementById("surr-title");
     glentitle = document.getElementById("glen-title");
+    
+    var code = (e.keyCode ? e.keyCode : e.which);
 
-    if (input.value.length > 0) {
+    if (input.value.length > 0 && code == 13) {
       tableMar.style.display = "";
       tableSurr.style.display = "";
       tableGlen.style.display = "";
