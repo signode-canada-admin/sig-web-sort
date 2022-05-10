@@ -51,11 +51,7 @@ const surreyStatus = database.collection('surreyStatus');
 const glenviewStatus = database.collection('glenviewStatus');
 
 
-<<<<<<< HEAD
-// path to retrieve pickticket pdfs
-=======
 // paths of pickticket pdfs
->>>>>>> my_new_branch
 const db = {
     "markham": {
         "pdfdb": "C:/pickticket_test/OneDrive - Signode Industrial Group/Signode Canada Picktickets/Markham",
@@ -100,32 +96,6 @@ app.get("/", (req, res) => {
     })
 })
 
-<<<<<<< HEAD
-// redirects
-app.get("/mainPage", (req, res) => {
-    res.redirect("/")
-})
-
-app.get("/mainPage/markham", (req, res) => {
-    res.redirect('/mainPage/markham/allOrders');
-});
-
-
-app.get("/mainPage/surrey", (req, res) => {
-    res.redirect('/mainPage/surrey/allOrders');
-});
-
-
-app.get("/mainPage/glenview", (req, res) => {
-    res.redirect('/mainPage/glenview/allOrders');
-})
-
-
-// mainPage/markham/allOrders
-app.get("/mainPage/markham/allOrders", (req, res) => {
-    markham.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((lst_orders) => { // find all non-archived documents -> sort in descending order by date received -> put in array
-        markhamStatus.find({}).toArray().then((lst_status) => {
-=======
 
 // EDI paths
 app.get("/edi", (req, res) => {
@@ -150,7 +120,6 @@ app.get("/markham/allOrders", (req, res) => {
 
     markham.find({ "status": { $ne: "Archived" } }).sort({ dateReceived: -1 }).toArray().then((result) => {
         markhamStatus.find({}).toArray().then((statusResults) => {
->>>>>>> my_new_branch
             let lst_status = statusResults
             let lst_orders = result;
             const site = db.markham.name;
@@ -331,13 +300,10 @@ app.get("/orders/:order", (req, res) => {
                 }
             });
         }
-<<<<<<< HEAD
-=======
     })
     .catch(err => {
         // res.status(404).render('404', { title: "404 ERROR" });
         console.log("poop");
->>>>>>> my_new_branch
     });
 });
 
