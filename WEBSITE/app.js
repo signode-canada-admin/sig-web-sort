@@ -301,10 +301,6 @@ app.get("/orders/:order", (req, res) => {
             });
         }
     })
-    .catch(err => {
-        // res.status(404).render('404', { title: "404 ERROR" });
-        console.log("poop");
-    });
 });
 
 
