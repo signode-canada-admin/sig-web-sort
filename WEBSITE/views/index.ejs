@@ -1,62 +1,109 @@
 <%- include("./partials/head.ejs") %>
 
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <br />
 <br />
 
-<input
-  type="text"
-  id="myInput"
-  onkeyup="searchTable(event)"
-  placeholder="Search for Orders, PO , Ship To, Via, Status, Date .."
-/>
+<script>
+  // code only runs once the page DOM is ready for js to execute
+  $(document).ready(function () {
+	// When the dropdown menu is clicked
+	$(".default_option").click(function (event) {
+	  // Adds the class name "active" to he .dropdown ul class
+	  $(".dropdown ul").addClass("active");
+	  event.stopPropagation();
+	});
 
+	// If you click on one of the dropdown options
+	$(".dropdown ul li").click(function (event) {
+	  var text = $(this).text(); //save text from option selected into a text var
+	  $(".default_option").text(text); //change the button's text to be the text that was just clicked
+	  $(".dropdown ul").removeClass("active"); // dropdown is no longer active aka options are shown
+	  event.stopPropagation();
+	});
+
+	// If you click outside of the dropdown while dropdown is active close dropdown
+	$(document).on("click", function (event) {
+	  $(".dropdown ul").removeClass("active");
+	});
+  });
+</script>
+
+<!-- Searchbar -->
+<div class="wrapper">
+  <div class="search_box">
+	<div class="dropdown">
+	  <div class="default_option">All</div>
+	  <ul>
+		<li>All</li>
+		<li>Order#</li>
+		<li>PO#</li>
+		<li>Shipping Address</li>
+		<li>Shipping Carrier</li>
+		<li>Date</li>
+		<li>Status</li>
+	  </ul>
+	</div>
+	<div class="search_field">
+	  <input
+		type="text"
+		class="input"
+		id="myInput"
+		onkeyup="searchTable(event)"
+		placeholder="Search"
+	  />
+	  <i class="fas fa-search" onclick="searchTable(event)"></i>
+	</div>
+  </div>
+</div>
 <!-- TABLE VISIBLE ONLY WHILE SEARCHING -->
-
+<!--  -->
 <!-- MARKHAM -->
+<% var name = "table-search table-center" %>
 <table
   class="table-search table-center"
   id="table-mar"
   style="display: none; width: 100%"
 >
   <h5 style="color: rgb(136, 0, 0); display: none" id="mar-title">Markham</h5>
-
   <thead>
-    <th>Order #</th>
-    <th>PO #</th>
-    <th>Ship To</th>
-    <th>Via</th>
-    <th>Date Received</th>
-    <th>Status</th>
+	<th>Order #</th>
+	<th>PO #</th>
+	<th>Ship To</th>
+	<th>Via</th>
+	<th>Date Received</th>
+	<th>Status</th>
   </thead>
   <tbody id="mainList-mar">
-    <% if (marList.length != 0) { %> <% marList.forEach((order)=>{ %>
+	<% if (marList.length != 0) { %> <% marList.forEach((order)=>{ %>
 
-    <tr>
-      <td class="sig-order">
-        <a class="sig-links" href="/orders/<%= order._id %>"
-          ><%= order._id %></a
-        >
-      </td>
-      <td><%= order["PO"] %></td>
-      <td><%= order["shipTo"] %></td>
-      <td><%= order["via"] %></td>
-      <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
-      </td>
-      <td>
-        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
-        {lst_status: marStat, order}) %>
-      </td>
-    </tr>
+	<tr>
+	  <td class="sig-order">
+		<a class="sig-links" href="/orders/<%= order._id %>"
+		  ><%= order._id %></a
+		>
+	  </td>
+	  <td><%= order["PO"] %></td>
+	  <td><%= order["shipTo"] %></td>
+	  <td><%= order["via"] %></td>
+	  <td>
+		<%= order["dateReceived"].toUTCString().slice(4,
+		order["dateReceived"].toUTCString().indexOf("GMT")) %>
+	  </td>
+	  <td>
+		<%= order["status"] %> <%- include("./partials/searchStaged.ejs",
+		{lst_status: marStat, order}) %>
+	  </td>
+	</tr>
 
-    <% }) %> <% } else { %>
-    <tr>
-      <td>NO</td>
-      <td>ORDERS</td>
-      <td>FOUND</td>
-    </tr>
-    <% } %>
+	<% }) %> <% } else { %>
+	<tr>
+	  <td>NO</td>
+	  <td>ORDERS</td>
+	  <td>FOUND</td>
+	</tr>
+	<% } %>
   </tbody>
 </table>
 
@@ -69,42 +116,42 @@
   <h5 style="color: rgb(136, 0, 0); display: none" id="surr-title">Surrey</h5>
 
   <thead>
-    <th>Order #</th>
-    <th>PO #</th>
-    <th>Ship To</th>
-    <th>Via</th>
-    <th>Date Received</th>
-    <th>Status</th>
+	<th>Order #</th>
+	<th>PO #</th>
+	<th>Ship To</th>
+	<th>Via</th>
+	<th>Date Received</th>
+	<th>Status</th>
   </thead>
   <tbody id="mainList-surr">
-    <% if (surrList.length != 0) { %> <% surrList.forEach((order)=>{ %>
+	<% if (surrList.length != 0) { %> <% surrList.forEach((order)=>{ %>
 
-    <tr>
-      <td class="sig-order">
-        <a class="sig-links" href="/orders/<%= order._id %>"
-          ><%= order._id %></a
-        >
-      </td>
-      <td><%= order["PO"] %></td>
-      <td><%= order["shipTo"] %></td>
-      <td><%= order["via"] %></td>
-      <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
-      </td>
-      <td>
-        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
-        {lst_status: surrStat, order}) %>
-      </td>
-    </tr>
+	<tr>
+	  <td class="sig-order">
+		<a class="sig-links" href="/orders/<%= order._id %>"
+		  ><%= order._id %></a
+		>
+	  </td>
+	  <td><%= order["PO"] %></td>
+	  <td><%= order["shipTo"] %></td>
+	  <td><%= order["via"] %></td>
+	  <td>
+		<%= order["dateReceived"].toUTCString().slice(4,
+		order["dateReceived"].toUTCString().indexOf("GMT")) %>
+	  </td>
+	  <td>
+		<%= order["status"] %> <%- include("./partials/searchStaged.ejs",
+		{lst_status: surrStat, order}) %>
+	  </td>
+	</tr>
 
-    <% }) %> <% } else { %>
-    <tr>
-      <td>NO</td>
-      <td>ORDERS</td>
-      <td>FOUND</td>
-    </tr>
-    <% } %>
+	<% }) %> <% } else { %>
+	<tr>
+	  <td>NO</td>
+	  <td>ORDERS</td>
+	  <td>FOUND</td>
+	</tr>
+	<% } %>
   </tbody>
 </table>
 
@@ -117,42 +164,42 @@
   <h5 style="color: rgb(136, 0, 0); display: none" id="glen-title">Glenview</h5>
 
   <thead>
-    <th>Order #</th>
-    <th>PO #</th>
-    <th>Ship To</th>
-    <th>Via</th>
-    <th>Date Received</th>
-    <th>Status</th>
+	<th>Order #</th>
+	<th>PO #</th>
+	<th>Ship To</th>
+	<th>Via</th>
+	<th>Date Received</th>
+	<th>Status</th>
   </thead>
   <tbody id="mainList-glen">
-    <% if (glenList.length != 0) { %> <% glenList.forEach((order)=>{ %>
+	<% if (glenList.length != 0) { %> <% glenList.forEach((order)=>{ %>
 
-    <tr>
-      <td class="sig-order">
-        <a class="sig-links" href="/orders/<%= order._id %>"
-          ><%= order._id %></a
-        >
-      </td>
-      <td><%= order["PO"] %></td>
-      <td><%= order["shipTo"] %></td>
-      <td><%= order["via"] %></td>
-      <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
-      </td>
-      <td>
-        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
-        {lst_status: glenStat, order}) %>
-      </td>
-    </tr>
+	<tr>
+	  <td class="sig-order">
+		<a class="sig-links" href="/orders/<%= order._id %>"
+		  ><%= order._id %></a
+		>
+	  </td>
+	  <td><%= order["PO"] %></td>
+	  <td><%= order["shipTo"] %></td>
+	  <td><%= order["via"] %></td>
+	  <td>
+		<%= order["dateReceived"].toUTCString().slice(4,
+		order["dateReceived"].toUTCString().indexOf("GMT")) %>
+	  </td>
+	  <td>
+		<%= order["status"] %> <%- include("./partials/searchStaged.ejs",
+		{lst_status: glenStat, order}) %>
+	  </td>
+	</tr>
 
-    <% }) %> <% } else { %>
-    <tr>
-      <td>NO</td>
-      <td>ORDERS</td>
-      <td>FOUND</td>
-    </tr>
-    <% } %>
+	<% }) %> <% } else { %>
+	<tr>
+	  <td>NO</td>
+	  <td>ORDERS</td>
+	  <td>FOUND</td>
+	</tr>
+	<% } %>
   </tbody>
 </table>
 
@@ -170,7 +217,7 @@
 
 <div class="">
   <button class="button font-inherit">
-    <a class="sig-links-main" href="/markham/allOrders">Markham</a>
+	<a class="sig-links-main" href="/markham/allOrders">Markham</a>
   </button>
 </div>
 
@@ -178,7 +225,7 @@
 
 <div class="">
   <button class="button font-inherit">
-    <a class="sig-links-main" href="/surrey/allOrders">Surrey</a>
+	<a class="sig-links-main" href="/surrey/allOrders">Surrey</a>
   </button>
 </div>
 
@@ -186,107 +233,98 @@
 
 <div class="">
   <button class="button font-inherit">
-    <a class="sig-links-main" href="/glenview/allOrders">Glenview</a>
+	<a class="sig-links-main" href="/glenview/allOrders">Glenview</a>
   </button>
 </div>
 
 <script>
   function searchTable(e) {
-    let input,
-      tableMar,
-      tableSurr,
-      tableGlen,
-      mainMar,
-      mainSurr,
-      mainGlen,
-      marrtitle,
-      surrtitle,
-      glentitle;
+	let input,
+	  tableMar,
+	  tableSurr,
+	  tableGlen,
+	  mainMar,
+	  mainSurr,
+	  mainGlen,
+	  marrtitle,
+	  surrtitle,
+	  glentitle;
 
-    tableMar = document.getElementById("table-mar");
-    tableSurr = document.getElementById("table-surr");
-    tableGlen = document.getElementById("table-glen");
+	tableMar = document.getElementById("table-mar");
+	tableSurr = document.getElementById("table-surr");
+	tableGlen = document.getElementById("table-glen");
 
-    input = document.getElementById("myInput");
-    target = input.value.toLowerCase();
+	input = document.getElementById("myInput");
+	target = input.value.toLowerCase();
 
-    // let temp = []
-    // fetch(`http://localhost:4000/api/search/markham/${target}`)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //         console.log(`http://localhost:4000/api/search/markham/${target}`)
-    //         temp.push(data.data)
-    //         console.log(temp)
-    //     });
+	mainMar = document.getElementById("mainList-mar");
+	mainSurr = document.getElementById("mainList-surr");
+	mainGlen = document.getElementById("mainList-glen");
 
-    mainMar = document.getElementById("mainList-mar");
-    mainSurr = document.getElementById("mainList-surr");
-    mainGlen = document.getElementById("mainList-glen");
+	martitle = document.getElementById("mar-title");
+	surrtitle = document.getElementById("surr-title");
+	glentitle = document.getElementById("glen-title");
 
-    martitle = document.getElementById("mar-title");
-    surrtitle = document.getElementById("surr-title");
-    glentitle = document.getElementById("glen-title");
-    
-    var code = (e.keyCode ? e.keyCode : e.which);
+	var code = e.keyCode ? e.keyCode : e.which;
 
-    if (input.value.length > 0 && code == 13) {
-      tableMar.style.display = "";
-      tableSurr.style.display = "";
-      tableGlen.style.display = "";
+	if (input.value.length > 0 && (code == 13 || e.button == 0)) {
+	  tableMar.style.display = "";
+	  tableSurr.style.display = "";
+	  tableGlen.style.display = "";
 
-      martitle.style.display = "";
-      surrtitle.style.display = "";
-      glentitle.style.display = "";
+	  martitle.style.display = "";
+	  surrtitle.style.display = "";
+	  glentitle.style.display = "";
+
+	  var filter = $(".default_option").text();
 
 
-
-      [mainMar, mainSurr, mainGlen].forEach((main) => {
-        for (let i = 0; i < main.rows.length; i++) {
-          let order = main.rows[i].cells[0].textContent
-            .toLowerCase()
-            .indexOf(target);
-          let po = main.rows[i].cells[1].textContent
-            .toLowerCase()
-            .indexOf(target);
-          let shipTo = main.rows[i].cells[2].textContent
-            .toLowerCase()
-            .indexOf(target);
-          let via = main.rows[i].cells[3].textContent
-            .toLowerCase()
-            .indexOf(target);
-          let date = main.rows[i].cells[4].textContent
-            .toLowerCase()
-            .indexOf(target);
-          // let month = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
-          let status = main.rows[i].cells[5].textContent
-            .toLowerCase()
-            .indexOf(target);
-
-          if (
-            order > -1 ||
-            po > -1 ||
-            shipTo > -1 ||
-            via > -1 ||
-            date > -1 ||
-            status > -1
-          ) {
-            main.rows[i].style.display = "";
-            // main.rows[i].cells[0].innerText = "Found"
-            // console.log(main.rows[i].cells[0].innerText);
-          } else {
-            main.rows[i].style.display = "none";
-          }
-        }
-      });
-    } else {
-      tableMar.style.display = "none";
-      tableSurr.style.display = "none";
-      tableGlen.style.display = "none";
-
-      martitle.style.display = "none";
-      surrtitle.style.display = "none";
-      glentitle.style.display = "none";
-    }
+	  [mainMar, mainSurr, mainGlen].forEach((main) => {
+		for (let i = 0; i < main.rows.length; i++) {
+			var order = -1;
+			var po = -1;
+			var shipTo = -1;
+			var via = -1;
+			var date = -1;
+			var status = -1;
+		  if (filter === "Order#" || filter === "All") {
+			order = main.rows[i].cells[0].textContent
+			  .toLowerCase()
+			  .indexOf(target);
+		  }
+		  if (filter === "PO#" || filter === "All") {
+			po = main.rows[i].cells[1].textContent
+			  .toLowerCase()
+			  .indexOf(target);
+		  }
+		  if (filter === "Shipping Address" || filter === "All") {
+			shipTo = main.rows[i].cells[2].textContent
+			  .toLowerCase()
+			  .indexOf(target);
+		  }
+		  if (filter === "Shipping Carrier" || filter === "All") {
+			via = main.rows[i].cells[3].textContent
+			  .toLowerCase()
+			  .indexOf(target);
+		  }
+		  if (filter === "Date" || filter === "All") {
+			date = main.rows[i].cells[4].textContent
+			  .toLowerCase()
+			  .indexOf(target);
+		  }
+		  if (filter === "Status" || filter == "All") {
+			status = main.rows[i].cells[5].textContent
+			  .toLowerCase()
+			  .indexOf(target);
+		  }
+		  if (order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1) {
+			main.rows[i].style.display = "";
+		  } else {
+			main.rows[i].style.display = "none";
+		  }
+		}
+	  });
+	}
   }
 </script>
 

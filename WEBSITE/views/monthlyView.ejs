@@ -10,7 +10,7 @@
 <br>
 
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Orders, PO, Ship To, Via, Status, Date ..">
+<input type="text" id="myInput" onkeyup="myFunction(event)" placeholder="Search for Orders, PO, Ship To, Via, Status, Date ..">
 
 <% if (site.toLowerCase() == "markham") { %>
     <%- include ("./partials/status-Mar.ejs") %>
@@ -93,14 +93,16 @@
 <script>
 
 
-    function myFunction() {
-
-        let input, filter, table, main;
+    function myFunction(e) {
+        var code = e.keyCode ? e.keyCode : e.which;
+        let input, table, main;
 
 
         input = document.getElementById('myInput');
         target = input.value.toLowerCase();
         main = document.getElementById("mainList");
+
+        if(input.value.length > 0 && code == 13){
 
 
         for (let i=0; i<main.rows.length; i++){
@@ -112,10 +114,7 @@
                 let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
 
                 let status = main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
-                // let status= main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
-
                 
-
 
                 if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1){
 
@@ -197,6 +196,7 @@
             sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
         });
     });
+}
 
 
 

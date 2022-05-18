@@ -2,11 +2,8 @@
 
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
-const { type } = require('os');
 const PORT = 3000;
-
 
 // create express app
 const app = express();
@@ -95,7 +92,6 @@ app.get("/", (req, res) => {
         }))
     })
 })
-
 
 // EDI paths
 app.get("/edi", (req, res) => {
