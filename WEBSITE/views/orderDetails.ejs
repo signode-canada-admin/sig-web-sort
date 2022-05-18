@@ -49,7 +49,7 @@
                 <td><%= orderdata["PO"] %></td>
                 <td><%= orderdata["shipTo"] %></td>
                 <td><%= orderdata["via"] %></td>
-                <td><%= orderdata["dateReceived"].toUTCString().slice(0, orderdata["dateReceived"].toString().indexOf("GMT")) %></td>
+                <td><%= new Date(orderdata["dateReceived"].$date).toUTCString().slice(0, new Date(orderdata["dateReceived"].$date).toString().indexOf("GMT")) %></td>
                 <td><%= Math.round(((new Date() - orderdata["dateReceived"])/36e5)-4) %></td>
 
 

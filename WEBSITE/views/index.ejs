@@ -41,8 +41,8 @@
       <td><%= order["shipTo"] %></td>
       <td><%= order["via"] %></td>
       <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
+        <%= new Date(order["dateReceived"].$date).toUTCString().slice(4,
+        new Date(order["dateReceived"].$date).toUTCString().indexOf("GMT")) %>
       </td>
       <td>
         <%= order["status"] %> <%- include("./partials/searchStaged.ejs",

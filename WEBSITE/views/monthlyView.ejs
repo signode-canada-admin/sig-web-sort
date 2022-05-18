@@ -68,8 +68,8 @@
                     <td><%= order["PO"] %></td>
                     <td><%= order["shipTo"] %></td>
                     <td><%= order["via"] %></td>
-                    <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                    <td><%= timeSince(order["dateReceived"]) %></td>
+                    <td><%= new Date(order["dateReceived"].$date).toUTCString().slice(4, new Date(order["dateReceived"].$date).toUTCString().indexOf("GMT")) %></td>
+                    <td><%= timeSince(new Date(order["dateReceived"].$date)) %></td>
                     <%- include("./partials/statusUpdates.ejs", { order }) %>
                 </tr>
                 
