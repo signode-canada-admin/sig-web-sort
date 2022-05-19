@@ -48,13 +48,13 @@
       <div class="default_option">All</div>
       <ul>
         <li>All</li>
-        <li>Order#</li>
-        <li>PO#</li>
+        <li>Order Number</li>
+        <li>PO Number</li>
         <li>Shipping Address</li>
         <li>Shipping Carrier</li>
         <li>Date</li>
         <li>Status</li>
-      </ul>
+    </ul>
     </div>
     <div class="search_field">
       <input
@@ -223,11 +223,15 @@
       let words = window.location.href.replaceAll("%20", " ").split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
 
       // take information from url to update search bar display
-    $(".default_option").text(words[words.length - 1]); // changes the selected option in dropdown to the filter (last element in "words")
     let input = words[words.length - 2]; // changes input value displayed in search bar
     document.getElementById("myInput").value = input;
     var target = input.toLowerCase();
     var filter = words[words.length - 1];
+    if(filter === "Search by..."){
+        filter = "All";
+    }
+    $(".default_option").text(filter); // changes the selected option in dropdown to the filter (last element in "words")
+
 
     loadTable(target,filter,true);
   }
@@ -265,7 +269,7 @@
     surrtitle.style.display = "";
     glentitle.style.display = "";
 
-    var dropdownOptions = new Array("All","Order#","PO#","Shipping Address","Shipping Carrier","Date","Status");
+    var dropdownOptions = new Array("All","Order Number","PO Number","Shipping Address","Shipping Carrier","Date","Status");
 
     // deciding what results to display based on filter
     // goes through each row in database and decides if it meets criteria of filter
