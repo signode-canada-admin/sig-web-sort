@@ -1,110 +1,133 @@
-<%- include("./partials/head.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signode Picktickets
+    </title>
 
-<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<br />
-<br />
+    <!-- IMPORTS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
 
-<script>
-  // code only runs once the page DOM is ready for js to execute
-  $(document).ready(function () {
-	// When the dropdown menu is clicked
-	$(".default_option").click(function (event) {
-	  // Adds the class name "active" to he .dropdown ul class
-	  $(".dropdown ul").addClass("active");
-	  event.stopPropagation();
-	});
 
-	// If you click on one of the dropdown options
-	$(".dropdown ul li").click(function (event) {
-	  var text = $(this).text(); //save text from option selected into a text var
-	  $(".default_option").text(text); //change the button's text to be the text that was just clicked
-	  $(".dropdown ul").removeClass("active"); // dropdown is no longer active aka options are shown
-	  event.stopPropagation();
-	});
+    <script>
+        $(document).ready(function(){ // makes the function available after the document is loaded
+            
+            // DROPDOWN EVENT HANDLIGN
 
-	// If you click outside of the dropdown while dropdown is active close dropdown
-	$(document).on("click", function (event) {
-	  $(".dropdown ul").removeClass("active");
-	});
-  });
-</script>
+            // when the default dropdown button is clicked, display all dropdown options 
+            $(".default-option, .dropdown-icon").click(function(event){
+                $(".dropdown ul").addClass("active");
+                event.stopPropagation();
+            });
 
-<!-- Searchbar -->
-<div class="wrapper">
-  <div class="search_box">
-	<div class="dropdown">
-	  <div class="default_option">All</div>
-	  <ul>
-		<li>All</li>
-		<li>Order#</li>
-		<li>PO#</li>
-		<li>Shipping Address</li>
-		<li>Shipping Carrier</li>
-		<li>Date</li>
-		<li>Status</li>
-	  </ul>
-	</div>
-	<div class="search_field">
-	  <input
-		type="text"
-		class="input"
-		id="myInput"
-		onkeyup="searchTable(event)"
-		placeholder="Search"
-	  />
-	  <i class="fas fa-search" onclick="searchTable(event)"></i>
-	</div>
-  </div>
-</div>
+            // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
+            $(".dropdown ul li").click(function(event){
+                var text = $(this).text();
+                $(".default-option").text(text);
+                $(".dropdown ul").removeClass("active");
+                event.stopPropagation();
+            });
 
-<!-- /////////////////////////////////////// END OF TABLES ///////////////////////////////////////// -->
+            $(document).on("click", function (event) {
+                $(".dropdown ul").removeClass("active");
+            });
+        
+        });
+    </script> 
 
-<img
-  class="sig-logo"
-  src="/images/SignodeLogo_RGB_FOR PPT AND SCREEN USE.png"
-  alt="SIGNODE LOGO GOES HERE"
-  height="50%"
-  width="50%"
-/>
+</head>
 
-<!-- ALL ORDERS LINK IS DEPRECATED -->
+<body>
 
-<div class="">
-  <button class="button font-inherit">
-	<a class="sig-links-main" href="/markham/allOrders">Markham</a>
-  </button>
-</div>
+    <!-- ******************************* SEARCH BAR ************************************** -->
+    <div class="wrapper">
+        <h1 class="home-page-heading">Search Picktickets</h1>
+        <div class="search-box">
+            
+            <!-- search icon -->
+            <i class="fas fa-search"></i>
 
-<br />
+            <!-- dropdown -->
+            <div class="dropdown">
+                <div class="default-option">Search by...</div>
+                    <ul>
+                        <li>Order Number</li>
+                        <li>PO Number</li>
+                        <li>Shipping Address</li>
+                        <li>Shipping Carrier</li>
+                        <li>Date</li>
+                        <li>Status</li>
+                    </ul>
 
-<div class="">
-  <button class="button font-inherit">
-	<a class="sig-links-main" href="/surrey/allOrders">Surrey</a>
-  </button>
-</div>
+                <div class="dropdown-icon"></div>
+            </div>
 
-<br />
+            <!-- search field -->
+            <div class="search-field">
+                <input type="text" class="input" id="myInput" onkeyup="searchTable(event)" placeholder="What are you looking for?">
+            </div>
 
-<div class="">
-  <button class="button font-inherit">
-	<a class="sig-links-main" href="/glenview/allOrders">Glenview</a>
-  </button>
-</div>
+            <!-- search button -->
+            <button type="button" class="search-button" onclick="searchTable(event)">Search</button>
 
-<script>
-	function searchTable(e) {
-      
-    	let input = document.getElementById("myInput");
-    	let target = input.value;
-		let filter = $(".default_option").text();
+        </div>
 
-    	let code = e.keyCode ? e.keyCode : e.which;
-  
-    	if (input.value.length > 0 && (code == 13 || e.button == 0)) {
-			window.location.replace("/"+target+"="+filter);
-		}
-	}
-  </script>
+        <!-- person graphic -->
+        <img src="../images/home-page-graphic.svg" class="home-page-graphic" alt="">
 
-<%- include("./partials/foot.ejs") %>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    
+    
+    <!-- ******************************* LOCATIONS BUTTONS ************************************** -->
+    <div class="location-buttons">
+        <h4 class="centred-header-4">Search</h4>
+        <h2 class="centred-header-2">Locations</h2>
+        <br><br><br><br>
+        
+        <!-- location buttons -->
+        <div class="buttons">
+            <button class="markham-button" onclick="window.location.href='/surrey/allOrders'"></button>
+            <button class="surrey-button" onclick="window.location.href='/surrey/allOrders'"></button>
+            <button class="glenview-button" onclick="window.location.href='/glenview/allOrders'"></button>
+        </div>
+    </div>
+    
+    <!-- changes url to match search input -->
+    <script>
+        function searchTable(e) {
+            let input = document.getElementById("myInput");
+            let target = input.value;
+            let filter = $(".default-option").text();
+            let code = e.keyCode ? e.keyCode : e.which;
+    
+            if (input.value.length > 0 && (code == 13 || e.button == 0)) {
+                window.location.replace("/"+target+"="+filter);
+            }
+        }
+    </script>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+    <!-- ******************************* FOOTER ************************************** -->
+
+    <footer>
+        <div class="footer-text">
+            <p>&copy; 2022 Signode Canada. All rights reserved.</p>
+        </div>
+
+        <div class="footer-logo">
+            <img src="../images/signode-logo.png" alt="">
+        </div>
+    </footer>
+
+</body>
+</html>
+
+

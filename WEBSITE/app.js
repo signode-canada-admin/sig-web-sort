@@ -75,14 +75,14 @@ app.use(express.static(db.surrey.pdfdb));
 app.use(express.static(db.glenview.pdfdb));
 
 
-// ********************* Load data from all three locations when we're on the main page ********************** //
+// ********************* Home page and main search ********************** //
 // Main Page
-// Just shows search bar with the 3 buttons
+// initially only displays search bar and location buttons
 app.get("/", (req, res) => {
     res.render("index", {title: "Main Page"});
 })
 
-// Display table
+// once user enters a search, display table
 app.get("/:search=:filter", (req, res) => {
     markham.find({}).toArray().then((marList) => {
         markhamStatus.find({}).toArray().then((marStat => {

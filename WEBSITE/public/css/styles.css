@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    list-style: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body{
+    background: #F6F6F6;
+}
+
+.wrapper{
+    margin-left: 8%;
+    margin-top: 7%;
+    height: 100%;
+}
+
+.home-page-heading{
+    font-size: 90px;
+    font-weight: 450;
+    color: #3F3D56;
+}
+
+
+.home-page-graphic{
+    position: relative;
+    top: 50%;
+    left: 60%;
+    width: 35%;
+}
+
+/************************************ SEARCH BAR *************************************/
+
+/* entire search bar: rounded white rectangle */
+.search-box{
+    width: 70%;
+    height: 94px;
+    background: #fff;
+    border-radius: 50px;
+    margin-top: 40px;
+    display: flex;
+    padding: 10px;
+    box-shadow: 0 10px 10px -10px #b8b7b7;
+}
+
+/* search icon */
+.search-box .fas{
+    position: relative;
+    margin-top: 20px;
+    left: 30px;
+    font-size: 37px;
+    color: #B43C25;
+}
+
+/************************************ LEFT SIDE OF SEARCH BAR: DROPDOWN /*************************************/
+
+/* dropdown region + vertical separator bar */
+.search-box .dropdown{
+    position: relative;
+    width: 35%;
+    margin-left: 40px;
+    color: #686868;
+    cursor: pointer;
+    border-right: 3px solid #dde2f1;
+}
+
+/* displayed text of selected option */
+.search-box .dropdown .default-option{
+    padding-top: 18px;
+    padding-left: 25px;
+    padding-right: 55px;
+    font-size: 28px;
+    user-select: none;
+}
+
+/* dropdown triangle */
+.dropdown-icon{
+    position: absolute;
+    content: "";
+    top: 28px;
+    right: 20px; 
+    border: 15px solid;
+    /* should be 4 triangles put together to make a square, but we make 3 of the triangles transparent */
+    border-color: #B43C25 transparent transparent transparent;
+}
+
+/* dropdown options: white rectangle */
+.search-box .dropdown ul{
+    position: relative;
+    background: #fff;
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 5px;
+    padding: 20px;
+    display: none;
+    font-size: 24px;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px -10px #b8b7b7;
+}
+
+
+/* display all dropdown options when the default dropdown option is clicked */
+.search-box .dropdown ul.active{
+    display: block;
+}
+
+/* spacing between options */
+.search-box .dropdown ul li{
+    padding-bottom: 20px;
+}
+
+/* padding for last option */
+.search-box .dropdown ul li:last-child{
+    padding-bottom: 5px;
+}
+
+/* make text colour darker when hovering over an option */
+.search-box .dropdown ul li:hover{
+    color: #B43C25;
+}
+
+/************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/
+
+.search-box .search-field{
+    position: relative;
+    width: 40%;
+    height: 100%;
+    margin-right: 0px;
+    color: #831414;
+
+}
+
+.search-box .search-field .input{
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    font-size: 28px;
+    padding-left: 30px;
+    padding-right: 38px;
+    color: #686868;
+}
+
+::placeholder{
+color: #9F9D9D;
+}
+
+/************************************ SEARCH BUTTON /*************************************/
+
+.search-button {
+    background-color: #B43C25;
+    color: white;
+    width: 17%;
+    height: 65px;
+    position: relative;
+    top: 4px;
+    right: 4px;
+    padding: 10px;
+    border: 0;
+    border-radius: 50px;
+    font-size: 26px;
+    box-shadow: 2px 7px 7px -3px #b8b7b7;
+}
+
+.search-button:hover{
+    background-color: #862f1e;
+    transform: scale(0.97);
+
+    cursor: pointer;
+}
+
+.search-button:active{
+    background-color: #B43C25;
+    cursor: pointer;
+}
+
+
+/************************************ LOCATIONS BUTTONS /*************************************/
+
+/* "search" header */
+.centred-header-4{
+    font-size: 32px;
+    font-weight: 450;
+    color: #B43C25;
+    text-align: center;
+}
+
+/* "locations" header */
+.centred-header-2{
+    font-size: 75px;
+    font-weight: 450;
+    color: #3F3D56;
+    text-align: center;
+}
+
+/* center all location buttons */
+.buttons{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+/* markham button */
+.markham-button{
+    position: relative;
+    height: 300px;
+    width: 22%;
+    margin: 3%;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 10px 10px -5px #b8b7b7;
+    
+    background: url(../images/markham-button.png);
+    background-size: cover;
+    line-height: 100%;
+}
+
+.markham-button:hover{
+    transform: scale(0.98);
+    box-shadow: 0 10px 10px 0px #b8b7b7;
+    cursor: pointer;
+}
+
+.markham-button:active{
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+/* surrey button */
+.surrey-button{
+    position: relative;
+    height: 300px;
+    width: 22%;
+    margin: 3%;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 10px 10px -5px #b8b7b7;
+    
+    background: url(../images/surrey-button.png);
+    background-size: cover;
+    line-height: 100%;
+}
+
+.surrey-button:hover{
+    transform: scale(0.98);
+    box-shadow: 0 10px 10px 0px #b8b7b7;
+    cursor: pointer;
+}
+
+.surrey-button:active{
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+/* glenview button */
+.glenview-button{
+    position: relative;
+    height: 300px;
+    width: 22%;
+    margin: 3%;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 10px 10px -5px #b8b7b7;
+    
+    background: url(../images/glenview-button.png);
+    background-size: cover;
+    line-height: 100%;
+}
+
+.glenview-button:hover{
+    transform: scale(0.98);
+    box-shadow: 0 10px 10px 0px #b8b7b7;
+    cursor: pointer;
+}
+
+.glenview-button:active{
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+/************************************ FOOTER /*************************************/
+
+footer{
+    background-color: #9F9D9D;
+    height: 150px;
+}
+
+.footer-text{
+    color: white;
+    font-size: 28px;
+    margin: auto;
+    padding: 3%;
+    display: inline-block;
+}
+
+.footer-logo{
+    float: right;
+    display: inline-block;
+    padding-top: 2%;
+    padding-right: 4%;
+    height: 50px;
+}

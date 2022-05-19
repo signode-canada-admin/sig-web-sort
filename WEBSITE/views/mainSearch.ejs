@@ -1,9 +1,13 @@
+<!-- displays table for searched on all three locations -->
+
 <%- include("./partials/head.ejs") %>
 
 <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <br />
 <br />
+
+ <!-- ********************* Search bar ********************** -->
 
 <script>
   // code only runs once the page DOM is ready for js to execute
@@ -65,8 +69,9 @@
   </div>
 </div>
 
-<!-- TABLE VISIBLE ONLY WHILE SEARCHING -->
-<!--  -->
+
+ <!-- ********************* Display tables for results from all three locations ********************** -->
+
 <!-- MARKHAM -->
 <table
   class="table-search table-center"
@@ -211,29 +216,34 @@
 </table>
 
 <script>
+    // load () gets information from url and uses it to update search bar display
+    // this function is only called when searching for the first time
   function load() {
-    let words = window.location.href.replaceAll("%20", " ").split(/[/=]/); // array that splits up the url 
+      // get information from url
+      let words = window.location.href.replaceAll("%20", " ").split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
 
-    $(".default_option").text(words[words.length - 1].replaceAll("%20", " ")); // Change dropdown menu to what was picked on the previous page
-    let input = words[words.length - 2];
-    let search = document.getElementById("myInput");
-    search.value = input;
+      // take information from url to update search bar display
+    $(".default_option").text(words[words.length - 1]); // changes the selected option in dropdown to the filter (last element in "words")
+    let input = words[words.length - 2]; // changes input value displayed in search bar
+    document.getElementById("myInput").value = input;
     var target = input.toLowerCase();
     var filter = words[words.length - 1];
 
     loadTable(target,filter,true);
   }
+
+  // gets information from search bar inputs
+  // continuing to search on the same page
   function searchTable(e) {
     let input = document.getElementById("myInput");
     var target = input.value.toLowerCase();
     let filter = $(".default_option").text();
 
     let code = e.keyCode ? e.keyCode : e.which;
-
     loadTable(target,filter,(input.value.length > 0 && (code == 13 || e.button == 0)))
-      
   }
 
+  // loadTable() displays table with results based on the filter and search
   function loadTable(target,filter,search){
     let tableMar = document.getElementById("table-mar");
     let tableSurr = document.getElementById("table-surr");
@@ -255,42 +265,20 @@
     surrtitle.style.display = "";
     glentitle.style.display = "";
 
+    var dropdownOptions = new Array("All","Order#","PO#","Shipping Address","Shipping Carrier","Date","Status");
+
+    // deciding what results to display based on filter
+    // goes through each row in database and decides if it meets criteria of filter
     if(search){
     [mainMar, mainSurr, mainGlen].forEach((main) => {
       for (let i = 0; i < main.rows.length; i++) {
-        var order = -1;
-        var po = -1;
-        var shipTo = -1;
-        var via = -1;
-        var date = -1;
-        var status = -1;
-        if (filter === "Order#" || filter === "All") {
-          order = main.rows[i].cells[0].textContent
-            .toLowerCase()
-            .indexOf(target);
+        var dropdownChoice = new Array(6);
+        for(let j = 1; j < dropdownOptions.length; j++){
+            if(filter === dropdownOptions[j] || filter === dropdownOptions[0]){
+                dropdownChoice[j-1] = main.rows[i].cells[j-1].textContent.toLowerCase().indexOf(target);
+            }
         }
-        if (filter === "PO#" || filter === "All") {
-          po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
-        }
-        if (filter === "Shipping Address" || filter === "All") {
-          shipTo = main.rows[i].cells[2].textContent
-            .toLowerCase()
-            .indexOf(target);
-        }
-        if (filter === "Shipping Carrier" || filter === "All") {
-          via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
-        }
-        if (filter === "Date" || filter === "All") {
-          date = main.rows[i].cells[4].textContent
-            .toLowerCase()
-            .indexOf(target);
-        }
-        if (filter === "Status" || filter == "All") {
-          status = main.rows[i].cells[5].textContent
-            .toLowerCase()
-            .indexOf(target);
-        }
-        if (order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 ) {
+        if (dropdownChoice[0] > -1 || dropdownChoice[1] > -1 || dropdownChoice[2] > -1 || dropdownChoice[3] > -1 || dropdownChoice[4] > -1 || dropdownChoice[5] > -1 ) {
           main.rows[i].style.display = "";
         } else {
           main.rows[i].style.display = "none";
