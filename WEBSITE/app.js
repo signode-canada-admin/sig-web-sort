@@ -76,22 +76,29 @@ app.use(express.static(db.glenview.pdfdb));
 
 
 // ********************* Load data from all three locations when we're on the main page ********************** //
+// Main Page
+// Just shows search bar with the 3 buttons
 app.get("/", (req, res) => {
+    res.render("index", {title: "Main Page"});
+})
+
+// Display table
+app.get("/:search=:filter", (req, res) => {
     markham.find({}).toArray().then((marList) => {
         markhamStatus.find({}).toArray().then((marStat => {
             surrey.find({}).toArray().then((surrList) => {
                 surreyStatus.find({}).toArray().then((surrStat) => {
                     glenview.find({}).toArray().then((glenList) => {
                         glenviewStatus.find({}).toArray().then((glenStat) => {
-                            let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat };
-                            res.render("index", context);
+                            let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat};
+                            res.render("mainSearch", context);
                         })
                     })
                 })
             })
         }))
     })
-})
+});
 
 // EDI paths
 app.get("/edi", (req, res) => {
