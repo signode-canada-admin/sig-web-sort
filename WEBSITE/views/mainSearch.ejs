@@ -34,26 +34,14 @@
   });
 </script>
 
-<script>
-  // As soon as page is loaded call the load function
-  window.onload = function () {
-    load();
-  };
-</script>
-
 <!-- Searchbar -->
 <div class="wrapper">
   <div class="search_box">
     <div class="dropdown">
-      <div class="default_option">All</div>
+      <div class="default_option">Search by...</div>
       <ul>
-        <li>All</li>
-        <li>Order Number</li>
-        <li>PO Number</li>
-        <li>Shipping Address</li>
-        <li>Shipping Carrier</li>
-        <li>Date</li>
-        <li>Status</li>
+        <li>Active orders</li>
+        <li>Archived orders</li>
     </ul>
     </div>
     <div class="search_field">
@@ -61,10 +49,10 @@
         type="text"
         class="input"
         id="myInput"
-        onkeyup="searchTable(event)"
+        onkeyup="replaceTable(event)"
         placeholder="Search"
       />
-      <i class="fas fa-search" onclick="searchTable(event)"></i>
+      <i class="fas fa-search" onclick="replaceTable(event)"></i>
     </div>
   </div>
 </div>
@@ -216,81 +204,66 @@
 </table>
 
 <script>
-    // load () gets information from url and uses it to update search bar display
-    // this function is only called when searching for the first time
-  function load() {
-      // get information from url
-      let words = window.location.href.replaceAll("%20", " ").split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
+    // As soon as page is loaded display the appropriate rows
+    window.onload = function () {
+        let words = window.location.href.replaceAll("%20", " ").split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
 
-      // take information from url to update search bar display
-    let input = words[words.length - 2]; // changes input value displayed in search bar
-    document.getElementById("myInput").value = input;
-    var target = input.toLowerCase();
-    var filter = words[words.length - 1];
-    if(filter === "Search by..."){
-        filter = "All";
-    }
-    $(".default_option").text(filter); // changes the selected option in dropdown to the filter (last element in "words")
+        let filter = words[words.length - 1];
+        let target = words[words.length - 2];
 
+        document.getElementById("myInput").value = target;
+        $(".default_option").text(filter==="Search by..." ? "Active orders" : filter); // changes the selected option in dropdown to the filter (last element in "words")
 
-    loadTable(target,filter,true);
-  }
+        let tableMar = document.getElementById("table-mar");
+        let tableSurr = document.getElementById("table-surr");
+        let tableGlen = document.getElementById("table-glen");
+
+        let mainMar = document.getElementById("mainList-mar");
+        let mainSurr = document.getElementById("mainList-surr");
+        let mainGlen = document.getElementById("mainList-glen");
+
+        let martitle = document.getElementById("mar-title");
+        let surrtitle = document.getElementById("surr-title");
+        let glentitle = document.getElementById("glen-title");
+
+        tableMar.style.display = "";
+        tableSurr.style.display = "";
+        tableGlen.style.display = "";
+
+        martitle.style.display = "";
+        surrtitle.style.display = "";
+        glentitle.style.display = "";
+
+        [mainMar, mainSurr, mainGlen].forEach((main) => {
+            for (let i = 0; i < main.rows.length; i++) {
+                let order = main.rows[i].cells[0].textContent.toLowerCase().indexOf(target);
+                let po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
+                let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
+                let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
+                let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
+                let status = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
+                if (order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 ) {
+                    main.rows[i].style.display = "";
+                } 
+                else {
+                    main.rows[i].style.display = "none";
+                }
+            }
+        });
+    };
 
   // gets information from search bar inputs
   // continuing to search on the same page
-  function searchTable(e) {
+  function replaceTable(e) {
     let input = document.getElementById("myInput");
-    var target = input.value.toLowerCase();
     let filter = $(".default_option").text();
 
     let code = e.keyCode ? e.keyCode : e.which;
-    loadTable(target,filter,(input.value.length > 0 && (code == 13 || e.button == 0)))
+    if((input.value.length > 0 && (code == 13 || e.button == 0))){
+        window.location.replace("/"+input.value+"="+filter);
+    }
   }
 
-  // loadTable() displays table with results based on the filter and search
-  function loadTable(target,filter,search){
-    let tableMar = document.getElementById("table-mar");
-    let tableSurr = document.getElementById("table-surr");
-    let tableGlen = document.getElementById("table-glen");
-
-    let mainMar = document.getElementById("mainList-mar");
-    let mainSurr = document.getElementById("mainList-surr");
-    let mainGlen = document.getElementById("mainList-glen");
-
-    let martitle = document.getElementById("mar-title");
-    let surrtitle = document.getElementById("surr-title");
-    let glentitle = document.getElementById("glen-title");
-
-    tableMar.style.display = "";
-    tableSurr.style.display = "";
-    tableGlen.style.display = "";
-
-    martitle.style.display = "";
-    surrtitle.style.display = "";
-    glentitle.style.display = "";
-
-    var dropdownOptions = new Array("All","Order Number","PO Number","Shipping Address","Shipping Carrier","Date","Status");
-
-    // deciding what results to display based on filter
-    // goes through each row in database and decides if it meets criteria of filter
-    if(search){
-    [mainMar, mainSurr, mainGlen].forEach((main) => {
-      for (let i = 0; i < main.rows.length; i++) {
-        var dropdownChoice = new Array(6);
-        for(let j = 1; j < dropdownOptions.length; j++){
-            if(filter === dropdownOptions[j] || filter === dropdownOptions[0]){
-                dropdownChoice[j-1] = main.rows[i].cells[j-1].textContent.toLowerCase().indexOf(target);
-            }
-        }
-        if (dropdownChoice[0] > -1 || dropdownChoice[1] > -1 || dropdownChoice[2] > -1 || dropdownChoice[3] > -1 || dropdownChoice[4] > -1 || dropdownChoice[5] > -1 ) {
-          main.rows[i].style.display = "";
-        } else {
-          main.rows[i].style.display = "none";
-        }
-      }
-    });
-  }
-}
 </script>
 
 <%- include("./partials/foot.ejs") %>

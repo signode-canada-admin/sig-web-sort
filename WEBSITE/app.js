@@ -84,20 +84,41 @@ app.get("/", (req, res) => {
 
 // once user enters a search, display table
 app.get("/:search=:filter", (req, res) => {
-    markham.find({ "status": { $ne: "Archived" } }).toArray().then((marList) => {
-        markhamStatus.find({}).toArray().then((marStat => {
-            surrey.find({ "status": { $ne: "Archived" } }).toArray().then((surrList) => {
-                surreyStatus.find({}).toArray().then((surrStat) => {
-                    glenview.find({ "status": { $ne: "Archived" } }).toArray().then((glenList) => {
-                        glenviewStatus.find({}).toArray().then((glenStat) => {
-                            let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat};
-                            res.render("mainSearch", context);
+    const filter = req.params.filter
+    // if we are just searching by active orders
+    if(filter === "Search by..." || filter === "Active orders"){
+        markham.find({ "status": { $ne: "Archived" } }).toArray().then((marList) => {
+            markhamStatus.find({}).toArray().then((marStat => {
+                surrey.find({ "status": { $ne: "Archived" } }).toArray().then((surrList) => {
+                    surreyStatus.find({}).toArray().then((surrStat) => {
+                        glenview.find({ "status": { $ne: "Archived" } }).toArray().then((glenList) => {
+                            glenviewStatus.find({}).toArray().then((glenStat) => {
+                                let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat};
+                                res.render("mainSearch", context);
+                            })
                         })
                     })
                 })
-            })
-        }))
-    })
+            }))
+        })
+    }
+    // search by archived orders
+    else{
+        markham.find({}).toArray().then((marList) => {
+            markhamStatus.find({}).toArray().then((marStat => {
+                surrey.find({}).toArray().then((surrList) => {
+                    surreyStatus.find({}).toArray().then((surrStat) => {
+                        glenview.find({}).toArray().then((glenList) => {
+                            glenviewStatus.find({}).toArray().then((glenStat) => {
+                                let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat};
+                                res.render("mainSearch", context);
+                            })
+                        })
+                    })
+                })
+            }))
+        })
+    }
 });
 
 // EDI paths
