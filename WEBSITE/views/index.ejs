@@ -12,13 +12,11 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    
-
 
     <script>
         $(document).ready(function(){ // makes the function available after the document is loaded
             
-            // DROPDOWN EVENT HANDLIGN
+            // DROPDOWN EVENT HANDLING
 
             // when the default dropdown button is clicked, display all dropdown options 
             $(".default-option, .dropdown-icon").click(function(event){
@@ -47,7 +45,7 @@
 
     <!-- ******************************* SEARCH BAR ************************************** -->
     <div class="wrapper">
-        <h1 class="home-page-heading">Search Picktickets</h1>
+        <h1 class="home-page-heading">Search Orders</h1>
         <div class="search-box">
             
             <!-- search icon -->
@@ -74,24 +72,19 @@
 
         </div>
 
-        <!-- person graphic -->
-        <img src="../images/home-page-graphic.svg" class="home-page-graphic" alt="">
-
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-    
+  
+    <br><br><br><br>
     
     <!-- ******************************* LOCATIONS BUTTONS ************************************** -->
     <div class="location-buttons">
-        <h4 class="centred-header-4">Search</h4>
-        <h2 class="centred-header-2">Locations</h2>
-        <br><br><br><br>
+       
         
         <!-- location buttons -->
         <div class="buttons">
             <button class="markham-button" onclick="window.location.href='/markham/allOrders'"></button>
-            <button class="surrey-button" onclick="window.location.href='/surrey/allOrders'"></button>
-            <button class="glenview-button" onclick="window.location.href='/glenview/allOrders'"></button>
+            <button class="markham-button" onclick="window.location.href='/surrey/allOrders'"></button>
+            <button class="markham-button" onclick="window.location.href='/glenview/allOrders'"></button>
         </div>
     </div>
     
@@ -109,7 +102,6 @@
         }
     </script>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br>
 
 
     <!-- ******************************* FOOTER ************************************** -->
@@ -120,7 +112,7 @@
         </div>
 
         <div class="footer-logo">
-            <img src="../images/signode-logo.png" alt="">
+            <img height="60px" src="../images/signode-logo.png" alt="">
         </div>
     </footer>
 
