@@ -72,14 +72,15 @@
 
     </div>
 
+    
+    <!-- ******************************* DISPLAY FILTERS ************************************** -->
+    <!-- all orders, shipped, invoiced, etc. -->
 
     <% if (site.toLowerCase() == "markham") { %>
         <%- include ("./partials/status-Mar.ejs") %>
     <% } else { %>
-        <%- include ("./partials/status-Surr.ejs") %>
+        <%- include ("./partials/status-Surr-Glen.ejs") %>
     <% } %>
-
-
 
 
     <!-- time since printed -->
