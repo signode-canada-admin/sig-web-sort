@@ -1,16 +1,57 @@
-<%- include("./partials/head.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signode Picktickets | <%= title %></title>
+    </title>
 
-<br>
+    <!-- IMPORTS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles-monthly-view.css"/>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
-<h2 style="color:rgb(136,0,0); text-transform: capitalize;"><%= site %> &#8594; <%= status %></h2>    
+<div class="container-fluid">
+
+<!-- ************************************ INDICATE SELECTED LOCATION AND DISPLAY LINKS TO OTHER LOCATION PAGES ************************************* -->
+
+<% if (site.toLowerCase() == "markham") { %>
+    <h3 class="selected-location"><u>Markham</u></h3>
+    <h3> &nbsp &nbsp <u>Surrey</u></h3>
+    <h3> &nbsp &nbsp <u>Glenview</u></h3>
+<% } else if (site.toLowerCase() == "surrey"){ %>
+    <h3><u>Markham</u></h3>
+    <h3 class="selected-location"> &nbsp &nbsp <u>Surrey</u></h3>
+    <h3> &nbsp &nbsp <u>Glenview</u></h3>
+<% } else if (site.toLowerCase() == "glenview"){ %>
+    <h3><u>Markham</u></h3>
+    <h3> &nbsp &nbsp <u>Surrey</u></h3>
+    <h3 class="selected-location"> &nbsp &nbsp <u>Glenview</u></h3>
+<% } %>
 
 
 
-<br>
+<!-- ******************************* SEARCH BAR ************************************** -->
+
+<div class="search-box">
+    
+    <!-- search icon -->
+    <i class="fas fa-search"></i>
+
+    <!-- search field -->
+    <div class="search-field">
+        <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="What are you looking for?">
+    </div>
+
+    <!-- search button -->
+    <button type="button" class="search-button" onclick="myFunction(event)">Search</button>
+
+</div>
 
 
-<input type="text" id="myInput" onkeyup="myFunction(event)" placeholder="Search for Orders, PO, Ship To, Via, Status, Date ..">
 
 <% if (site.toLowerCase() == "markham") { %>
     <%- include ("./partials/status-Mar.ejs") %>
@@ -102,7 +143,7 @@
         target = input.value.toLowerCase();
         main = document.getElementById("mainList");
 
-        if(input.value.length > 0 && code == 13){
+        if(input.value.length > 0 && (code == 13 || e.button == 0)){
 
 
         for (let i=0; i<main.rows.length; i++){

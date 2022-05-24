@@ -207,46 +207,19 @@ color: #9F9D9D;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* surrey button */
 .surrey-button{
     position: relative;
-    height: 300px;
-    width: 22%;
-    margin: 3%;
+    height: 225px;
+    width: 17%;
+    margin: 5%;
     border: none;
     border-radius: 25px;
     box-shadow: 0 10px 10px -5px #b8b7b7;
     
     background: url(../images/surrey-button.png);
     background-size: cover;
+
     line-height: 100%;
 }
 
@@ -264,15 +237,16 @@ color: #9F9D9D;
 /* glenview button */
 .glenview-button{
     position: relative;
-    height: 300px;
-    width: 22%;
-    margin: 3%;
+    height: 225px;
+    width: 17%;
+    margin: 5%;
     border: none;
     border-radius: 25px;
     box-shadow: 0 10px 10px -5px #b8b7b7;
     
     background: url(../images/glenview-button.png);
     background-size: cover;
+
     line-height: 100%;
 }
 
@@ -311,3 +285,5 @@ footer{
     right: 2%;
     overflow: auto;
 }
+
+

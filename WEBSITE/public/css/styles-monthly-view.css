@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    list-style: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body{
+    background: #F6F6F6;
+}
+
+.container-fluid{
+    padding: 5%;
+}
+
+/************************************ SELECTED LOCATION AND LINKS TO OTHER LOCATION PAGES *************************************/
+
+u{
+    text-decoration-thickness: 2px;
+}
+
+h3{
+    font-size: 35px;
+    font-weight: 450;
+    display:inline;
+    color: #3F3D56;
+}
+
+h3:hover{
+    color: #862f1e;
+    cursor: pointer;
+}
+
+.selected-location{
+    color: #B43C25;
+}
+
+.selected-location:hover{
+    color: #862f1e;
+}
+
+
+/************************************ SEARCH BAR *************************************/
+
+/* entire search bar: rounded white rectangle */
+.search-box{
+    width: 70%;
+    height: 70px;
+    background: #fff;
+    border-radius: 50px;
+    margin-top: 30px;
+    display: flex;
+    padding: 10px;
+    box-shadow: 0 10px 10px -10px #b8b7b7;
+}
+
+/* search icon */
+.search-box .fas{
+    position: relative;
+    margin-top: 12px;
+    left: 20px;
+    margin-right: 20px;
+    font-size: 28px;
+    color: #B43C25;
+}
+
+/************************************ SEARCH INPUT /*************************************/
+
+.search-box .search-field{
+    width: 40%;
+    height: 100%;
+    margin-right: 20px;
+    color: #831414;
+}
+
+.search-box .search-field .input{
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    font-size: 23px;
+    padding-left: 30px;
+    padding-right: 38px;
+    color: #686868;
+}
+
+::placeholder{
+color: #9F9D9D;
+}
+
+/************************************ SEARCH BUTTON /*************************************/
+
+.search-button {
+    background-color: #B43C25;
+    color: white;
+    width: 13%;
+    height: 50px;
+    position: relative;
+    border: 0;
+    border-radius: 50px;
+    font-size: 22px;
+    box-shadow: 2px 7px 7px -3px #b8b7b7;
+    margin-left: 480px;
+}
+
+
+.search-button:hover{
+    background-color: #862f1e;
+    transform: scale(0.97);
+    cursor: pointer;
+}
+
+.search-button:active{
+    background-color: #B43C25;
+    cursor: pointer;
+}
+
+
