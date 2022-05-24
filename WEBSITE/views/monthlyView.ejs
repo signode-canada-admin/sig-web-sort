@@ -1,135 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signode Picktickets | <%= title %></title>
-    </title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signode Picktickets | <%= title %></title>
+</title>
 
-    <!-- IMPORTS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles-monthly-view.css"/>
-    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- IMPORTS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/styles-monthly-view.css"/>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+
+<!-- ******************************* NAVIGATION BAR ************************************** -->
+
+<body>
+    <div class="navbar">
+        <a href="#" class = "home"><i class="fa fa-fw fa-home"></i></a>
+        <a href="#" class = "option"> All Orders</a>
+        <a href="#" class = "option"> Printed</a>
+        <a href="#" class = "option"> West</a>
+        <a href="#" class = "option"> East</a>
+        <a href="#" class = "option"> Parts</a>
+        <a href="#" class = "option"> Other</a>
+        <a href="#" class = "option"> Shipped</a>
+        <a href="#" class = "option"> Invoiced</a>
+        <a href="#" class = "option"> Archived</a>
+    </div>
+    
+</body>
+<br><br>
 
 <div class="container-fluid">
 
-<!-- ************************************ INDICATE SELECTED LOCATION AND DISPLAY LINKS TO OTHER LOCATION PAGES ************************************* -->
+    <!-- ************************************ INDICATE SELECTED LOCATION AND DISPLAY LINKS TO OTHER LOCATION PAGES ************************************* -->
 
-<% if (site.toLowerCase() == "markham") { %>
-    <h3 class="selected-location"><u>Markham</u></h3>
-    <h3> &nbsp &nbsp <u>Surrey</u></h3>
-    <h3> &nbsp &nbsp <u>Glenview</u></h3>
-<% } else if (site.toLowerCase() == "surrey"){ %>
-    <h3><u>Markham</u></h3>
-    <h3 class="selected-location"> &nbsp &nbsp <u>Surrey</u></h3>
-    <h3> &nbsp &nbsp <u>Glenview</u></h3>
-<% } else if (site.toLowerCase() == "glenview"){ %>
-    <h3><u>Markham</u></h3>
-    <h3> &nbsp &nbsp <u>Surrey</u></h3>
-    <h3 class="selected-location"> &nbsp &nbsp <u>Glenview</u></h3>
-<% } %>
+    <% if (site.toLowerCase() == "markham") { %>
+        <h3 class="selected-location" onclick="window.location.href='/markham/allOrders'" ><u>Markham</u></h3>
+        <h3 onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
+        <h3 onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+
+    <% } else if (site.toLowerCase() == "surrey"){ %>
+        <h3 onclick="window.location.href='/markham/allOrders'"><u>Markham</u></h3>
+        <h3 class="selected-location" onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
+        <h3 onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+
+    <% } else if (site.toLowerCase() == "glenview"){ %>
+        <h3 onclick="window.location.href='/markham/allOrders'"><u>Markham</u></h3>
+        <h3 onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
+        <h3 class="selected-location" onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+    <% } %>
 
 
 
-<!-- ******************************* SEARCH BAR ************************************** -->
+    <!-- ******************************* SEARCH BAR ************************************** -->
 
-<div class="search-box">
-    
-    <!-- search icon -->
-    <i class="fas fa-search"></i>
+    <div class="search-box">
+        
+        <!-- search icon -->
+        <i class="fas fa-search"></i>
 
-    <!-- search field -->
-    <div class="search-field">
-        <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="What are you looking for?">
+        <!-- search field -->
+        <div class="search-field">
+            <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="What are you looking for?">
+        </div>
+
+        <!-- search button -->
+        <button type="button" class="search-button" onclick="myFunction(event)">Search</button>
+
     </div>
 
-    <!-- search button -->
-    <button type="button" class="search-button" onclick="myFunction(event)">Search</button>
 
-</div>
-
-
-
-<% if (site.toLowerCase() == "markham") { %>
-    <%- include ("./partials/status-Mar.ejs") %>
-<% } else { %>
-    <%- include ("./partials/status-Surr.ejs") %>
-<% } %>
-
-<!-- TEST ONLY -->
+    <% if (site.toLowerCase() == "markham") { %>
+        <%- include ("./partials/status-Mar.ejs") %>
+    <% } else { %>
+        <%- include ("./partials/status-Surr.ejs") %>
+    <% } %>
 
 
 
-<% function timeSince(date) {
 
-    d = new Date()
-    d.setHours(d.getHours() - 4)
+    <!-- time since printed -->
+    <% function timeSince(date) {
 
-    var seconds = Math.floor((d  - date) / 1000);
-  
-    var interval = seconds / 31536000;
-  
-    interval = seconds / 3600;
-    if (interval > 1) {
-      return Math.floor(interval) + " hours";
-    }
+        d = new Date()
+        d.setHours(d.getHours() - 4)
 
-    return "0 hour"
-} %>
+        var seconds = Math.floor((d  - date) / 1000);
+    
+        var interval = seconds / 31536000;
+    
+        interval = seconds / 3600;
+        if (interval > 1) {
+        return Math.floor(interval) + " hours";
+        }
 
-
-<!-- TEST ONLY -->
-
-<table id='my-table' class="table table-sortable">
-
-    <thead>
-        <tr>
-        <th>Order #</th>
-        <th>PO #</th>
-        <th>Ship To</th>
-        <th>Via</th>
-        <th>Date Received</th>
-        <th>Time Since Printed</th>
-        <th>Status</th>
-        </tr>
-    </thead>
-
-    <tbody id="mainList">
+        return "0 hour"
+    } %>
+    <!-- end of time since printed -->
 
 
-        <% if (lst_orders.length != 0) { %>
 
-            <% lst_orders.forEach((order)=>{ %>
+    <!-- ******************************* TABLE THAT DISPLAYS SEARCH RESULTS ************************************** -->
 
-                <tr>
-                    <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
-                    <td><%= order["PO"] %></td>
-                    <td><%= order["shipTo"] %></td>
-                    <td><%= order["via"] %></td>
-                    <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                    <td><%= timeSince(order["dateReceived"]) %></td>
-                    <%- include("./partials/statusUpdates.ejs", { order }) %>
-                </tr>
-                
+    <table id='my-table' class="table table-sortable">
 
-
-            <% }) %>
-        <% } else { %>
+        <!-- table headers -->
+        <thead>
             <tr>
-                <td>NO</td>
-                <td>ORDERS</td>
-                <td>YET</td>
+            <th>Order Number</th>
+            <th>PO Number</th>
+            <th>Shipping Address</th>
+            <th>Shipping Carrier</th>
+            <th>Date Received</th>
+            <th>Time Since Printed</th>
+            <th>Status</th>
             </tr>
-        <% } %>
+        </thead>
+
+        <tbody id="mainList">
+
+            <% if (lst_orders.length != 0) { %>
+
+                <% lst_orders.forEach((order)=>{ %>
+
+                    <tr>
+                        <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
+                        <td><%= order["PO"] %></td>
+                        <td><%= order["shipTo"] %></td>
+                        <td><%= order["via"] %></td>
+                        <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
+                        <td><%= timeSince(order["dateReceived"]) %></td>
+                        <%- include("./partials/statusUpdates.ejs", { order }) %>
+                    </tr>
+                    
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td>NO</td>
+                    <td>ORDERS</td>
+                    <td>YET</td>
+                </tr>
+            <% } %>
 
 
-    </tbody>
+        </tbody>
 
-</table>
-
+    </table>
+</div>
 
 <script>
 
