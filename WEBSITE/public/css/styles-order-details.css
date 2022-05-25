@@ -48,15 +48,16 @@ body {
     border-bottom-color: #b43c25;
 }
 
-/* back button */
-/* .back{
-    
-} */
+.back-button{
+    width: 4%;  
+}
 
 /* home button */
 .home {
+    float: left;
     width: 4%;
     color: #b43c25;
+    padding: 0;
 }
 
 /************************************ LOCATION AND ORDER NUMBER *************************************/
