@@ -1,20 +1,44 @@
-<%- include("./partials/head.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SIG-CI | <%= title %></title>
+        
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+        <link rel="stylesheet" type="text/css" href="/css/styles-404.css"/>
+        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+
+    </head>
+
+    <body>
+
+        <!-- ******************************* NAVIGATION BAR ************************************** -->
+
+        <div class="navbar">
+            <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
+            <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a> 
+        </div> 
+
+        <div class="container">
+        <br><br><br><br><br>
+       
+        <!-- ******************************* TEXT AND IMAGE ************************************** -->
+
+        <h1>Oops!</h1> <br>
+        <h3>We can't seem to find the page you were looking for. Click <a href="/">here</a> to go back home.</h3>
+
+        <br><br><br><br><br><br>
+
+        <img src="/css/404-icon.svg" alt="">
+
+        <br><br><br><br><br><br>
+
+        
+
+    </body>
+</html>
 
 
-<h2 style="color:rgb(136,0,0)">Page not found.</h2>
-
-<br>
-
-
-<p>Click <span style="color:rgb(136,0,0); font-weight:500";">SIGNODE</span> to go to main page</p>
-
-
-
-<%- include("./partials/footnocontainer.ejs") %>
