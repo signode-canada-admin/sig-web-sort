@@ -35,8 +35,12 @@ body {
 }
 
 /* Other options */
-.option {
+.optionMarkham {
     width: 10.66%;
+}
+
+.optionSurrGlen {
+    width: 16%;
 }
 
 /* Navbar links */
