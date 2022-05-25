@@ -1,96 +1,100 @@
-<%- include("./partials/headnocontainer.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIG-CI | <%= title %></title>
+</head>
+<body>
+    
+    <!-- IMPORTS -->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 
-<br>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles-order-details.css"/>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
-<div class="orderDetails-grid">
-    <div class="grid-item">
-        <h2 style="color:rgb(136,0,0); padding-left: 20px; text-transform: capitalize;">
-            <%= site %> &#8594; <%= orderdata._id %> 
-       </h2>
+    <!-- ******************************* NAVIGATION BAR ************************************** -->
+
+    <div class="navbar">
+        <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
+        <a href="/" class = "back"><i class="fa-solid fa-chevron-left"></i></a>
     </div>
-    <div class="grid-item">
-        <h3 style="color:rgb(136,0,0); padding-left: 20px; text-transform: capitalize;">
-            
-        </h3>
-    </div>
-    <div class="sig-center grid-item">
-       
-    </div>                                                                         
-</div>
+
+    <div class="container-fluid">
+    <br>
 
 
-<br>
+    <!-- ******************************* INDICATE LOCATION AND ORDER NUMBER ************************************** -->
+
+        <h2><%= site %> &#8594; <%= orderdata._id %> </h2>
+        <br><br>
 
 
-<table class="table">
+    <!-- ******************************* DISPLAY TABLE ************************************** -->
 
+    <table class="table">
 
-    <thead>
-        <th>Order #</th>
-        <th>PO #</th>
-        <th>Ship To</th>
-        <th>Via</th>
-        <th>Date Received</th>
-        <th>Hours Since Printed</th>
-        <th>Date Shipped</th>
-        <th>Date Invoiced</th>
-        <th>Status</th>
-        <th>Month</th>
-        <th>Original Print</th>
-    </thead>
-    <tbody id="mainList">
+        <!-- table headers -->
+        <thead>
+            <th style="vertical-align: middle">Order Number</th>
+            <th style="vertical-align: middle">PO Number</th>
+            <th style="vertical-align: middle">Shipping Address</th>
+            <th style="vertical-align: middle">Shipping Carrier</th>
+            <th style="vertical-align: middle">Date Received</th>
+            <th style="vertical-align: middle">Hours Since Printed</th>
+            <th style="vertical-align: middle">Date Shipped</th>
+            <th style="vertical-align: middle">Date Invoiced</th>
+            <th style="vertical-align: middle">Status</th>
+            <th style="vertical-align: middle">Month</th>
+            <th style="vertical-align: middle">Original Print</th>
+        </thead>
 
-
-
-
+        <!-- table content -->
+        <tbody id="mainList">
             <tr class="sig-row">
-                <td><%= orderdata._id %></td>
-                <td><%= orderdata["PO"] %></td>
-                <td><%= orderdata["shipTo"] %></td>
-                <td><%= orderdata["via"] %></td>
-                <td><%= orderdata["dateReceived"].toUTCString().slice(0, orderdata["dateReceived"].toString().indexOf("GMT")) %></td>
-                <td><%= Math.round(((new Date() - orderdata["dateReceived"])/36e5)-4) %></td>
-
+                <td style="vertical-align: middle"><%= orderdata._id %></td>
+                <td style="vertical-align: middle"><%= orderdata["PO"] %></td>
+                <td style="vertical-align: middle"><%= orderdata["shipTo"] %></td>
+                <td style="vertical-align: middle"><%= orderdata["via"] %></td>
+                <td style="vertical-align: middle"><%= orderdata["dateReceived"].toUTCString().slice(0, orderdata["dateReceived"].toString().indexOf("GMT")) %></td>
+                <td style="vertical-align: middle"><%= Math.round(((new Date() - orderdata["dateReceived"])/36e5)-4) %></td>
 
                 <% if (orderdata["shippedDate"] !== null) {%>
-                    <td><%= orderdata["shippedDate"].toUTCString().slice(0, orderdata["shippedDate"].toUTCString().indexOf("GMT")) %></td>
+                    <td style="vertical-align: middle"><%= orderdata["shippedDate"].toUTCString().slice(0, orderdata["shippedDate"].toUTCString().indexOf("GMT")) %></td>
                 <% } else { %>
-                    <td>NONE</td>
+                    <td style="vertical-align: middle">NONE</td>
                 <% } %>
 
                 <% if (orderdata["invoicedDate"] !== null) {%>
-                    <td><%= orderdata["invoicedDate"].toUTCString().slice(0, orderdata["invoicedDate"].toString().indexOf("GMT")) %></td>
+                    <td style="vertical-align: middle"><%= orderdata["invoicedDate"].toUTCString().slice(0, orderdata["invoicedDate"].toString().indexOf("GMT")) %></td>
                 <% } else { %>
-                    <td>NONE</td>
+                    <td style="vertical-align: middle">NONE</td>
                 <% } %>
 
-                <td class="stat"><%= orderdata["status"] %></td>
-                <td><%= orderdata["month"] %></td>
-                <td><%= orderdata["originalPrint"] %></td>
+                <td class="stat" style="vertical-align: middle"><%= orderdata["status"] %></td>
+                <td style="vertical-align: middle"><%= orderdata["month"] %></td>
+                <td style="vertical-align: middle"><%= orderdata["originalPrint"] %></td>
             </tr>
+        </tbody>
+    </table>
+    <br><br>
+
+    <!-- ******************************* ORDER DETAILS PDF ************************************** -->
+
+    <section>
+        <% if((typeof(file) !== 'undefined')) { %>
+            <embed class="sig-pdf" src="<%= file %>">
+        <% } %>
+        <br><br><br><br>
+    </section>
+</body>
 
 
-
-
-
-    </tbody>
-
-</table>
-
-
-<section>
-    <% if((typeof(file) !== 'undefined')) { %>
-        <embed class="sig-pdf" src="<%= file %>">
-    <% } %>
-</section>
-
-
-
-   <!-- <%= orderdata["fileDirectory"] %> -->
-
-
-
+<!-- ******************************* FUNCTIONS TO RETRIEVE DATA ************************************** -->
 
 <script>
     let temp = document.getElementsByClassName("stat");
@@ -116,15 +120,17 @@
             } else {
                 e.classList.add("col-quarantine");
             }
-
     });
 </script>
 
-   
+<!-- ******************************* FOOTER ************************************** -->
 
+<footer>
+    <div class="footer-text">
+        <p>&copy; 2022 Signode Canada. All rights reserved.</p>
+    </div>
 
-
-
-
-
-<%- include("./partials/footnocontainer.ejs") %>
+    <div class="footer-logo">
+        <img height="60px" src="../images/signode-logo.png" alt="">
+    </div>
+</footer>
