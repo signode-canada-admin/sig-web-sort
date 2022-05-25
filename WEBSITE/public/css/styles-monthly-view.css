@@ -22,6 +22,7 @@ body {
 
 .navbar {
     width: 100%;
+    padding: 0%;
     background-color: #ffffff;
     overflow: auto;
     border-bottom: 2px solid #cccaca;
@@ -47,6 +48,8 @@ body {
     color: #3f3d56;
     text-decoration: none;
     font-size: 24px;
+    border-bottom: 2px solid transparent;
+
 }
 
 /* Navbar links on mouse-over */
