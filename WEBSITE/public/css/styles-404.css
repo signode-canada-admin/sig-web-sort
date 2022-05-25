@@ -75,5 +75,13 @@ h3 {
 }
 
 img {
-    width: 55%;
+    width: 60%;
+}
+
+a {
+    color: #b43c25;
+}
+
+a:hover{
+    color: #862f1e;
 }

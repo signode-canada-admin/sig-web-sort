@@ -221,29 +221,3 @@ td{
 }
 
 
-
-/************************************ FOOTER /*************************************/
-
-footer{
-    background-color: #9F9D9D;
-    height: 100px;
-}
-
-.footer-text{
-    position: relative;
-    color: white;
-    font-size: 23px;
-    margin: auto;
-    padding: 35px;
-    display: inline-block;
-    text-align: center;
-}
-
-.footer-logo{
-    position: relative;
-    float: right;
-    top: 20%;
-    right: 2%;
-    overflow: auto;
-}
-
