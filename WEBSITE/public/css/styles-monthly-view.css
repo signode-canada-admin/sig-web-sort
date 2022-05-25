@@ -1,157 +1,247 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  outline: none;
-  list-style: none;
-  font-family: "Quicksand", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    list-style: none;
+    font-family: "Quicksand", sans-serif;
 }
 
 body {
-  background: #f6f6f6;
+    background: #f6f6f6;
 }
 
 /************************************ NAVIGATION BAR *************************************/
 
 .container-fluid {
-  padding-right: 5%;
-  padding-left: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
 }
 
 .navbar {
-  width: 100%;
-  background-color: #ffffff;
-  overflow: auto;
-  border-bottom: 2px solid #cccaca;
+    width: 100%;
+    background-color: #ffffff;
+    overflow: auto;
+    border-bottom: 2px solid #cccaca;
 }
 
 /* Home button */
 .home {
-  width: 4%;
-  color: #b43c25;
+    width: 4%;
+    color: #b43c25;
 }
 
 /* Other options */
 .option {
-  width: 10.66%;
+    width: 10.66%;
 }
 
 /* Navbar links */
 .navbar a {
-  float: left;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: #3f3d56;
-  text-decoration: none;
-  font-size: 24px;
+    float: left;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #3f3d56;
+    text-decoration: none;
+    font-size: 24px;
 }
 
 /* Navbar links on mouse-over */
 .navbar a:hover {
-  background-color: #ededed;
-  color: #b43c25;
-  border-bottom-style: solid;
-  border-bottom-color: #b43c25;
+    background-color: #ededed;
+    color: #b43c25;
+    border-bottom-style: solid;
+    border-bottom-color: #b43c25;
 }
 
 /************************************ SELECTED LOCATION AND LINKS TO OTHER LOCATION PAGES *************************************/
 
 u {
-  text-decoration-thickness: 2px;
+    text-decoration-thickness: 2px;
 }
 
 h3 {
-  font-size: 38px;
-  font-weight: 450;
-  display: inline;
-  color: #3f3d56;
+    font-size: 38px;
+    font-weight: 450;
+    display: inline;
+    color: #3f3d56;
 }
 
 h3:hover {
-  color: #862f1e;
-  cursor: pointer;
+    color: #862f1e;
+    cursor: pointer;
 }
 
 .selected-location {
-  color: #b43c25;
+    color: #b43c25;
 }
 
 .selected-location:hover {
-  color: #862f1e;
+    color: #862f1e;
 }
 
 /************************************ SEARCH BAR *************************************/
 
 /* entire search bar: rounded white rectangle */
 .search-box {
-  width: 70%;
-  height: 70px;
-  background: #fff;
-  border-radius: 50px;
-  margin-top: 30px;
-  display: flex;
-  padding: 10px;
-  box-shadow: 0 10px 10px -10px #b8b7b7;
+    width: 70%;
+    height: 70px;
+    background: #fff;
+    border-radius: 50px;
+    margin-top: 30px;
+    display: flex;
+    padding: 10px;
+    box-shadow: 0 10px 10px -10px #b8b7b7;
 }
 
 /* search icon */
 .search-box .fas {
-  position: relative;
-  margin-top: 12px;
-  left: 20px;
-  margin-right: 20px;
-  font-size: 28px;
-  color: #b43c25;
+    position: relative;
+    margin-top: 12px;
+    left: 20px;
+    margin-right: 20px;
+    font-size: 28px;
+    color: #b43c25;
 }
 
 /************************************ SEARCH INPUT /*************************************/
 
 .search-box .search-field {
-  width: 40%;
-  height: 100%;
-  margin-right: 20px;
-  color: #831414;
+    width: 40%;
+    height: 100%;
+    margin-right: 20px;
+    color: #831414;
 }
 
 .search-box .search-field .input {
-  width: 100%;
-  height: 100%;
-  border: 0px;
-  font-size: 23px;
-  padding-left: 30px;
-  padding-right: 38px;
-  color: #686868;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    font-size: 23px;
+    padding-left: 30px;
+    padding-right: 38px;
+    color: #686868;
 }
 
 ::placeholder {
-  color: #9f9d9d;
+    color: #9f9d9d;
 }
 
 /************************************ SEARCH BUTTON /*************************************/
 
 .search-button {
-  background-color: #b43c25;
-  color: white;
-  width: 13%;
-  height: 50px;
-  position: relative;
-  border: 0;
-  border-radius: 50px;
-  font-size: 22px;
-  box-shadow: 2px 7px 7px -3px #b8b7b7;
-  margin-left: 480px;
+    background-color: #b43c25;
+    color: white;
+    width: 13%;
+    height: 50px;
+    position: relative;
+    border: 0;
+    border-radius: 50px;
+    font-size: 22px;
+    box-shadow: 2px 7px 7px -3px #b8b7b7;
+    margin-left: 480px;
 }
 
 .search-button:hover {
-  background-color: #862f1e;
-  transform: scale(0.97);
-  cursor: pointer;
+    background-color: #862f1e;
+    transform: scale(0.97);
+    cursor: pointer;
 }
 
 .search-button:active {
-  background-color: #b43c25;
-  cursor: pointer;
+    background-color: #b43c25;
+    cursor: pointer;
 }
+
+
+/************************************ TABLE /*************************************/
+
+/* center text in table */
+table{
+    text-align: center;
+}
+
+/* rounded corners of table */
+th:first-of-type {
+    border-top-left-radius: 15px;
+}
+th:last-of-type {
+    border-top-right-radius: 15px;
+}
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 15px;
+}
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 15px;
+}
+
+/* header */
+thead{
+    background-color: #b43c25;
+    color: white;
+    font-size: 22px;
+}
+
+/* rows */
+tbody{
+    background-color: white; 
+    font-size: 22px;
+}
+
+tbody tr:hover{
+    background-color: #f6f6f6;
+}
+
+/* make table headers not bolded */
+th{
+    font-weight: normal;
+}
+
+
+td{
+    padding: 20px;
+}
+
+.sig-links{
+    color: #b43c25;
+}
+
+.sig-links:hover{
+    color: #862f1e;
+}
+
+
+.padding{
+    vertical-align: middle;
+}
+
+
+
+/************************************ FOOTER /*************************************/
+
+footer{
+    background-color: #9F9D9D;
+    height: 100px;
+}
+
+.footer-text{
+    position: relative;
+    color: white;
+    font-size: 23px;
+    margin: auto;
+    padding: 35px;
+    display: inline-block;
+    text-align: center;
+}
+
+.footer-logo{
+    position: relative;
+    float: right;
+    top: 20%;
+    right: 2%;
+    overflow: auto;
+}
+

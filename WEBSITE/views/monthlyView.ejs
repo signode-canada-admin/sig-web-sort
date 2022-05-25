@@ -16,22 +16,33 @@
 
 <!-- ******************************* NAVIGATION BAR ************************************** -->
 
-<body>
+<% if (site.toLowerCase() == "markham") { %>
     <div class="navbar">
-        <a href="#" class = "home"><i class="fa fa-fw fa-home"></i></a>
-        <a href="#" class = "option"> All Orders</a>
-        <a href="#" class = "option"> Printed</a>
-        <a href="#" class = "option"> West</a>
-        <a href="#" class = "option"> East</a>
-        <a href="#" class = "option"> Parts</a>
-        <a href="#" class = "option"> Other</a>
-        <a href="#" class = "option"> Shipped</a>
-        <a href="#" class = "option"> Invoiced</a>
-        <a href="#" class = "option"> Archived</a>
+        <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
+        <a href="/<%= site %>/allOrders" class = "option"> All Orders</a>
+        <a href="/<%= site %>/allOrders/Printed" class = "option"> Printed</a>
+        <a href="/<%= site %>/allOrders/West" class = "option"> West</a>
+        <a href="/<%= site %>/allOrders/East" class = "option"> East</a>
+        <a href="/<%= site %>/allOrders/Parts" class = "option"> Parts</a>
+        <a href="/<%= site %>/allOrders/Other" class = "option"> Other</a>
+        <a href="/<%= site %>/allOrders/Shipped" class = "option"> Shipped</a>
+        <a href="/<%= site %>/allOrders/Invoiced" class = "option"> Invoiced</a>
+        <a href="/<%= site %>/allOrders/Archived" class = "option"> Archived</a>
     </div>
-    
-</body>
+<% } else { %>
+    <div class="navbar">
+        <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
+        <a href="/<%= site %>/allOrders" class = "option"> All Orders</a>
+        <a href="/<%= site %>/allOrders/Printed" class = "option"> Printed</a>
+        <a href="/<%= site %>/allOrders/Other" class = "option"> Other</a>
+        <a href="/<%= site %>/allOrders/Shipped" class = "option"> Shipped</a>
+        <a href="/<%= site %>/allOrders/Invoiced" class = "option"> Invoiced</a>
+        <a href="/<%= site %>/allOrders/Archived" class = "option"> Archived</a>
+    </div>
+<% } %>
+
 <br><br>
+
 
 <div class="container-fluid">
 
@@ -57,6 +68,9 @@
 
     <!-- ******************************* SEARCH BAR ************************************** -->
 
+    <!-- high level logic: putting something in the search bar will call myFunction(), which loads but hides all the orders in the database -->
+    <!-- we then decide what to unhide based on if an order matches our filters/search -->
+
     <div class="search-box">
         
         <!-- search icon -->
@@ -64,23 +78,15 @@
 
         <!-- search field -->
         <div class="search-field">
-            <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="What are you looking for?">
+            <input type="text" size="50" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="What are you looking for?">
         </div>
 
         <!-- search button -->
         <button type="button" class="search-button" onclick="myFunction(event)">Search</button>
 
     </div>
+    <br><br>
 
-    
-    <!-- ******************************* DISPLAY FILTERS ************************************** -->
-    <!-- all orders, shipped, invoiced, etc. -->
-
-    <% if (site.toLowerCase() == "markham") { %>
-        <%- include ("./partials/status-Mar.ejs") %>
-    <% } else { %>
-        <%- include ("./partials/status-Surr-Glen.ejs") %>
-    <% } %>
 
 
     <!-- time since printed -->
@@ -103,7 +109,6 @@
     <!-- end of time since printed -->
 
 
-
     <!-- ******************************* TABLE THAT DISPLAYS SEARCH RESULTS ************************************** -->
 
     <table id='my-table' class="table table-sortable">
@@ -111,64 +116,73 @@
         <!-- table headers -->
         <thead>
             <tr>
-            <th>Order Number</th>
-            <th>PO Number</th>
-            <th>Shipping Address</th>
-            <th>Shipping Carrier</th>
-            <th>Date Received</th>
-            <th>Time Since Printed</th>
-            <th>Status</th>
+                <th style="vertical-align: middle">Order Number</th>
+                <th style="vertical-align: middle">PO Number</th>
+                <th style="vertical-align: middle">Shipping Address</th>
+                <th style="vertical-align: middle">Shipping Carrier</th>
+                <th style="vertical-align: middle">Date Received</th>
+                <th style="vertical-align: middle">Time Since Printed</th>
+                <th style="vertical-align: middle">Status</th>
             </tr>
         </thead>
 
+        <!-- rows with data -->
         <tbody id="mainList">
-
+            <!-- we are passed a list of all the orders from app.js -->
+            <!-- each order is essentially an object -->
+            <!-- we cycle through the objects and print all the properties (PO, shipping address, date, etc.) of each object -->
             <% if (lst_orders.length != 0) { %>
-
                 <% lst_orders.forEach((order)=>{ %>
 
                     <tr>
-                        <td class='sig-order'><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
-                        <td><%= order["PO"] %></td>
-                        <td><%= order["shipTo"] %></td>
-                        <td><%= order["via"] %></td>
-                        <td><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td><%= timeSince(order["dateReceived"]) %></td>
+                        <td class='sig-order' style="vertical-align: middle"><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
+                        <td style="vertical-align: middle"><%= order["PO"] %></td>
+                        <td style="vertical-align: middle"><%= order["shipTo"] %></td>
+                        <td style="vertical-align: middle"><%= order["via"] %></td>
+                        <td style="vertical-align: middle"><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
+                        <td style="vertical-align: middle"><%= timeSince(order["dateReceived"]) %></td>
                         <%- include("./partials/statusUpdates.ejs", { order }) %>
                     </tr>
                     
                 <% }) %>
-            <% } else { %>
-                <tr>
-                    <td>NO</td>
-                    <td>ORDERS</td>
-                    <td>YET</td>
-                </tr>
             <% } %>
-
 
         </tbody>
 
     </table>
 </div>
+<br><br>
+
+<!-- ******************************* FOOTER ************************************** -->
+
+<footer>
+    <div class="footer-text">
+        <p>&copy; 2022 Signode Canada. All rights reserved.</p>
+    </div>
+
+    <div class="footer-logo">
+        <img height="60px" src="../images/signode-logo.png" alt="">
+    </div>
+</footer>
+
+
+<!-- ******************************* FUNCTIONS TO RETRIEVE DATA ************************************** -->
 
 <script>
-
 
     function myFunction(e) {
         var code = e.keyCode ? e.keyCode : e.which;
         let input, table, main;
 
-
-        input = document.getElementById('myInput');
+        input = document.getElementById('myInput'); // stores the value entered in the search bar
         target = input.value.toLowerCase();
-        main = document.getElementById("mainList");
+        main = document.getElementById("mainList"); // reference (essentially a pointer) to the entire table
 
-        if(input.value.length > 0 && (code == 13 || e.button == 0)){
+        if(input.value.length > 0 && (code == 13 || e.button == 0)){ // if the user types something in the search bar and hits enter
 
+            for (let i=0; i<main.rows.length; i++){
 
-        for (let i=0; i<main.rows.length; i++){
-
+                // load all the data
                 let order = main.rows[i].cells[0].textContent.toLowerCase().indexOf(target);
                 let po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
                 let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
@@ -176,17 +190,12 @@
                 let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
 
                 let status = main.rows[i].cells[6].textContent.toLowerCase().indexOf(target);
-                
 
+                // display data
                 if(order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1){
-
                     main.rows[i].style.display = "";
-
-
                 } else {
-
                     main.rows[i].style.display = "none";
-
                 };
             }
         
@@ -263,6 +272,3 @@
 
 
 </script>
-
-
-<%- include("./partials/foot.ejs") %>
