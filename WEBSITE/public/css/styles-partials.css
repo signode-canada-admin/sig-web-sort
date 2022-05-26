@@ -15,26 +15,19 @@ body {
 
 /************************************ FOOTER /*************************************/
 
-footer{
+#footer{
     background-color: #9F9D9D;
     height: 100px;
     bottom: 0;
 }
 
 .footer-text{
-    position: relative;
     color: white;
     font-size: 23px;
-    margin: auto;
-    padding: 35px;
     display: inline-block;
-    text-align: center;
+    padding: 30px;
 }
 
 .footer-logo{
-    position: relative;
-    float: right;
-    top: 20%;
-    right: 2%;
-    overflow: auto;
-}
+    padding: 20px;
+} 
