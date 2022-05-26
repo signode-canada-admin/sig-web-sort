@@ -71,7 +71,7 @@ h3{
 
 /* entire search bar: rounded white rectangle */
 .search-box {
-    width: 70%;
+    width: 80%;
     height: 70px;
     background: #fff;
     border-radius: 50px;
@@ -97,7 +97,7 @@ h3{
 /* dropdown region + vertical separator bar */
 .search-box .dropdown{
     position: relative;
-    width: 30%;
+    width: 35%;
     margin-left: 20px;
     color: #686868;
     cursor: pointer;
@@ -163,7 +163,7 @@ h3{
 /************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/
 
 .search-box .search-field {
-    width: 70%;
+    width: 60%;
     height: 100%;
     margin-right: 5px;
     color: #831414;

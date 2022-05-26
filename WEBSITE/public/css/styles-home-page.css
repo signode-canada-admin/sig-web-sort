@@ -55,7 +55,7 @@ body{
 /* dropdown region + vertical separator bar */
 .search-box .dropdown{
     position: relative;
-    width: 35%;
+    width: 40%;
     margin-left: 40px;
     color: #686868;
     cursor: pointer;
@@ -120,7 +120,7 @@ body{
 /************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/
 
 .search-box .search-field{
-    width: 60%;
+    width: 50%;
     height: 100%;
     margin-right: 20px;
     color: #831414;
@@ -156,6 +156,8 @@ body{
     font-size: 26px;
     box-shadow: 2px 7px 7px -3px #b8b7b7;
     margin-right: 5px;
+    margin-left: 10px;
+
 }
 
 .search-button:hover{
