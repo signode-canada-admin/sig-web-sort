@@ -118,7 +118,7 @@ h3{
     position: absolute;
     content: "";
     top: 20px;
-    right: 20px; 
+    right: 25px; 
     border: 12px solid;
     /* should be 4 triangles put together to make a square, but we make 3 of the triangles transparent */
     border-color: #B43C25 transparent transparent transparent;
@@ -163,16 +163,14 @@ h3{
 /************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/
 
 .search-box .search-field {
-    width: 40%;
+    width: 70%;
     height: 100%;
-    margin-right: 20px;
+    margin-right: 5px;
     color: #831414;
-    border: 2px solid #292929;
-
 }
 
 .search-box .search-field .input {
-    width: 100%;
+    width: 70%;
     height: 100%;
     border: 0px;
     font-size: 23px;
@@ -192,9 +190,8 @@ h3{
 .search-button {
     background-color: #b43c25;
     color: white;
-    width: 13%;
+    width: 7em;
     height: 50px;
-    position: static;
     border: 0;
     border-radius: 50px;
     font-size: 22px;
