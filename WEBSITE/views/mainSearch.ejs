@@ -1,269 +1,332 @@
-<!-- displays table for searched on all three locations -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Signode Picktickets | <%= title %></title>
+    </head>
 
-<%- include("./partials/header.ejs") %>
+    <!-- IMPORTS -->
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/styles-monthly-view.css" />
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<br />
-<br />
+    
+    <!-- ********************* SEARCH BAR LOGIC ********************** -->
+    
+    <script>
+        // code only runs once the page DOM is ready for js to execute
+        $(document).ready(function () {
+            // When the dropdown menu is clicked
+            $(".default-option").click(function (event) {
+                // Adds the class name "active" to he .dropdown ul class
+                $(".dropdown ul").addClass("active");
+                event.stopPropagation();
+            });
 
- <!-- ********************* Search bar ********************** -->
+            // If you click on one of the dropdown options
+            $(".dropdown ul li").click(function (event) {
+                var text = $(this).text(); //save text from option selected into a text var
+                $(".default-option").text(text); //change the button's text to be the text that was just clicked
+                $(".dropdown ul").removeClass("active"); // dropdown is no longer active aka options are shown
+                event.stopPropagation();
+            });
 
-<script>
-  // code only runs once the page DOM is ready for js to execute
-  $(document).ready(function () {
-    // When the dropdown menu is clicked
-    $(".default_option").click(function (event) {
-      // Adds the class name "active" to he .dropdown ul class
-      $(".dropdown ul").addClass("active");
-      event.stopPropagation();
-    });
+            // If you click outside of the dropdown while dropdown is active close dropdown
+            $(document).on("click", function (event) {
+                $(".dropdown ul").removeClass("active");
+            });
+        });
+    </script>
 
-    // If you click on one of the dropdown options
-    $(".dropdown ul li").click(function (event) {
-      var text = $(this).text(); //save text from option selected into a text var
-      $(".default_option").text(text); //change the button's text to be the text that was just clicked
-      $(".dropdown ul").removeClass("active"); // dropdown is no longer active aka options are shown
-      event.stopPropagation();
-    });
 
-    // If you click outside of the dropdown while dropdown is active close dropdown
-    $(document).on("click", function (event) {
-      $(".dropdown ul").removeClass("active");
-    });
-  });
-</script>
+  <!-- ******************************* NAVIGATION BAR ************************************** -->
 
-<!-- Searchbar -->
-<div class="wrapper">
-  <div class="search_box">
-    <div class="dropdown">
-      <div class="default_option">Search by...</div>
-      <ul>
-        <li>Active orders</li>
-        <li>Archived orders</li>
-    </ul>
-    </div>
-    <div class="search_field">
-      <input
-        type="text"
-        class="input"
-        id="myInput"
-        onkeyup="replaceTable(event)"
-        placeholder="Search"
-      />
-      <i class="fas fa-search" onclick="replaceTable(event)"></i>
+  <div class="navbar">
+    <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
+    <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a> 
+  </div> 
+
+
+  <div class="container-fluid">
+
+  <!-- header -->
+  <br><br>
+  <h1>Search all locations</h1>
+
+
+
+  <!-- ******************************* SEARCH BAR ************************************** -->
+  <div class="wrapper">
+    <div class="search-box">
+        
+        <!-- search icon -->
+        <i class="fas fa-search"></i>
+  
+        <!-- dropdown -->
+        <div class="dropdown">
+            <div class="default-option">Search by...</div>
+                <ul>
+                    <li>Active orders</li>
+                    <li>Archived orders</li>
+                </ul>
+  
+            <div class="dropdown-icon"></div>
+        </div>
+  
+        <!-- search field -->
+        <div class="search-field">
+            <input type="text" class="input" id="myInput" onkeyup="replaceTable(event)" placeholder="What are you looking for?">
+        </div>
+  
+        <!-- search button -->
+        <button type="button" class="search-button" onclick="replaceTable(event)">Search</button>
+  
     </div>
   </div>
-</div>
+
+  <br><br><br><br>
 
 
- <!-- ********************* Display tables for results from all three locations ********************** -->
+  <!-- ********************* LOAD TABLES WITH RESULTS FROM ALL THREE LOCATIONS ********************** -->
 
-<!-- MARKHAM -->
-<table
-  class="table-search table-center"
-  id="table-mar"
-  style="display: none; width: 100%"
->
-  <h5 style="color: rgb(136, 0, 0); display: none" id="mar-title">Markham</h5>
-  <thead>
-    <th>Order #</th>
-    <th>PO #</th>
-    <th>Ship To</th>
-    <th>Via</th>
-    <th>Date Received</th>
-    <th>Status</th>
-  </thead>
-  <tbody id="mainList-mar">
-    <% if (marList.length != 0) { %> <% marList.forEach((order)=>{ %>
+  <!-- MARKHAM -->
+  <table
+      id="table-mar"
+      style="display: none; width: 100%"
+  >
+  
+      <h3 style="display: none" id="mar-title">Markham</h5>
+      
+      <!-- table headers -->
+      <thead>
+          <th>Order Number</th>
+          <th>PO Number</th>
+          <th>Shipping Address</th>
+          <th>Shipping Carrier</th>
+          <th>Date Received</th>
+          <th>Status</th>
+      </thead>
 
-    <tr>
-      <td class="sig-order">
-        <a class="sig-links" href="/orders/<%= order._id %>"
-          ><%= order._id %></a
-        >
-      </td>
-      <td><%= order["PO"] %></td>
-      <td><%= order["shipTo"] %></td>
-      <td><%= order["via"] %></td>
-      <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
-      </td>
-      <td>
-        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
-        {lst_status: marStat, order}) %>
-      </td>
-    </tr>
+      <!-- table content -->
+      <tbody id="mainList-mar">
+          <% if (marList.length != 0) { %> 
+              <% marList.forEach((order)=>{ %>
 
-    <% }) %> <% } else { %>
-    <tr>
-      <td>NO</td>
-      <td>ORDERS</td>
-      <td>FOUND</td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
+              <tr>
+                  <td>
+                      <a href="/orders/<%= order._id %>"><%= order._id %></a>
+                  </td>
+                  <td><%= order["PO"] %></td>
+                  <td><%= order["shipTo"] %></td>
+                  <td><%= order["via"] %></td>
+                  <td>
+                      <%= order["dateReceived"].toUTCString().slice(4,
+                      order["dateReceived"].toUTCString().indexOf("GMT")) %>
+                  </td>
+                  <td>
+                      <%= order["status"] %> <%-
+                      include("./partials/searchStaged.ejs", {lst_status: marStat,
+                      order}) %>
+                  </td>
+              </tr>
 
-<!-- SURREY -->
-<table
-  class="table-search table-center"
+          <% }) %> <% } %>
+              
+      </tbody>
+  </table>
+  <br><br><br><br>
+
+
+  <!-- SURREY -->
+  <table
   id="table-surr"
   style="display: none; width: 100%"
->
-  <h5 style="color: rgb(136, 0, 0); display: none" id="surr-title">Surrey</h5>
+  >
 
+  <h3 style="display: none" id="surr-title">Surrey</h5>
+
+  <!-- table headers -->
   <thead>
-    <th>Order #</th>
-    <th>PO #</th>
-    <th>Ship To</th>
-    <th>Via</th>
-    <th>Date Received</th>
-    <th>Status</th>
+      <th>Order Number</th>
+      <th>PO Number</th>
+      <th>Shipping Address</th>
+      <th>Shipping Carrier</th>
+      <th>Date Received</th>
+      <th>Status</th>
   </thead>
+
+  <!-- table content -->
   <tbody id="mainList-surr">
-    <% if (surrList.length != 0) { %> <% surrList.forEach((order)=>{ %>
+      <% if (surrList.length != 0) { %> 
+          <% surrList.forEach((order)=>{ %>
 
-    <tr>
-      <td class="sig-order">
-        <a class="sig-links" href="/orders/<%= order._id %>"
-          ><%= order._id %></a
-        >
-      </td>
-      <td><%= order["PO"] %></td>
-      <td><%= order["shipTo"] %></td>
-      <td><%= order["via"] %></td>
-      <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
-      </td>
-      <td>
-        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
-        {lst_status: surrStat, order}) %>
-      </td>
-    </tr>
+          <tr>
+              <td>
+                  <a href="/orders/<%= order._id %>"><%= order._id %></a>
+              </td>
+              <td><%= order["PO"] %></td>
+              <td><%= order["shipTo"] %></td>
+              <td><%= order["via"] %></td>
+              <td>
+                  <%= order["dateReceived"].toUTCString().slice(4,
+                  order["dateReceived"].toUTCString().indexOf("GMT")) %>
+              </td>
+              <td>
+                  <%= order["status"] %> <%-
+                  include("./partials/searchStaged.ejs", {lst_status: surrStat,
+                  order}) %>
+              </td>
+          </tr>
 
-    <% }) %> <% } else { %>
-    <tr>
-      <td>NO</td>
-      <td>ORDERS</td>
-      <td>FOUND</td>
-    </tr>
-    <% } %>
+      <% }) %> <% } %>
+          
   </tbody>
-</table>
+  </table> 
+  <br><br><br><br>
 
-<!-- GLENVIEW -->
-<table
-  class="table-search table-center"
+
+  <!-- GLENVIEW -->
+  <table
   id="table-glen"
   style="display: none; width: 100%"
->
-  <h5 style="color: rgb(136, 0, 0); display: none" id="glen-title">Glenview</h5>
+  >
 
+  <h3 style="display: none" id="glen-title">Glenview</h5>
+
+  <!-- table headers -->
   <thead>
-    <th>Order #</th>
-    <th>PO #</th>
-    <th>Ship To</th>
-    <th>Via</th>
-    <th>Date Received</th>
-    <th>Status</th>
+      <th>Order Number</th>
+      <th>PO Number</th>
+      <th>Shipping Address</th>
+      <th>Shipping Carrier</th>
+      <th>Date Received</th>
+      <th>Status</th>
   </thead>
+
+  <!-- table content -->
   <tbody id="mainList-glen">
-    <% if (glenList.length != 0) { %> <% glenList.forEach((order)=>{ %>
+      <% if (glenList.length != 0) { %> 
+          <% glenList.forEach((order)=>{ %>
 
-    <tr>
-      <td class="sig-order">
-        <a class="sig-links" href="/orders/<%= order._id %>"
-          ><%= order._id %></a
-        >
-      </td>
-      <td><%= order["PO"] %></td>
-      <td><%= order["shipTo"] %></td>
-      <td><%= order["via"] %></td>
-      <td>
-        <%= order["dateReceived"].toUTCString().slice(4,
-        order["dateReceived"].toUTCString().indexOf("GMT")) %>
-      </td>
-      <td>
-        <%= order["status"] %> <%- include("./partials/searchStaged.ejs",
-        {lst_status: glenStat, order}) %>
-      </td>
-    </tr>
+          <tr>
+              <td>
+                  <a href="/orders/<%= order._id %>"><%= order._id %></a>
+              </td>
+              <td><%= order["PO"] %></td>
+              <td><%= order["shipTo"] %></td>
+              <td><%= order["via"] %></td>
+              <td>
+                  <%= order["dateReceived"].toUTCString().slice(4,
+                  order["dateReceived"].toUTCString().indexOf("GMT")) %>
+              </td>
+              <td>
+                  <%= order["status"] %> <%-
+                  include("./partials/searchStaged.ejs", {lst_status: glenStat,
+                  order}) %>
+              </td>
+          </tr>
 
-    <% }) %> <% } else { %>
-    <tr>
-      <td>NO</td>
-      <td>ORDERS</td>
-      <td>FOUND</td>
-    </tr>
-    <% } %>
+      <% }) %> <% } %>
+          
   </tbody>
-</table>
+  </table>
+  <br><br><br><br>
 
-<script>
-    // As soon as page is loaded display the appropriate rows
-    window.onload = function () {
-        let words = window.location.href.replaceAll("%20", " ").split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
 
-        let filter = words[words.length - 1];
-        let target = words[words.length - 2];
+  <!-- ******************************* LOGIC FOR DISPLAYING DATA ************************************** -->
+  <!-- high level logic: -->
+  <!-- retrieve tables for the results, but keep them hidden until the page is loaded  -->
 
-        document.getElementById("myInput").value = target;
-        $(".default_option").text(filter==="Search by..." ? "Active orders" : filter); // changes the selected option in dropdown to the filter (last element in "words")
 
-        let tableMar = document.getElementById("table-mar");
-        let tableSurr = document.getElementById("table-surr");
-        let tableGlen = document.getElementById("table-glen");
+  <script>
+      // once the page is loaded, display tables
+      window.onload = function () {
+          let words = window.location.href
+              .replaceAll("%20", " ")
+              .split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
 
-        let mainMar = document.getElementById("mainList-mar");
-        let mainSurr = document.getElementById("mainList-surr");
-        let mainGlen = document.getElementById("mainList-glen");
+          let filter = words[words.length - 1];
+          let target = words[words.length - 2];
 
-        let martitle = document.getElementById("mar-title");
-        let surrtitle = document.getElementById("surr-title");
-        let glentitle = document.getElementById("glen-title");
+          document.getElementById("myInput").value = target;
+          $(".default-option").text(
+              filter === "Search by..." ? "Active orders" : filter
+          ); // changes the selected option in dropdown to the filter (last element in "words")
 
-        tableMar.style.display = "";
-        tableSurr.style.display = "";
-        tableGlen.style.display = "";
+          let tableMar = document.getElementById("table-mar");
+          let tableSurr = document.getElementById("table-surr");
+          let tableGlen = document.getElementById("table-glen");
 
-        martitle.style.display = "";
-        surrtitle.style.display = "";
-        glentitle.style.display = "";
+          let mainMar = document.getElementById("mainList-mar");
+          let mainSurr = document.getElementById("mainList-surr");
+          let mainGlen = document.getElementById("mainList-glen");
 
-        [mainMar, mainSurr, mainGlen].forEach((main) => {
-            for (let i = 0; i < main.rows.length; i++) {
-                let order = main.rows[i].cells[0].textContent.toLowerCase().indexOf(target);
-                let po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
-                let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
-                let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
-                let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
-                let status = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
-                if (order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1 ) {
-                    main.rows[i].style.display = "";
-                } 
-                else {
-                    main.rows[i].style.display = "none";
-                }
-            }
-        });
-    };
+          let martitle = document.getElementById("mar-title");
+          let surrtitle = document.getElementById("surr-title");
+          let glentitle = document.getElementById("glen-title");
 
-  // gets information from search bar inputs
-  // continuing to search on the same page
-  function replaceTable(e) {
-    let input = document.getElementById("myInput");
-    let filter = $(".default_option").text();
+          tableMar.style.display = "";
+          tableSurr.style.display = "";
+          tableGlen.style.display = "";
 
-    let code = e.keyCode ? e.keyCode : e.which;
-    if((input.value.length > 0 && (code == 13 || e.button == 0))){
-        window.location.replace("/"+input.value+"="+filter);
-    }
-  }
+          martitle.style.display = "";
+          surrtitle.style.display = "";
+          glentitle.style.display = "";
 
-</script>
+          [mainMar, mainSurr, mainGlen].forEach((main) => {
+              for (let i = 0; i < main.rows.length; i++) {
+                  let order = main.rows[i].cells[0].textContent
+                      .toLowerCase()
+                      .indexOf(target);
+                  let po = main.rows[i].cells[1].textContent
+                      .toLowerCase()
+                      .indexOf(target);
+                  let shipTo = main.rows[i].cells[2].textContent
+                      .toLowerCase()
+                      .indexOf(target);
+                  let via = main.rows[i].cells[3].textContent
+                      .toLowerCase()
+                      .indexOf(target);
+                  let date = main.rows[i].cells[4].textContent
+                      .toLowerCase()
+                      .indexOf(target);
+                  let status = main.rows[i].cells[5].textContent
+                      .toLowerCase()
+                      .indexOf(target);
+                  if (
+                      order > -1 ||
+                      po > -1 ||
+                      shipTo > -1 ||
+                      via > -1 ||
+                      date > -1 ||
+                      status > -1
+                  ) {
+                      main.rows[i].style.display = "";
+                  } else {
+                      main.rows[i].style.display = "none";
+                  }
+              }
+          });
+      };
 
-<%- include("./partials/footer.ejs") %>
+      // gets information from search bar inputs
+      // continuing to search on the same page
+      function replaceTable(e) {
+          let input = document.getElementById("myInput");
+          let filter = $(".default-option").text();
+
+          let code = e.keyCode ? e.keyCode : e.which;
+          if (input.value.length > 0 && (code == 13 || e.button == 0)) {
+              window.location.replace("/" + input.value + "=" + filter);
+          }
+      }
+  </script>
+
+  <%- include("./partials/footer.ejs") %>
+</html>

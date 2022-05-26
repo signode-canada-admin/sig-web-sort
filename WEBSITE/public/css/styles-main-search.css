@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    list-style: none;
+    font-family: "Quicksand", sans-serif;
+}
+
+body {
+    background: #f6f6f6;
+}
+
+/************************************ NAVIGATION BAR *************************************/
+
+.container-fluid {
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.navbar {
+    width: 100%;
+    padding: 0%;
+    background-color: #ffffff;
+    overflow: auto;
+    border-bottom: 2px solid #cccaca;
+}
+
+/* Home button */
+.home {
+    width: 4%;
+    color: #b43c25;
+}
+
+/* Navbar links */
+.navbar a {
+    float: left;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #3f3d56;
+    text-decoration: none;
+    font-size: 24px;
+    border-bottom: 2px solid transparent;
+}
+
+/* Navbar links on mouse-over */
+.navbar a:hover {
+    background-color: #ededed;
+    color: #b43c25;
+    border-bottom-style: solid;
+    border-bottom-color: #b43c25;
+}
+
+
+/************************************ HEADERS *************************************/
+
+h1 {
+    font-size: 38px;
+    font-weight: 450;
+    color: #862f1e;
+}
+
+h3 {
+    
+}
+

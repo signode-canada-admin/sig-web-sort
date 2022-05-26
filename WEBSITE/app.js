@@ -76,16 +76,18 @@ app.use(express.static(db.glenview.pdfdb));
 
 
 // ********************* Home page and main search ********************** //
-// Main Page
+
+// Home page: call index.ejs
 // initially only displays search bar and location buttons
 app.get("/", (req, res) => {
     res.render("index", {title: "Main Page"});
 })
 
+// Search for all locations: call mainSearch.ejs
 // once user enters a search, display table
 app.get("/:search=:filter", (req, res) => {
     const filter = req.params.filter
-    // if we are just searching by active orders
+    // search active orders
     if(filter === "Search by..." || filter === "Active orders"){
         markham.find({ "status": { $ne: "Archived" } }).toArray().then((marList) => {
             markhamStatus.find({}).toArray().then((marStat => {
@@ -102,7 +104,7 @@ app.get("/:search=:filter", (req, res) => {
             }))
         })
     }
-    // search by archived orders
+    // search archived orders
     else{
         markham.find({}).toArray().then((marList) => {
             markhamStatus.find({}).toArray().then((marStat => {
@@ -139,6 +141,7 @@ app.get("/edi/DONE", (req, res) => {
 
 // ********************* Display All Orders ********************** //
 
+// Search result tables: call monthlyView
 // markham: all orders
 app.get("/markham/allOrders", (req, res) => {
 
