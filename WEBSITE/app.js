@@ -141,7 +141,7 @@ app.get("/edi/DONE", (req, res) => {
 
 // ********************* Display All Orders ********************** //
 
-// Search result tables: call monthlyView
+// Search result tables: call locationSearch
 // markham: all orders
 app.get("/markham/allOrders", (req, res) => {
 
@@ -153,7 +153,7 @@ app.get("/markham/allOrders", (req, res) => {
             const status = "All Orders";
 
             context = { title: site, lst_orders, site, status, lst_status };
-            res.render("monthlyView", context);
+            res.render("locationSearch", context);
 
         })
     });
@@ -171,7 +171,7 @@ app.get("/surrey/allOrders", (req, res) => {
             const status = "All Orders";
 
             context = { title: site, lst_orders, site, status, lst_status };
-            res.render("monthlyView", context);
+            res.render("locationSearch", context);
 
         })
     });
@@ -188,7 +188,7 @@ app.get("/glenview/allOrders", (req, res) => {
             const status = "All Orders";
 
             context = { title: site, lst_orders, site, status, lst_status };
-            res.render("monthlyView", context);
+            res.render("locationSearch", context);
 
         })
     });
@@ -217,7 +217,7 @@ app.get("/markham/allOrders/:status", (req, res) => {
 
                 context = { title: site, lst_orders, status, site, lst_status };
 
-                res.render("monthlyView", context);
+                res.render("locationSearch", context);
             })
         });
     }
@@ -243,7 +243,7 @@ app.get("/surrey/allOrders/:status", (req, res) => {
 
                 context = { title: site, lst_orders, status, site, lst_status };
 
-                res.render("monthlyView", context);
+                res.render("locationSearch", context);
             })
         });
     }
@@ -269,7 +269,7 @@ app.get("/glenview/allOrders/:status", (req, res) => {
 
                 context = { title: site, lst_orders, status, site, lst_status };
 
-                res.render("monthlyView", context);
+                res.render("locationSearch", context);
             })
         });
     }

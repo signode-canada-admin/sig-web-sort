@@ -101,18 +101,19 @@
   <table
       id="table-mar"
       style="display: none; width: 100%"
+      class="table table-sortable"
   >
   
       <h3 style="display: none" id="mar-title">Markham</h5>
       
       <!-- table headers -->
       <thead>
-          <th>Order Number</th>
-          <th>PO Number</th>
-          <th>Shipping Address</th>
-          <th>Shipping Carrier</th>
-          <th>Date Received</th>
-          <th>Status</th>
+          <th style="vertical-align: middle">Order Number</th>
+          <th style="vertical-align: middle">PO Number</th>
+          <th style="vertical-align: middle">Shipping Address</th>
+          <th style="vertical-align: middle">Shipping Carrier</th>
+          <th style="vertical-align: middle">Date Received</th>
+          <th style="vertical-align: middle">Status</th>
       </thead>
 
       <!-- table content -->
@@ -121,17 +122,17 @@
               <% marList.forEach((order)=>{ %>
 
               <tr>
-                  <td>
-                      <a href="/orders/<%= order._id %>"><%= order._id %></a>
+                  <td class='sig-order' style="vertical-align: middle">
+                      <a class='sig-links' href="/orders/<%= order._id %>"><%= order._id %></a>
                   </td>
-                  <td><%= order["PO"] %></td>
-                  <td><%= order["shipTo"] %></td>
-                  <td><%= order["via"] %></td>
-                  <td>
+                  <td style="vertical-align: middle"><%= order["PO"] %></td>
+                  <td style="vertical-align: middle"><%= order["shipTo"] %></td>
+                  <td style="vertical-align: middle"><%= order["via"] %></td>
+                  <td style="vertical-align: middle">
                       <%= order["dateReceived"].toUTCString().slice(4,
                       order["dateReceived"].toUTCString().indexOf("GMT")) %>
                   </td>
-                  <td>
+                  <td style="vertical-align: middle">
                       <%= order["status"] %> <%-
                       include("./partials/searchStaged.ejs", {lst_status: marStat,
                       order}) %>
@@ -170,7 +171,7 @@
 
           <tr>
               <td>
-                  <a href="/orders/<%= order._id %>"><%= order._id %></a>
+                <a class='sig-links' href="/orders/<%= order._id %>"><%= order._id %></a>
               </td>
               <td><%= order["PO"] %></td>
               <td><%= order["shipTo"] %></td>
@@ -218,7 +219,7 @@
 
           <tr>
               <td>
-                  <a href="/orders/<%= order._id %>"><%= order._id %></a>
+                <a class='sig-links' href="/orders/<%= order._id %>"><%= order._id %></a>
               </td>
               <td><%= order["PO"] %></td>
               <td><%= order["shipTo"] %></td>
