@@ -43,6 +43,14 @@ body {
     width: 16%;
 }
 
+.optionMarkham.selected,
+.optionSurrGlen.selected {
+    background-color: #ededed;
+    color: #b43c25;
+    border-bottom-style: solid;
+    border-bottom-color: #b43c25;
+}
+
 /* Navbar links */
 .navbar a {
     float: left;

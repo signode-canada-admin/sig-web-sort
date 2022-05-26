@@ -12,7 +12,7 @@
         rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="/css/styles-monthly-view.css" />
+    <link rel="stylesheet" href="/css/styles-main-search.css" />
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -20,29 +20,30 @@
     <!-- ********************* SEARCH BAR LOGIC ********************** -->
     
     <script>
-        // code only runs once the page DOM is ready for js to execute
-        $(document).ready(function () {
-            // When the dropdown menu is clicked
-            $(".default-option").click(function (event) {
-                // Adds the class name "active" to he .dropdown ul class
-                $(".dropdown ul").addClass("active");
-                event.stopPropagation();
-            });
+      $(document).ready(function(){ // makes the function available after the document is loaded
+          
+          // DROPDOWN EVENT HANDLING
 
-            // If you click on one of the dropdown options
-            $(".dropdown ul li").click(function (event) {
-                var text = $(this).text(); //save text from option selected into a text var
-                $(".default-option").text(text); //change the button's text to be the text that was just clicked
-                $(".dropdown ul").removeClass("active"); // dropdown is no longer active aka options are shown
-                event.stopPropagation();
-            });
+          // when the default dropdown button is clicked, display all dropdown options 
+          $(".default-option, .dropdown-icon").click(function(event){
+              $(".dropdown ul").addClass("active");
+              event.stopPropagation();
+          });
 
-            // If you click outside of the dropdown while dropdown is active close dropdown
-            $(document).on("click", function (event) {
-                $(".dropdown ul").removeClass("active");
-            });
-        });
-    </script>
+          // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
+          $(".dropdown ul li").click(function(event){
+              var text = $(this).text();
+              $(".default-option").text(text);
+              $(".dropdown ul").removeClass("active");
+              event.stopPropagation();
+          });
+
+          $(document).on("click", function (event) {
+              $(".dropdown ul").removeClass("active");
+          });
+      
+      });
+  </script> 
 
 
   <!-- ******************************* NAVIGATION BAR ************************************** -->
@@ -85,12 +86,12 @@
         </div>
   
         <!-- search button -->
-        <button type="button" class="search-button" onclick="replaceTable(event)">Search</button>
+        <button type="button" class="search-button" style="float: right" onclick="replaceTable(event)">Search</button>
   
     </div>
   </div>
 
-  <br><br><br><br>
+  <br><br><br><br><br><br>
 
 
   <!-- ********************* LOAD TABLES WITH RESULTS FROM ALL THREE LOCATIONS ********************** -->
@@ -240,8 +241,7 @@
 
 
   <!-- ******************************* LOGIC FOR DISPLAYING DATA ************************************** -->
-  <!-- high level logic: -->
-  <!-- retrieve tables for the results, but keep them hidden until the page is loaded  -->
+  <!-- high level logic: retrieve tables for the results, but keep them hidden until the page is loaded  -->
 
 
   <script>
@@ -257,7 +257,7 @@
           document.getElementById("myInput").value = target;
           $(".default-option").text(
               filter === "Search by..." ? "Active orders" : filter
-          ); // changes the selected option in dropdown to the filter (last element in "words")
+          ); // changes the selected option in dropdown to the filter (last element in "words" array)
 
           let tableMar = document.getElementById("table-mar");
           let tableSurr = document.getElementById("table-surr");

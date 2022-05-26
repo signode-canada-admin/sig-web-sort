@@ -19,25 +19,30 @@
 <% if (site.toLowerCase() == "markham") { %>
     <div class="navbar">
         <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
-        <a href="/<%= site %>/allOrders" class = "optionMarkham"> All Orders</a>
-        <a href="/<%= site %>/allOrders/Printed" class = "optionMarkham"> Printed</a>
-        <a href="/<%= site %>/allOrders/West" class = "optionMarkham"> West</a>
-        <a href="/<%= site %>/allOrders/East" class = "optionMarkham"> East</a>
-        <a href="/<%= site %>/allOrders/Parts" class = "optionMarkham"> Parts</a>
-        <a href="/<%= site %>/allOrders/Other" class = "optionMarkham"> Other</a>
-        <a href="/<%= site %>/allOrders/Shipped" class = "optionMarkham"> Shipped</a>
-        <a href="/<%= site %>/allOrders/Invoiced" class = "optionMarkham"> Invoiced</a>
-        <a href="/<%= site %>/allOrders/Archived" class = "optionMarkham"> Archived</a>
+        <% let navLinks = ["","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
+        <% let navOptions = ["All Orders","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
+
+        <% for(i = 0; i < navLinks.length; i++){ %>
+            <% if(status == navOptions[i]){ %>
+                <a href="/markham/allOrders/<%= navLinks[i] %>" class = "optionMarkham selected"> <%= navOptions[i] %></a>
+            <% } else { %>
+                <a href="/markham/allOrders/<%= navLinks[i] %>" class = "optionMarkham"> <%= navOptions[i] %></a>
+            <% } %>
+        <% } %>
     </div>
 <% } else { %>
     <div class="navbar">
         <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
-        <a href="/<%= site %>/allOrders" class = "optionSurrGlen"> All Orders</a>
-        <a href="/<%= site %>/allOrders/Printed" class = "optionSurrGlen"> Printed</a>
-        <a href="/<%= site %>/allOrders/Other" class = "optionSurrGlen"> Other</a>
-        <a href="/<%= site %>/allOrders/Shipped" class = "optionSurrGlen"> Shipped</a>
-        <a href="/<%= site %>/allOrders/Invoiced" class = "optionSurrGlen"> Invoiced</a>
-        <a href="/<%= site %>/allOrders/Archived" class = "optionSurrGlen"> Archived</a>
+        <% let navLinks = ["", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
+        <% let navOptions = ["All Orders", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
+
+        <% for(i = 0; i < navLinks.length; i++){ %>
+            <% if(status == navOptions[i]){ %>
+                <a href="/<%= site %>/allOrders/<%= navLinks[i] %>" class = "optionSurrGlen selected"> <%= navOptions[i] %></a>
+            <% } else { %>
+                <a href="/<%= site %>/allOrders/<%= navLinks[i] %>" class = "optionSurrGlen"> <%= navOptions[i] %></a>
+            <% } %>
+        <% } %>
     </div>
 <% } %>
 
@@ -78,7 +83,8 @@
 
         <!-- search field -->
         <div class="search-field">
-            <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="What are you looking for?">
+            <% site = site.replace(site.charAt(0),site.charAt(0).toUpperCase()) %> 
+            <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="Search through <%= status.toLowerCase() %> in <%= site %>">
         </div>
 
         <!-- search button -->

@@ -54,16 +54,225 @@ body {
     border-bottom-color: #b43c25;
 }
 
-
 /************************************ HEADERS *************************************/
 
-h1 {
-    font-size: 38px;
-    font-weight: 450;
+h1{
+    color: #3f3d56;
+    font-size: 50px;
+}
+
+h3{
+    color: #3f3d56;
+    font-size: 35px;
+}
+
+
+/************************************ SEARCH BAR *************************************/
+
+/* entire search bar: rounded white rectangle */
+.search-box {
+    width: 70%;
+    height: 70px;
+    background: #fff;
+    border-radius: 50px;
+    margin-top: 30px;
+    display: flex;
+    padding: 10px;
+    box-shadow: 0 10px 10px -10px #b8b7b7;
+}
+
+/* search icon */
+.search-box .fas {
+    position: relative;
+    margin-top: 12px;
+    left: 20px;
+    margin-right: 20px;
+    font-size: 28px;
+    color: #b43c25;
+}
+
+
+/************************************ LEFT SIDE OF SEARCH BAR: DROPDOWN /*************************************/
+
+/* dropdown region + vertical separator bar */
+.search-box .dropdown{
+    position: relative;
+    width: 30%;
+    margin-left: 20px;
+    color: #686868;
+    cursor: pointer;
+    border-right: 3px solid #dde2f1;
+}
+
+/* displayed text of selected option */
+.search-box .dropdown .default-option{
+    padding-top: 8px;
+    padding-left: 25px;
+    padding-right: 55px;
+    font-size: 23px;
+    user-select: none;
+}
+
+/* dropdown triangle */
+.dropdown-icon{
+    position: absolute;
+    content: "";
+    top: 20px;
+    right: 20px; 
+    border: 12px solid;
+    /* should be 4 triangles put together to make a square, but we make 3 of the triangles transparent */
+    border-color: #B43C25 transparent transparent transparent;
+}
+
+/* dropdown options: white rectangle */
+.search-box .dropdown ul{
+    position: relative;
+    background: #fff;
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 3px;
+    padding: 20px;
+    display: none;
+    font-size: 21px;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px -10px #b8b7b7;
+}
+
+
+/* display all dropdown options when the default dropdown option is clicked */
+.search-box .dropdown ul.active{
+    display: block;
+}
+
+/* spacing between options */
+.search-box .dropdown ul li{
+    padding-bottom: 20px;
+}
+
+/* padding for last option */
+.search-box .dropdown ul li:last-child{
+    padding-bottom: 5px;
+}
+
+/* make text colour darker when hovering over an option */
+.search-box .dropdown ul li:hover{
+    color: #B43C25;
+}
+
+
+/************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/
+
+.search-box .search-field {
+    width: 40%;
+    height: 100%;
+    margin-right: 20px;
+    color: #831414;
+    border: 2px solid #292929;
+
+}
+
+.search-box .search-field .input {
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    font-size: 23px;
+    padding-left: 30px;
+    padding-right: 38px;
+    color: #686868;
+    
+}
+
+::placeholder {
+    color: #9f9d9d;
+}
+
+
+/************************************ SEARCH BUTTON /*************************************/
+
+.search-button {
+    background-color: #b43c25;
+    color: white;
+    width: 13%;
+    height: 50px;
+    position: static;
+    border: 0;
+    border-radius: 50px;
+    font-size: 22px;
+    box-shadow: 2px 7px 7px -3px #b8b7b7;
+}
+
+.search-button:hover {
+    background-color: #862f1e;
+    transform: scale(0.97);
+    cursor: pointer;
+}
+
+.search-button:active {
+    background-color: #b43c25;
+    cursor: pointer;
+}
+
+
+
+/************************************ TABLE /*************************************/
+
+/* center text in table */
+table{
+    text-align: center;
+}
+
+/* rounded corners of table */
+th:first-of-type {
+    border-top-left-radius: 15px;
+}
+th:last-of-type {
+    border-top-right-radius: 15px;
+}
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 15px;
+}
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 15px;
+}
+
+/* header */
+thead{
+    background-color: #b43c25;
+    color: white;
+    font-size: 22px;
+}
+
+/* rows */
+tbody{
+    background-color: white; 
+    font-size: 22px;
+}
+
+tbody tr:hover{
+    background-color: #f6f6f6;
+}
+
+/* make table headers not bolded */
+th{
+    font-weight: normal;
+}
+
+
+td{
+    padding: 20px;
+}
+
+.sig-links{
+    color: #b43c25;
+}
+
+.sig-links:hover{
     color: #862f1e;
 }
 
-h3 {
-    
+
+.padding{
+    vertical-align: middle;
 }
+
 
