@@ -12,7 +12,6 @@
 body {
     background: #f6f6f6;
 }
-
 /************************************ NAVIGATION BAR *************************************/
 
 .container-fluid {
@@ -21,14 +20,31 @@ body {
 }
 
 .navbar {
+    position: fixed;
     width: 100%;
     padding: 0%;
     background-color: #ffffff;
     overflow: auto;
     border-bottom: 2px solid #cccaca;
+    float: left;
 }
 
-/* navbar contents */
+/* back button*/
+.back-button{
+    position: relative;
+    width: 4%;
+}
+
+/* Home button */
+.home {
+    position: fixed;
+    width: 4%;
+    color: #b43c25;
+    margin-left: 4%;
+
+}
+
+/* Navbar links */
 .navbar a {
     float: left;
     text-align: center;
@@ -46,18 +62,6 @@ body {
     color: #b43c25;
     border-bottom-style: solid;
     border-bottom-color: #b43c25;
-}
-
-.back-button{
-    width: 4%;  
-}
-
-/* home button */
-.home {
-    float: left;
-    width: 4%;
-    color: #b43c25;
-    padding: 0;
 }
 
 /************************************ LOCATION AND ORDER NUMBER *************************************/

@@ -21,17 +21,28 @@ body {
 }
 
 .navbar {
+    position: fixed;
     width: 100%;
     padding: 0%;
     background-color: #ffffff;
     overflow: auto;
     border-bottom: 2px solid #cccaca;
+    float: left;
+}
+
+/* back button*/
+.back-button{
+    position: relative;
+    width: 4%;
 }
 
 /* Home button */
 .home {
+    position: fixed;
     width: 4%;
     color: #b43c25;
+    margin-left: 4%;
+
 }
 
 /* Navbar links */

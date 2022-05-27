@@ -21,6 +21,7 @@ body {
 }
 
 .navbar {
+    position: fixed;
     width: 100%;
     padding: 0%;
     background-color: #ffffff;
@@ -177,6 +178,10 @@ h3:hover {
 /* center text in table */
 table{
     text-align: center;
+}
+
+#my-table{
+    margin-right: 50px;
 }
 
 /* rounded corners of table */
