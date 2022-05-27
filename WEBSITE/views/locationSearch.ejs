@@ -17,7 +17,7 @@
 <!-- ******************************* NAVIGATION BAR ************************************** -->
 
 <% if (site.toLowerCase() == "markham") { %>
-    <div class="navbar">
+    <div class="navigation-bar">
         <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
         <% let navLinks = ["","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
         <% let navOptions = ["All Orders","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
@@ -31,7 +31,7 @@
         <% } %>
     </div>
 <% } else { %>
-    <div class="navbar">
+    <div class="navigation-bar">
         <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
         <% let navLinks = ["", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
         <% let navOptions = ["All Orders", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
@@ -52,7 +52,6 @@
 <div class="container-fluid">
 
     <!-- ************************************ INDICATE SELECTED LOCATION AND DISPLAY LINKS TO OTHER LOCATION PAGES ************************************* -->
-    <br><br><br>
 
     <% if (site.toLowerCase() == "markham") { %>
         <h3 class="selected-location" onclick="window.location.href='/markham/allOrders'" ><u>Markham</u></h3>

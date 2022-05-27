@@ -18,13 +18,13 @@
 
     <!-- ******************************* NAVIGATION BAR ************************************** -->
 
-    <div class="navbar">
+    <div class="navigation-bar">
         <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
         <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a> 
     </div> 
 
     <div class="container-fluid">
-    <br>
+    <br><br><br><br><br><br>
 
 
     <!-- ******************************* INDICATE LOCATION AND ORDER NUMBER ************************************** -->
@@ -80,18 +80,38 @@
             </tr>
         </tbody>
     </table>
-    <br><br>
+    <br><br><br><br>
 
     <!-- ******************************* ORDER DETAILS PDF ************************************** -->
 
     <section>
         <% if((typeof(file) !== 'undefined')) { %>
-            <embed class="sig-pdf" src="<%= file %>">
+            <!-- if we're displaying the order pickticket pdf -->
+            <% if(file == '404'){ %>
+                <embed class="sig-pdf" src="<%= file %>">
+
+            <!-- if we're displaying an error page -->
+            <% } else { %> 
+                <h1>Oops!</h1> <br>
+                <h3>We can't seem to find the page you were looking for. Click <a href="/">here</a> to go back home.</h3>
+
+                <br><br><br><br><br><br>
+
+                <img src="/css/404-icon.svg" alt="">
+
+                <br><br><br><br><br><br>
+            <% } %>
         <% } %>
+
         <br><br><br><br>
     </section>
     </div>
 </body>
+
+
+<!-- ******************************* FOOTER ************************************** -->
+
+<%- include("./partials/footer.ejs") %>
 
 
 <!-- ******************************* FUNCTIONS TO RETRIEVE DATA ************************************** -->
@@ -124,9 +144,6 @@
 </script>
 
 
-<!-- ******************************* FOOTER ************************************** -->
-
-<%- include("./partials/footer.ejs") %>
 
 
 

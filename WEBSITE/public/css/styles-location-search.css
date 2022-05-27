@@ -20,8 +20,7 @@ body {
     padding-left: 5%;
 }
 
-.navbar {
-    position: fixed;
+.navigation-bar {
     width: 100%;
     padding: 0%;
     background-color: #ffffff;
@@ -53,7 +52,7 @@ body {
 }
 
 /* Navbar links */
-.navbar a {
+.navigation-bar a {
     float: left;
     text-align: center;
     padding-top: 20px;
@@ -65,7 +64,7 @@ body {
 }
 
 /* Navbar links on mouse-over */
-.navbar a:hover {
+.navigation-bar a:hover {
     background-color: #ededed;
     color: #b43c25;
     border-bottom-style: solid;

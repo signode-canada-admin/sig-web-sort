@@ -20,8 +20,7 @@ body {
     padding-left: 5%;
 }
 
-.navbar {
-    position: fixed;
+.navigation-bar {
     width: 100%;
     padding: 0%;
     background-color: #ffffff;
@@ -32,21 +31,17 @@ body {
 
 /* back button*/
 .back-button{
-    position: relative;
     width: 4%;
 }
 
 /* Home button */
 .home {
-    position: fixed;
     width: 4%;
     color: #b43c25;
-    margin-left: 4%;
-
 }
 
 /* Navbar links */
-.navbar a {
+.navigation-bar a {
     float: left;
     text-align: center;
     padding-top: 20px;
@@ -58,7 +53,7 @@ body {
 }
 
 /* Navbar links on mouse-over */
-.navbar a:hover {
+.navigation-bar a:hover {
     background-color: #ededed;
     color: #b43c25;
     border-bottom-style: solid;
