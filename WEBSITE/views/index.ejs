@@ -57,13 +57,15 @@
             <!-- dropdown -->
             <div class="dropdown">
                 <div class="default-option">Search by...</div>
+                
+                <!-- dropdown icon -->
+                <i class="fa-solid fa-caret-down"></i>
+                
+
                 <ul>
                     <li>Active orders</li>
                     <li>Archived orders</li>
                 </ul>
-
-                <!-- dropdown icon -->
-                <i class="fa-solid fa-caret-down"></i>
             </div>
 
             <!-- search field -->
@@ -72,7 +74,9 @@
             </div>
 
             <!-- search button -->
-            <button type="button" class="search-button" onclick="searchTable(event)">Search</button>
+            <div class="search-button-wrapper">
+                <button type="button" class="search-button" onclick="searchTable(event)">Search</button>
+            </div>
 
         </div>
 
