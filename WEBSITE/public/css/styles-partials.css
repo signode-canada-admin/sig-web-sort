@@ -17,17 +17,22 @@ body {
 
 #footer{
     background-color: #9F9D9D;
-    height: 100px;
-    bottom: 0;
+    height: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .footer-text{
     color: white;
-    font-size: 23px;
-    display: inline-block;
-    padding: 30px;
+    font-size: 1.6vw;
+    padding: 1vw;
 }
 
 .footer-logo{
-    padding: 20px;
+    padding: 1vw;
+    width: 19vw;
+    height: auto;
 } 
+

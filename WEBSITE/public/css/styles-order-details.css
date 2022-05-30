@@ -122,11 +122,6 @@ td{
 }
 
 
-.padding{
-    vertical-align: middle;
-}
-
-
 /************************************ PDF /*************************************/
 
 .sig-pdf {
@@ -148,8 +143,8 @@ h3 {
     color: #3F3D56;
 }
 
-img {
-    width: 40%;
+.icon-404 {
+    width: 40vw;
     margin-left: 100px;
 }
 

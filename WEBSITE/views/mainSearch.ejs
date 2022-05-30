@@ -320,7 +320,7 @@
 
         let code = e.keyCode ? e.keyCode : e.which;
         if (input.value.length > 0 && (code == 13 || e.button == 0)) {
-            window.location.href = "/" + input.value + "=" + filter;
+            window.location = "/" + input.value + "=" + filter;
         }
     }
 </script>
