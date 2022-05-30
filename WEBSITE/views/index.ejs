@@ -20,7 +20,7 @@
             // DROPDOWN EVENT HANDLING
 
             // when the default dropdown button is clicked, display all dropdown options 
-            $(".default-option, .dropdown-icon").click(function(event){
+            $(".dropdown, .fa-solid").click(function(event){
                 $(".dropdown ul").addClass("active");
                 event.stopPropagation();
             });
@@ -61,7 +61,6 @@
                 <!-- dropdown icon -->
                 <i class="fa-solid fa-caret-down"></i>
                 
-
                 <ul>
                     <li>Active orders</li>
                     <li>Archived orders</li>

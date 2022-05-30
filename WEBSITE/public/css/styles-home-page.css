@@ -59,7 +59,7 @@ body{
     margin-left: 4vw;
     color: #686868;
     cursor: pointer;
-    border-right: 0.25vw solid #dde2f1;
+    border-right: 0.2vw solid #dde2f1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -82,18 +82,15 @@ body{
 
 /* dropdown options: white rectangle */
 .search-box .dropdown ul{
-    position: relative;
     background: #fff;
     width: 100%;
-    margin-top: 40px;
     border-radius: 5px;
     padding: 20px;
     display: none;
-    font-size: 24px;
+    font-size: 1.25vw;
     border-radius: 20px;
     box-shadow: 0 10px 10px -10px #b8b7b7;
 }
-
 
 /* display all dropdown options when the default dropdown option is clicked */
 .search-box .dropdown ul.active{
@@ -157,7 +154,6 @@ body{
     border-radius: 50px;
     font-size: 1.25vw;
     box-shadow: 2px 7px 7px -3px #b8b7b7;
-    margin-right: 0.25vw;
 
 }
 
