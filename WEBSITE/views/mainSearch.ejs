@@ -18,30 +18,30 @@
     <!-- ********************* SEARCH BAR LOGIC ********************** -->
     
     <script>
-      $(document).ready(function(){ // makes the function available after the document is loaded
-          
-          // DROPDOWN EVENT HANDLING
-
-          // when the default dropdown button is clicked, display all dropdown options 
-          $(".dropdown, .fa-solid").click(function(event){
-                $(".dropdown-options ul").addClass("active");
+        $(document).ready(function(){ // makes the function available after the document is loaded
+            
+            // DROPDOWN EVENT HANDLING
+  
+            // when the default dropdown button is clicked, display all dropdown options 
+            $(".default-option, .dropdown-icon").click(function(event){
+                $(".dropdown ul").addClass("active");
                 event.stopPropagation();
             });
-
+  
             // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
-            $(".dropdown-options ul li").click(function(event){
+            $(".dropdown ul li").click(function(event){
                 var text = $(this).text();
                 $(".default-option").text(text);
-                $(".dropdown-options ul").removeClass("active");
+                $(".dropdown ul").removeClass("active");
                 event.stopPropagation();
             });
-
+  
             $(document).on("click", function (event) {
-                $(".dropdown-options ul").removeClass("active");
+                $(".dropdown ul").removeClass("active");
             });
-      
-      });
-  </script> 
+        
+        });
+    </script> 
 
 
   <!-- ******************************* NAVIGATION BAR ************************************** -->
@@ -79,12 +79,12 @@
 
         <!-- search field -->
         <div class="search-field">
-            <input type="text" class="input" id="myInput" onkeyup="searchTable(event)" placeholder="Search all locations">
+            <input type="text" class="input" id="myInput" onkeyup="replaceTable(event)" placeholder="Search all locations">
         </div>
 
         <!-- search button -->
         <div class="search-button-wrapper">
-            <button type="button" class="search-button" onclick="searchTable(event)">Search</button>
+            <button type="button" class="search-button" onclick="replaceTable(event)">Search</button>
         </div>
 
     </div>
@@ -257,87 +257,72 @@
 
 
   <script>
-      // once the page is loaded, display tables
-      window.onload = function () {
-          let words = window.location.href
-              .replaceAll("%20", " ")
-              .split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
+    // once the page is loaded, display tables
+    window.onload = function () {
+        let words = window.location.href
+            .replaceAll("%20", " ")
+            .split(/[/=]/); // splits up the url into an array of three elements: domain name, search, and filter
 
-          let filter = words[words.length - 1];
-          let target = words[words.length - 2];
+        let filter = words[words.length - 1];
+        let userInput = words[words.length - 2];
 
-          document.getElementById("myInput").value = target;
-          $(".default-option").text(
-              filter === "Search by..." ? "Active orders" : filter
-          ); // changes the selected option in dropdown to the filter (last element in "words" array)
+        document.getElementById("myInput").value = userInput;
+        let target = userInput.toLowerCase();
+        $(".default-option").text(
+            filter === "Search by..." ? "Active orders" : filter
+        ); // changes the selected option in dropdown to the filter (last element in "words" array)
 
-          let tableMar = document.getElementById("table-mar");
-          let tableSurr = document.getElementById("table-surr");
-          let tableGlen = document.getElementById("table-glen");
+        let tableMar = document.getElementById("table-mar");
+        let tableSurr = document.getElementById("table-surr");
+        let tableGlen = document.getElementById("table-glen");
 
-          let mainMar = document.getElementById("mainList-mar");
-          let mainSurr = document.getElementById("mainList-surr");
-          let mainGlen = document.getElementById("mainList-glen");
+        let mainMar = document.getElementById("mainList-mar");
+        let mainSurr = document.getElementById("mainList-surr");
+        let mainGlen = document.getElementById("mainList-glen");
 
-          let martitle = document.getElementById("mar-title");
-          let surrtitle = document.getElementById("surr-title");
-          let glentitle = document.getElementById("glen-title");
+        let martitle = document.getElementById("mar-title");
+        let surrtitle = document.getElementById("surr-title");
+        let glentitle = document.getElementById("glen-title");
 
-          tableMar.style.display = "";
-          tableSurr.style.display = "";
-          tableGlen.style.display = "";
+        tableMar.style.display = "";
+        tableSurr.style.display = "";
+        tableGlen.style.display = "";
 
-          martitle.style.display = "";
-          surrtitle.style.display = "";
-          glentitle.style.display = "";
+        martitle.style.display = "";
+        surrtitle.style.display = "";
+        glentitle.style.display = "";
 
-          [mainMar, mainSurr, mainGlen].forEach((main) => {
-              for (let i = 0; i < main.rows.length; i++) {
-                  let order = main.rows[i].cells[0].textContent
-                      .toLowerCase()
-                      .indexOf(target);
-                  let po = main.rows[i].cells[1].textContent
-                      .toLowerCase()
-                      .indexOf(target);
-                  let shipTo = main.rows[i].cells[2].textContent
-                      .toLowerCase()
-                      .indexOf(target);
-                  let via = main.rows[i].cells[3].textContent
-                      .toLowerCase()
-                      .indexOf(target);
-                  let date = main.rows[i].cells[4].textContent
-                      .toLowerCase()
-                      .indexOf(target);
-                  let status = main.rows[i].cells[5].textContent
-                      .toLowerCase()
-                      .indexOf(target);
-                  if (
-                      order > -1 ||
-                      po > -1 ||
-                      shipTo > -1 ||
-                      via > -1 ||
-                      date > -1 ||
-                      status > -1
-                  ) {
-                      main.rows[i].style.display = "";
-                  } else {
-                      main.rows[i].style.display = "none";
-                  }
-              }
-          });
-      };
+        [mainMar, mainSurr, mainGlen].forEach((main) => {
+            for (let i = 0; i < main.rows.length; i++) {
+                let order = main.rows[i].cells[0].textContent.toLowerCase().indexOf(target);
+                let po = main.rows[i].cells[1].textContent.toLowerCase().indexOf(target);
+                let shipTo = main.rows[i].cells[2].textContent.toLowerCase().indexOf(target);
+                let via = main.rows[i].cells[3].textContent.toLowerCase().indexOf(target);
+                let date = main.rows[i].cells[4].textContent.toLowerCase().indexOf(target);
+                let status = main.rows[i].cells[5].textContent.toLowerCase().indexOf(target);
+                if (order > -1 || po > -1 || shipTo > -1 || via > -1 || date > -1 || status > -1) {
+                    main.rows[i].style.display = "";
+                } else {
+                    main.rows[i].style.display = "none";
+                }
+            }
+        });
+    };
 
-      // gets information from search bar inputs
-      // continuing to search on the same page
-      function replaceTable(e) {
-          let input = document.getElementById("myInput");
-          let filter = $(".default-option").text();
 
-          let code = e.keyCode ? e.keyCode : e.which;
-          if (input.value.length > 0 && (code == 13 || e.button == 0)) {
-              window.location.replace("/" + input.value + "=" + filter);
-          }
-      }
-  </script>
+    window.onunload = function(){};
+
+    // gets information from search bar inputs
+    // continuing to search on the same page
+    function replaceTable(e) {
+        let input = document.getElementById("myInput");
+        let filter = $(".default-option").text();
+
+        let code = e.keyCode ? e.keyCode : e.which;
+        if (input.value.length > 0 && (code == 13 || e.button == 0)) {
+            window.location.href = "/" + input.value + "=" + filter;
+        }
+    }
+</script>
 
 </html>
