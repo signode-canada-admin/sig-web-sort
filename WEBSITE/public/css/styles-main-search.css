@@ -64,37 +64,40 @@ body {
 
 h1{
     color: #3f3d56;
-    font-size: 50px;
+    font-size: 3.35vw;
 }
 
 h3{
     color: #3f3d56;
-    font-size: 35px;
+    font-size: 2vw;
 }
-
 
 /************************************ SEARCH BAR *************************************/
 
-/* entire search bar: rounded white rectangle */
-.search-box {
-    width: 80%;
-    height: 70px;
-    background: #fff;
-    border-radius: 50px;
-    margin-top: 30px;
+.wrapper{
     display: flex;
-    padding: 10px;
+    flex-direction: column;
+}
+
+/* entire search bar: rounded white rectangle */
+.search-box{
+    width: 80vw;
+    height: 4vw;
+    background: #fff;
+    border-radius: 100px;
+    margin-top: 40px;
+    padding: 0.75vw;
     box-shadow: 0 10px 10px -10px #b8b7b7;
+    display: flex;
+    align-items: center;
 }
 
 /* search icon */
-.search-box .fas {
+.search-box .fas{
     position: relative;
-    margin-top: 12px;
-    left: 20px;
-    margin-right: 20px;
-    font-size: 28px;
-    color: #b43c25;
+    left: 1.5vw;
+    font-size: 1.75vw;
+    color: #B43C25;
 }
 
 
@@ -104,117 +107,121 @@ h3{
 .search-box .dropdown{
     position: relative;
     width: 35%;
-    margin-left: 20px;
+    height: 100%;
+    margin-left: 4vw;
     color: #686868;
     cursor: pointer;
-    border-right: 3px solid #dde2f1;
+    border-right: 0.2vw solid #dde2f1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* displayed text of selected option */
 .search-box .dropdown .default-option{
-    padding-top: 8px;
-    padding-left: 25px;
-    padding-right: 55px;
-    font-size: 23px;
+    position: relative;
+    font-size: 1.5vw;
     user-select: none;
 }
 
-/* dropdown triangle */
-.dropdown-icon{
-    position: absolute;
-    content: "";
-    top: 20px;
-    right: 25px; 
-    border: 12px solid;
-    /* should be 4 triangles put together to make a square, but we make 3 of the triangles transparent */
-    border-color: #B43C25 transparent transparent transparent;
+/* dropdown icon */
+.fa-solid{
+    font-size: 2vw;
+    color: #B43C25;
+    justify-self: flex-end;
+    margin-right: 1vw;
 }
 
 /* dropdown options: white rectangle */
-.search-box .dropdown ul{
-    position: relative;
+.dropdown-options ul{
     background: #fff;
-    width: 100%;
-    margin-top: 30px;
-    border-radius: 3px;
-    padding: 20px;
+    width: 26.5vw;
+    margin-left: 5vw;
+    margin-top: 1vw;
+    padding: 1.05vw;
     display: none;
-    font-size: 21px;
-    border-radius: 20px;
+    font-size: 1.3vw;
+    border-radius: 17px;
     box-shadow: 0 10px 10px -10px #b8b7b7;
+    color: #686868;
 }
 
-
 /* display all dropdown options when the default dropdown option is clicked */
-.search-box .dropdown ul.active{
+.dropdown-options ul.active{
     display: block;
 }
 
 /* spacing between options */
-.search-box .dropdown ul li{
-    padding-bottom: 20px;
+.dropdown-options ul li{
+    padding-bottom: 1vw;
 }
 
 /* padding for last option */
-.search-box .dropdown ul li:last-child{
-    padding-bottom: 5px;
+.dropdown-options ul li:last-child{
+    padding-bottom: 0.2vw;
 }
 
 /* make text colour darker when hovering over an option */
-.search-box .dropdown ul li:hover{
+.dropdown-options ul li:hover{
     color: #B43C25;
+    cursor: pointer;
 }
-
 
 /************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/
 
-.search-box .search-field {
-    width: 60%;
+.search-box .search-field{
+    width: 50%;
     height: 100%;
-    margin-right: 5px;
+    margin-right: 20px;
     color: #831414;
+    display: flex;
+    align-items: center;
 }
 
-.search-box .search-field .input {
-    width: 70%;
+.search-box .search-field .input{
+    width: 100%;
     height: 100%;
     border: 0px;
-    font-size: 23px;
+    font-size: 1.5vw;
     padding-left: 30px;
-    padding-right: 38px;
     color: #686868;
-    
 }
 
-::placeholder {
-    color: #9f9d9d;
+::placeholder{
+    color: #9F9D9D;
+    font-size: 1.5vw;
 }
-
 
 /************************************ SEARCH BUTTON /*************************************/
 
-.search-button {
-    background-color: #b43c25;
-    color: white;
-    width: 7em;
-    height: 50px;
-    border: 0;
-    border-radius: 50px;
-    font-size: 22px;
-    box-shadow: 2px 7px 7px -3px #b8b7b7;
+.search-button-wrapper{
+    display: flex;
+    align-items: center;
 }
 
-.search-button:hover {
+.search-button {
+    background-color: #B43C25;
+    color: white;
+    width: 10vw;
+    height: 3vw;
+    position: relative;
+    border: 0;
+    border-radius: 50px;
+    font-size: 1.25vw;
+    box-shadow: 2px 7px 7px -3px #b8b7b7;
+
+}
+
+.search-button:hover{
     background-color: #862f1e;
     transform: scale(0.97);
     cursor: pointer;
 }
 
-.search-button:active {
-    background-color: #b43c25;
+.search-button:active{
+    background-color: #B43C25;
     cursor: pointer;
 }
-
 
 
 /************************************ TABLE /*************************************/

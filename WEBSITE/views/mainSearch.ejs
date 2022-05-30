@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/styles-main-search.css" />
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/065b6a01b6.js"></script>
 
     
     <!-- ********************* SEARCH BAR LOGIC ********************** -->
@@ -22,22 +23,22 @@
           // DROPDOWN EVENT HANDLING
 
           // when the default dropdown button is clicked, display all dropdown options 
-          $(".default-option, .dropdown-icon").click(function(event){
-              $(".dropdown ul").addClass("active");
-              event.stopPropagation();
-          });
+          $(".dropdown, .fa-solid").click(function(event){
+                $(".dropdown-options ul").addClass("active");
+                event.stopPropagation();
+            });
 
-          // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
-          $(".dropdown ul li").click(function(event){
-              var text = $(this).text();
-              $(".default-option").text(text);
-              $(".dropdown ul").removeClass("active");
-              event.stopPropagation();
-          });
+            // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
+            $(".dropdown-options ul li").click(function(event){
+                var text = $(this).text();
+                $(".default-option").text(text);
+                $(".dropdown-options ul").removeClass("active");
+                event.stopPropagation();
+            });
 
-          $(document).on("click", function (event) {
-              $(".dropdown ul").removeClass("active");
-          });
+            $(document).on("click", function (event) {
+                $(".dropdown-options ul").removeClass("active");
+            });
       
       });
   </script> 
@@ -66,32 +67,38 @@
     <div class="search-box">
         
         <!-- search icon -->
-        <i class="fas fa-search"></i>
-  
+        <div><i class="fas fa-search"></i></div>
+
         <!-- dropdown -->
         <div class="dropdown">
             <div class="default-option">Search by...</div>
-                <ul>
-                    <li>Active orders</li>
-                    <li>Archived orders</li>
-                </ul>
-  
-            <div class="dropdown-icon"></div>
+            
+            <!-- dropdown icon -->
+            <i class="fa-solid fa-caret-down"></i>
         </div>
-  
+
         <!-- search field -->
         <div class="search-field">
-            <input type="text" class="input" id="myInput" onkeyup="replaceTable(event)" placeholder="What are you looking for?">
-            
-            <!-- search button -->
-            <button type="button" class="search-button" style="float:right" onclick="replaceTable(event)">Search</button>
-      
+            <input type="text" class="input" id="myInput" onkeyup="searchTable(event)" placeholder="Search all locations">
         </div>
-  
-    </div>
-  </div>
 
-  <br><br><br><br><br><br>
+        <!-- search button -->
+        <div class="search-button-wrapper">
+            <button type="button" class="search-button" onclick="searchTable(event)">Search</button>
+        </div>
+
+    </div>
+
+    <!-- dropdown options -->
+    <div class="dropdown-options">
+        <ul>
+            <li>Active orders</li>
+            <li>Archived orders</li>
+        </ul>
+    </div>
+
+</div><br><br><br>
+
 
 
   <!-- ********************* LOAD TABLES WITH RESULTS FROM ALL THREE LOCATIONS ********************** -->
