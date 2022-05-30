@@ -107,7 +107,7 @@
             let code = e.keyCode ? e.keyCode : e.which;
     
             if (input.value.length > 0 && (code == 13 || e.button == 0)) {
-                window.location.replace("/"+target+"="+filter);
+                window.location.href = "/"+target+"="+filter;
             }
         }
     </script>
