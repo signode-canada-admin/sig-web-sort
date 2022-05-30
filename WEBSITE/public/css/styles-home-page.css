@@ -17,38 +17,37 @@ body{
     margin-top: 5%;
 }
 
-.home-page-heading{
-    font-size: 75px;
-    font-weight: 450;
-    color: #3F3D56;
-    text-align: center;
+.home-logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 28vw;
 }
-
 
 /************************************ SEARCH BAR *************************************/
 
 /* entire search bar: rounded white rectangle */
 .search-box{
     margin: auto;
-    width: 80%;
-    height: 94px;
+    width: 80vw;
+    height: 4vw;
     background: #fff;
-    border-radius: 50px;
+    border-radius: 100px;
     margin-top: 40px;
-    display: flex;
-    padding: 10px;
+    padding: 0.75vw;
     box-shadow: 0 10px 10px -10px #b8b7b7;
+    display: flex;
+    align-items: center;
 }
 
 /* search icon */
 .search-box .fas{
     position: relative;
-    margin-top: 20px;
-    left: 30px;
-    margin-right: 10px;
-    font-size: 37px;
+    left: 2vw;
+    font-size: 2vw;
     color: #B43C25;
 }
+
 
 /************************************ LEFT SIDE OF SEARCH BAR: DROPDOWN /*************************************/
 
@@ -56,30 +55,26 @@ body{
 .search-box .dropdown{
     position: relative;
     width: 40%;
-    margin-left: 40px;
+    height: 100%;
+    margin-left: 5vw;
     color: #686868;
     cursor: pointer;
-    border-right: 3px solid #dde2f1;
+    border-right: 0.25vw solid #dde2f1;
+    display: flex;
+    align-items: center;
 }
 
 /* displayed text of selected option */
 .search-box .dropdown .default-option{
-    padding-top: 16px;
-    padding-left: 25px;
-    /* padding-right: 55px; */
-    font-size: 28px;
+    position: relative;
+    font-size: 1.5vw;
     user-select: none;
 }
 
-/* dropdown triangle */
-.dropdown-icon{
-    position: absolute;
-    content: "";
-    top: 28px;
-    right: 20px; 
-    border: 15px solid;
-    /* should be 4 triangles put together to make a square, but we make 3 of the triangles transparent */
-    border-color: #B43C25 transparent transparent transparent;
+.fa-solid{
+    font-size: 2vw;
+    color: #B43C25;
+    justify-self: flex-end;
 }
 
 /* dropdown options: white rectangle */
@@ -137,8 +132,11 @@ body{
 }
 
 ::placeholder{
-    width: 100%;
     color: #9F9D9D;
+    font-size: 2vw;
+    /* top: 50%; */
+    /* -ms-transform: translateY(-50%);
+    transform: translateY(-50%); */
 }
 
 /************************************ SEARCH BUTTON /*************************************/
@@ -175,20 +173,16 @@ body{
 /************************************ LOCATIONS BUTTONS /*************************************/
 
 /* center all location buttons */
-.buttons{
-    position: relative;
+.location-buttons{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    margin: 10px;
 }
 
 /* markham button */
 .markham-button{
-    position: relative;
-    height: 225px;
-    width: 17%;
-    margin: 5%;
+    width: 20vw;
+    height: 15vw;
     border: none;
     border-radius: 25px;
     box-shadow: 0 10px 10px -5px #b8b7b7;
@@ -196,7 +190,7 @@ body{
     background: url(../images/markham-button.png);
     background-size: cover;
 
-    line-height: 100%;
+    /* line-height: 100%; */
 }
 
 .markham-button:hover{

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/styles-home-page.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/065b6a01b6.js"></script>
 
     <script>
         $(document).ready(function(){ // makes the function available after the document is loaded
@@ -41,25 +42,28 @@
 
 </head>
 
-<body class="d-flex flex-column min-vh-100">
 
+<body>
     <!-- ******************************* SEARCH BAR ************************************** -->
     <div class="wrapper">
-        <h1 class="home-page-heading">Search Orders</h1>
+        <!-- signode logo -->
+        <img class="home-logo" src="./images/signode-logo.png" alt="">
+
         <div class="search-box">
             
             <!-- search icon -->
-            <i class="fas fa-search"></i>
+            <div><i class="fas fa-search"></i></div>
 
             <!-- dropdown -->
             <div class="dropdown">
                 <div class="default-option">Search by...</div>
-                    <ul>
-                        <li>Active orders</li>
-                        <li>Archived orders</li>
-                    </ul>
+                <ul>
+                    <li>Active orders</li>
+                    <li>Archived orders</li>
+                </ul>
 
-                <div class="dropdown-icon"></div>
+                <!-- dropdown icon -->
+                <i class="fa-solid fa-caret-down"></i>
             </div>
 
             <!-- search field -->
@@ -83,8 +87,8 @@
         <!-- location buttons -->
         <div class="buttons">
             <button class="markham-button" onclick="window.location.href='/markham/allOrders'"></button>
-            <button class="surrey-button" onclick="window.location.href='/surrey/allOrders'"></button>
-            <button class="glenview-button" onclick="window.location.href='/glenview/allOrders'"></button>
+            <button class="markham-button" onclick="window.location.href='/surrey/allOrders'"></button>
+            <button class="markham-button" onclick="window.location.href='/glenview/allOrders'"></button>
         </div>
     </div>
     
@@ -101,12 +105,6 @@
             }
         }
     </script>
-
-
-
-    <!-- ******************************* FOOTER ************************************** -->
-
-    <%- include("./partials/footer.ejs") %>
     
 
 </body>
