@@ -15,6 +15,8 @@ body{
 
 .wrapper{
     margin-top: 5%;
+    display: flex;
+    flex-direction: column;
 }
 
 .home-logo{
@@ -81,35 +83,38 @@ body{
 }
 
 /* dropdown options: white rectangle */
-.search-box .dropdown ul{
+.dropdown-options ul{
     background: #fff;
-    width: 100%;
-    border-radius: 5px;
-    padding: 20px;
+    width: 26.5vw;
+    margin-left: 15vw;
+    margin-top: 1vw;
+    padding: 1.05vw;
     display: none;
-    font-size: 1.25vw;
-    border-radius: 20px;
+    font-size: 1.3vw;
+    border-radius: 17px;
     box-shadow: 0 10px 10px -10px #b8b7b7;
+    color: #686868;
 }
 
 /* display all dropdown options when the default dropdown option is clicked */
-.search-box .dropdown ul.active{
+.dropdown-options ul.active{
     display: block;
 }
 
 /* spacing between options */
-.search-box .dropdown ul li{
-    padding-bottom: 20px;
+.dropdown-options ul li{
+    padding-bottom: 1vw;
 }
 
 /* padding for last option */
-.search-box .dropdown ul li:last-child{
-    padding-bottom: 5px;
+.dropdown-options ul li:last-child{
+    padding-bottom: 0.2vw;
 }
 
 /* make text colour darker when hovering over an option */
-.search-box .dropdown ul li:hover{
+.dropdown-options ul li:hover{
     color: #B43C25;
+    cursor: pointer;
 }
 
 /************************************ RIGHT SIDE OF SEARCH BAR: SEARCH INPUT /*************************************/

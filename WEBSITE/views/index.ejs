@@ -21,20 +21,20 @@
 
             // when the default dropdown button is clicked, display all dropdown options 
             $(".dropdown, .fa-solid").click(function(event){
-                $(".dropdown ul").addClass("active");
+                $(".dropdown-options ul").addClass("active");
                 event.stopPropagation();
             });
 
             // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
-            $(".dropdown ul li").click(function(event){
+            $(".dropdown-options ul li").click(function(event){
                 var text = $(this).text();
                 $(".default-option").text(text);
-                $(".dropdown ul").removeClass("active");
+                $(".dropdown-options ul").removeClass("active");
                 event.stopPropagation();
             });
 
             $(document).on("click", function (event) {
-                $(".dropdown ul").removeClass("active");
+                $(".dropdown-options ul").removeClass("active");
             });
         
         });
@@ -42,8 +42,8 @@
 
 </head>
 
-
 <body>
+
     <!-- ******************************* SEARCH BAR ************************************** -->
     <div class="wrapper">
         <!-- signode logo -->
@@ -60,11 +60,6 @@
                 
                 <!-- dropdown icon -->
                 <i class="fa-solid fa-caret-down"></i>
-                
-                <ul>
-                    <li>Active orders</li>
-                    <li>Archived orders</li>
-                </ul>
             </div>
 
             <!-- search field -->
@@ -77,6 +72,14 @@
                 <button type="button" class="search-button" onclick="searchTable(event)">Search</button>
             </div>
 
+        </div>
+
+        <!-- dropdown options -->
+        <div class="dropdown-options">
+            <ul>
+                <li>Active orders</li>
+                <li>Archived orders</li>
+            </ul>
         </div>
 
     </div>
