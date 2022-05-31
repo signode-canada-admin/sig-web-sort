@@ -30,12 +30,18 @@ body{
 
 .navigation-bar {
     width: 100%;
-    height: 95px;
+    height: 3vw;
     background-color: #ffffff;
     overflow: auto;
     border-bottom: 2px solid #cccaca;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-title{
+    font-size: 1vw;
+
 }
 
 /* entire button: icon + text */
@@ -52,7 +58,7 @@ body{
 
 /* "EDI" text */
 .edi-text{
-    font-size: 18px;
+    font-size: 1vw;
     padding: 5px;
     cursor: pointer;
 }
@@ -263,18 +269,14 @@ body{
 
 /* surrey button */
 .surrey-button{
-    position: relative;
-    height: 225px;
-    width: 17%;
-    margin: 5%;
+    width: 15vw;
+    height: 12vw;
     border: none;
     border-radius: 25px;
     box-shadow: 0 10px 10px -5px #b8b7b7;
-    
     background: url(../images/surrey-button.png);
     background-size: cover;
-
-    line-height: 100%;
+    margin: 2vw;
 }
 
 .surrey-button:hover{
@@ -290,18 +292,14 @@ body{
 
 /* glenview button */
 .glenview-button{
-    position: relative;
-    height: 225px;
-    width: 17%;
-    margin: 5%;
+    width: 15vw;
+    height: 12vw;
     border: none;
     border-radius: 25px;
     box-shadow: 0 10px 10px -5px #b8b7b7;
-    
     background: url(../images/glenview-button.png);
     background-size: cover;
-
-    line-height: 100%;
+    margin: 2vw;
 }
 
 .glenview-button:hover{
@@ -314,4 +312,3 @@ body{
     filter: brightness(95%);
     cursor: pointer;
 }
-
