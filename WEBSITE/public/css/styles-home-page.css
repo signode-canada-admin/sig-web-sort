@@ -30,14 +30,34 @@ body{
 
 .navigation-bar {
     width: 100%;
+    height: 95px;
     background-color: #ffffff;
     overflow: auto;
     border-bottom: 2px solid #cccaca;
     display: flex;
+    justify-content: flex-end;
 }
+
+/* entire button: icon + text */
+.edi-button{
+    width: 6%;
+}
+
+/* file icon */
+#edi-icon{
+    font-size: 32px;
+}
+
+/* "EDI" text */
+.edi-text{
+    font-size: 18px;
+    padding: 5px;
+}
+
 
 /* Navbar links */
 .navigation-bar a {
+    float: left;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -48,9 +68,13 @@ body{
 }
 
 /* Navbar links on mouse-over */
-.edi-button:hover {
-    background-color: #b43c25;
+.navigation-bar a:hover {
+    background-color: #ededed;
+    color: #b43c25;
+    border-bottom-style: solid;
+    border-bottom-color: #b43c25;
 }
+
 
 
 /************************************ SEARCH BAR *************************************/
@@ -102,7 +126,7 @@ body{
 }
 
 /* dropdown icon */
-.fa-solid{
+#dropdown-icon {
     font-size: 2vw;
     color: #B43C25;
     justify-self: flex-end;

@@ -10,9 +10,10 @@
     <!-- IMPORTS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/styles-home-page.css">
-    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://kit.fontawesome.com/065b6a01b6.js"></script>
+    <!-- older version of fontawesome for home icon -->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
 
     <script>
         $(document).ready(function(){ // makes the function available after the document is loaded
@@ -47,7 +48,9 @@
     <!-- ******************************* NAVIGATION BAR ************************************** -->
 
     <div class="navigation-bar">
-        <a href=""><button class = "edi-button">EDI</button></a>
+        <a href="/" class="edi-button">
+            <i class="fa-solid fa-file-lines" id="edi-icon"><p class="edi-text">EDI</p></i>
+        </a> 
     </div> <br>
 
 
@@ -66,7 +69,7 @@
                 <div class="default-option">Search by...</div>
                 
                 <!-- dropdown icon -->
-                <i class="fa-solid fa-caret-down"></i>
+                <i class="fa-solid fa-caret-down" id="dropdown-icon"></i>
             </div>
 
             <!-- search field -->
