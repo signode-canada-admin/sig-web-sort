@@ -26,6 +26,33 @@ body{
     width: 28vw;
 }
 
+/************************************ NAVIGATION BAR *************************************/
+
+.navigation-bar {
+    width: 100%;
+    background-color: #ffffff;
+    overflow: auto;
+    border-bottom: 2px solid #cccaca;
+    display: flex;
+}
+
+/* Navbar links */
+.navigation-bar a {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #3f3d56;
+    text-decoration: none;
+    font-size: 24px;
+    border-bottom: 2px solid transparent;
+}
+
+/* Navbar links on mouse-over */
+.edi-button:hover {
+    background-color: #b43c25;
+}
+
+
 /************************************ SEARCH BAR *************************************/
 
 /* entire search bar: rounded white rectangle */
