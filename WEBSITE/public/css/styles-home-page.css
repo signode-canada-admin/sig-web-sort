@@ -41,17 +41,20 @@ body{
 /* entire button: icon + text */
 .edi-button{
     width: 6%;
+    cursor: pointer;
 }
 
 /* file icon */
 #edi-icon{
     font-size: 32px;
+    cursor: pointer;
 }
 
 /* "EDI" text */
 .edi-text{
     font-size: 18px;
     padding: 5px;
+    cursor: pointer;
 }
 
 
@@ -230,22 +233,20 @@ body{
 /* center all location buttons */
 .location-buttons{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 
 /* markham button */
 .markham-button{
-    width: 20vw;
-    height: 15vw;
+    width: 15vw;
+    height: 12vw;
     border: none;
     border-radius: 25px;
     box-shadow: 0 10px 10px -5px #b8b7b7;
-    
     background: url(../images/markham-button.png);
     background-size: cover;
-
-    /* line-height: 100%; */
+    margin: 2vw;
 }
 
 .markham-button:hover{

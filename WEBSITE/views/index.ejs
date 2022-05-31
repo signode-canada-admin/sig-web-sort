@@ -48,8 +48,9 @@
     <!-- ******************************* NAVIGATION BAR ************************************** -->
 
     <div class="navigation-bar">
+        <p>Signode Canada Picktickets</p>
         <a onClick="window.location.href='/edi'" class="edi-button">
-            <i class="fa-solid fa-file-lines" id="edi-icon"><p class="edi-text">EDI</p></i>
+            <i class="fa-solid fa-file-lines" onClick="window.location.href='/edi'" id="edi-icon"><p class="edi-text" onClick="window.location.href='/edi'">EDI</p></i>
         </a> 
     </div> <br>
 
@@ -94,18 +95,13 @@
 
     </div>
   
-    <br><br><br><br>
+    <br><br>
     
     <!-- ******************************* LOCATIONS BUTTONS ************************************** -->
     <div class="location-buttons">
-       
-        
-        <!-- location buttons -->
-        <div class="buttons">
-            <button class="markham-button" onclick="window.location.href='/markham/allOrders'"></button>
-            <button class="markham-button" onclick="window.location.href='/surrey/allOrders'"></button>
-            <button class="markham-button" onclick="window.location.href='/glenview/allOrders'"></button>
-        </div>
+        <button class="markham-button" onclick="window.location.href='/markham/allOrders'"></button>
+        <button class="markham-button" onclick="window.location.href='/surrey/allOrders'"></button>
+        <button class="markham-button" onclick="window.location.href='/glenview/allOrders'"></button>
     </div>
     
     <!-- changes url to match search input -->
