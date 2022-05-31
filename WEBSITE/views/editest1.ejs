@@ -1,16 +1,32 @@
-<%- include("./partials/head.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signode Picktickets
+    </title>
 
+    <!-- IMPORTS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles-edi.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/065b6a01b6.js"></script>
+    <!-- older version of fontawesome for home icon -->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+
+</head>
+
+
+<body>
     <div onmousemove="updateSXPOlist()" style="max-width: 90%; margin: 20px auto 20px auto;">
     <br>
 
-    <img
-    style='margin: 10px 10px 15px 10px'
-    src="/images/monitor-screen.png"
-    alt="SIGNODE LOGO GOES HERE"
-    height="38px"
-    width="38px"
-    />
-    <h2 style="color:rgb(136,0,0); text-transform: capitalize; display: inline;">Order Entry EDI</h2><small style="color: green;">        <strong>BETA</strong></small> <button onClick="window.location.reload();" type="button" style="margin: 10px 10px 15px 10px; padding: 5px; float: right;" class="btn btn-outline-success">Refresh Page</button>
+    <!-- ******************************* NAVIGATION BAR ************************************** -->
+    
+    <h2>Order Entry EDI</h2> 
+    <button onClick="window.location.reload();" type="button" class="btn btn-outline-success">Refresh Page</button>
+
     <br>
     <br>
     <div id="listStatus">
@@ -68,18 +84,6 @@
             `
         }
 
-        // function main(customers, data) {
-        //     document.getElementById("main").innerHTML = `
-        //         ${customers.map(item => {
-        //             return `
-
-        //                 <h5 style="border-radius: 30px;display: inherit; background-color: antiquewhite; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
-                                                
-        //                 <div class="accordion list-group" id="collapse-${item}"></div>
-        //             `
-        //         }).join("")}
-        //     `
-        // }
 
         async function listpdfs (site) {
             // const response = await fetch(`http://localhost:4000/api/edi/${site}/pdfs`)
@@ -154,54 +158,7 @@
             `
         }
 
-        // function createCollapseList (data, site) {
-        //     const list_len = data.len;
-        //     const list = data.list
-        //     document.getElementById(`collapse-${site}`).innerHTML= `
-        //         ${list.map(line => {
-        //             let id_line = line.split(" ").join("_")
-        //           return `
-                  
-        //             <a style="text-align: center; cursor: pointer;" class="list-group-item list-group-item-action"  data-toggle="collapse" href="#collapseExample${id_line}"  aria-expanded="false" aria-controls="collapseExample">
-        //             <b>${line}</b>
-        //             </a>
-
-        //             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample${id_line}" aria-expanded="true" aria-controls="collapseOne">
-        //                 <b>${line}</b>
-        //             </button>
-
-        //             <div class="accordion-item" id="collapseExample${id_line}">
-        //                 <section>
-        //                     <embed class="sig-pdf" src="http://localhost:3000/edi/${site}/${line}">
-        //                 </section>
-        //             </div>
-        //             `
-        //         }).join("")}
-        //     `
-        // }
-
-        // function createCollapseList1 (data) {
-        //     const list_len = data.len;
-        //     const list = data.list
-        //     console.log(list)
-        //     document.getElementById("collapse-2").innerHTML= `
-        //         ${list.map(line => {
-        //             let id_line = line.split(" ").join("_")
-        //           return `
-        //             <a style="text-align: center;"class="list-group-item list-group-item-action"  data-toggle="collapse" href="#collapseExample${id_line}"  aria-expanded="false" aria-controls="collapseExample">
-        //             <b>${line}</b>
-        //             </a>
-
-        //             <div class="collapse" id="collapseExample${id_line}">
-        //                 <section>
-        //                     <embed class="sig-pdf" src="http://localhost:3000/edi/srap/${line}">
-        //                 </section>
-        //             </div>
-        //             `
-        //         }).join("")}
-        //     `
-        // }
-
+      
         async function post() {
             const submit = document.getElementById("submit_button")
             const spinner = document.getElementById("spinner")
@@ -237,5 +194,7 @@
 
     </script>
 
+</body>
+</html>
 
 <%- include("./partials/footer.ejs") %>
