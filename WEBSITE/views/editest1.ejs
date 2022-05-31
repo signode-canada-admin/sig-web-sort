@@ -19,39 +19,44 @@
 
 
 <body>
-    <div onmousemove="updateSXPOlist()" style="max-width: 90%; margin: 20px auto 20px auto;">
-    <br>
-
     <!-- ******************************* NAVIGATION BAR ************************************** -->
+
+    <div class="navigation-bar">
+        <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
+        <a class = "home" href="/" ><i class="fa fa-fw fa-home"></i></a> 
+        <a class = "refresh" onclick="window.location.reload();" ><i class="fa-solid fa-arrow-rotate-right"></i></a> 
+        </a> 
+    </div><br>
+
+
+    <div onmousemove="updateSXPOlist()" style="max-width: 90%; margin: 20px auto 20px auto;">
+
+        <!-- ******************************* HEADER ************************************** -->
+        
+        <h2 class="edi-header">Order Entry EDI</h2> 
+
+        <br><br>
+        <div id="listStatus"></div>
+
+        <br>
+        <div id="main"></div>
+
+
+        <!-- ******************************* STICKY NAVBAR AND BUTTON TO CREATE PDF ************************************** -->
+        
+        <nav style="background-color: rgb(0, 0, 0, 0.3);" class="navbar fixed-bottom">
+            <div id="POs_SX" class="container-item-1" style="max-width: 90%;"></div>
+            <button id="submit_button" onclick="post()" type="submit" class="btn btn-success">CREATE <span id="no_of_sheets" class="badge badge-light"></span></button>
+           
+            <!-- ******************************* LOADING TEXT AND BUTTON ************************************** -->
+            <div style="display:none" id="spinner" class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </nav>
     
-    <h2>Order Entry EDI</h2> 
-    <button onClick="window.location.reload();" type="button" class="btn btn-outline-success">Refresh Page</button>
-
-    <br>
-    <br>
-    <div id="listStatus">
-
     </div>
-    <br>
-    <div id="main"></div>
-    
-    <!-- <button onclick="post()" type="submit" class="btn btn-success">CREATE</button> -->
-    <!-- <div class="spinner-grow text-danger" role="status">
-        <span class="sr-only">Loading...</span>
-    </div> -->
-    
-    <nav style="background-color: rgb(0, 0, 0, 0.3);" class="navbar fixed-bottom">
-    <!-- <div id="POs_SX" class="h-100 d-flex flex-row justify-content-start align-items-star"></div> -->
-    <!-- <button onclick="post()" type="submit" class="btn btn-success">CREATE</button> -->
-    <div id="POs_SX" class="container-item-1" style="max-width: 90%;"></div>
-    <button id="submit_button" onclick="post()" type="submit" class="btn btn-success">CREATE <span id="no_of_sheets" class="badge badge-light"></span></button>
-    <div style="display:none" id="spinner" class="spinner-border text-info" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </nav>
-    
-</div>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
+
     <script>
 
         const SITES = {

@@ -13,6 +13,60 @@ body{
     background: #F6F6F6;
 }
 
+.edi-header{
+    font-size: 2.5vw;
+    color: #b43c25;
+
+}
+
+
+/************************************ NAVIGATION BAR *************************************/
+
+.navigation-bar {
+    width: 100%;
+    padding: 0%;
+    background-color: #ffffff;
+    overflow: auto;
+    border-bottom: 2px solid #cccaca;
+}
+
+/* Navbar links */
+.navigation-bar a {
+    float: left;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #3f3d56;
+    text-decoration: none;
+    font-size: 24px;
+    border-bottom: 2px solid transparent;
+}
+
+/* Navbar links on mouse-over */
+.navigation-bar a:hover {
+    background-color: #ededed;
+    color: #b43c25;
+    border-bottom-style: solid;
+    border-bottom-color: #b43c25;
+}
+
+.back-button {
+    width: 4%;  
+}
+
+/* Home button */
+.home {
+    width: 4%;
+}
+
+.refresh{
+    width: 4%;
+}
+
+body{
+    background: #F6F6F6;
+}
+
 .wrapper{
     margin-top: 5%;
     display: flex;
