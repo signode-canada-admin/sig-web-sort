@@ -35,7 +35,6 @@
         
         <h2 class="edi-header">Order Entry EDI</h2> 
 
-        <br><br>
         <div id="listStatus"></div>
 
         <br>
@@ -80,7 +79,7 @@
             document.getElementById("main").innerHTML = `
                 ${customers.map(item => {
                     return `
-
+                        <br>
                         <h5 style="border-radius: 30px;display: inherit; color: white; background-color: #b43c25; padding: 10px; margin-top: 5px" ><strong>( ${data[item].len} )</strong> ${SITES[item]}</h5>
                                                 
                         <div id="collapse-${item}" class="list-group" style="background-color: rgb(243, 243, 243);"></div>
