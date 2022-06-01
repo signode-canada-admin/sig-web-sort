@@ -22,23 +22,23 @@
         $(document).ready(function(){ // makes the function available after the document is loaded
             
             // DROPDOWN EVENT HANDLING
-  
+
             // when the default dropdown button is clicked, display all dropdown options 
-            $(".default-option, .dropdown-icon").click(function(event){
-                $(".dropdown ul").addClass("active");
+            $(".dropdown, .fa-solid").click(function(event){
+                $(".dropdown-options ul").addClass("active");
                 event.stopPropagation();
             });
-  
+
             // when any of the dropdown options are clicked, set the text to be that option and hide dropdown
-            $(".dropdown ul li").click(function(event){
+            $(".dropdown-options ul li").click(function(event){
                 var text = $(this).text();
                 $(".default-option").text(text);
-                $(".dropdown ul").removeClass("active");
+                $(".dropdown-options ul").removeClass("active");
                 event.stopPropagation();
             });
-  
+
             $(document).on("click", function (event) {
-                $(".dropdown ul").removeClass("active");
+                $(".dropdown-options ul").removeClass("active");
             });
         
         });
