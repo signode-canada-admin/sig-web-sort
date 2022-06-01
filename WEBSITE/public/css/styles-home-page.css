@@ -40,7 +40,9 @@ body{
 }
 
 .navigation-bar .page-title{
-    font-size: 1vw;
+    font-size: 1.2vw;
+    padding-left: 1.2vw;
+    font-weight: 500;
 }
 
 /* entire button: icon + text */
@@ -52,17 +54,18 @@ body{
 
 /* file icon */
 #edi-icon{
-    font-size: 1.75vw;
+    font-size: 1.7vw;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    margin-top: 20px;
+   
 }
 
 /* "EDI" text */
 .edi-text{
-    font-size: 1vw;
-    padding: 0.2vw;
+    font-size: 0.9vw;
+    padding: 0.1vw;
     cursor: pointer;
+    margin-bottom: 15px;
 }
 
 
@@ -70,8 +73,6 @@ body{
 .navigation-bar a {
     float: left;
     text-align: center;
-    /* padding-top: 20px; */
-    /* padding-bottom: 20px; */
     color: #3f3d56;
     text-decoration: none;
     font-size: 24px;
