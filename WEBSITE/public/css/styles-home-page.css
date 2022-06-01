@@ -47,7 +47,7 @@ body{
 
 /* entire button: icon + text */
 .edi-button{
-    width: 6%;
+    width: 6vw;
     cursor: pointer;
     
 }

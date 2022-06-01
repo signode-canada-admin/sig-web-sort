@@ -45,11 +45,12 @@ body {
 .navigation-bar a {
     float: left;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 1.2vw;
+    padding-bottom: 1.2vw;
     color: #3f3d56;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 1.3vw;
+    font-weight: 450;
     border-bottom: 2px solid transparent;
 }
 
@@ -64,7 +65,7 @@ body {
 /************************************ LOCATION AND ORDER NUMBER *************************************/
 
 h2 {
-    font-size: 38px;
+    font-size: 2.8vw;
     font-weight: 450;
     display: inline;
     color: #b43c25;
@@ -134,20 +135,19 @@ td{
 /************************************ 404: CANNOT FIND PICKTICKET PDF *************************************/
 
 h1 {
-    font-size: 50px;
+    font-size: 3vw;
     font-weight: 450;
     color: #3F3D56;
 }
 
 h3 {
-    font-size: 30px;
+    font-size: 1.6vw;
     font-weight: 450;
     color: #3F3D56;
 }
 
 .icon-404 {
     width: 40vw;
-    margin-left: 100px;
 }
 
 a {

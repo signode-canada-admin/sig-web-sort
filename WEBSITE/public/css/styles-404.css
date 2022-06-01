@@ -27,6 +27,8 @@ body {
     overflow: auto;
     border-bottom: 2px solid #cccaca;
     overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
 }
 
 /* navbar contents */
@@ -64,19 +66,19 @@ body {
 /************************************ TEXT AND IMAGE *************************************/
 
 h1 {
-    font-size: 60px;
+    font-size: 4vw;
     font-weight: 450;
     color: #3F3D56;
 }
 
 h3 {
-    font-size: 35px;
+    font-size: 2vw;
     font-weight: 450;
     color: #3F3D56;
 }
 
 img {
-    width: 60%;
+    width: 40vw;
 }
 
 a {
