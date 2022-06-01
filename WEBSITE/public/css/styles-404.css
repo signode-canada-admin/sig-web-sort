@@ -26,6 +26,7 @@ body {
     background-color: #ffffff;
     overflow: auto;
     border-bottom: 2px solid #cccaca;
+    overflow: hidden;
 }
 
 /* navbar contents */

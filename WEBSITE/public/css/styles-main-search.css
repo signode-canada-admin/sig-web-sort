@@ -27,6 +27,7 @@ body {
     overflow: auto;
     border-bottom: 2px solid #cccaca;
     float: left;
+    overflow: hidden;
 }
 
 /* back button*/
