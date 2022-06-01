@@ -11,27 +11,12 @@
 
 body {
     background: #f6f6f6;
+    
 }
 
 /************************************ FOOTER /*************************************/
 
-#footer{
-    background-color: #9F9D9D;
-    height: 7vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .footer-text{
-    color: white;
-    font-size: 1.6vw;
-    padding: 1vw;
+    color: #b43c25;
+    font-size: 1.1vw;
 }
-
-.footer-logo{
-    padding: 1vw;
-    width: 19vw;
-    height: auto;
-} 
-

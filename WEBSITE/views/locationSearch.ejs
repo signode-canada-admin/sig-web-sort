@@ -16,154 +16,160 @@
 
 <!-- ******************************* NAVIGATION BAR ************************************** -->
 
-<% if (site.toLowerCase() == "markham") { %>
-    <div class="navigation-bar">
-        <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
-        <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
-        <% let navLinks = ["","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
-        <% let navOptions = ["All Orders","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
-
-        <% for(i = 0; i < navLinks.length; i++){ %>
-            <% if(status == navOptions[i]){ %>
-                <a href="/markham/allOrders/<%= navLinks[i] %>" class = "optionMarkham selected"> <%= navOptions[i] %></a>
-            <% } else { %>
-                <a href="/markham/allOrders/<%= navLinks[i] %>" class = "optionMarkham"> <%= navOptions[i] %></a>
-            <% } %>
-        <% } %>
-    </div>
-<% } else { %>
-    <div class="navigation-bar">
-        <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
-        <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
-        <% let navLinks = ["", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
-        <% let navOptions = ["All Orders", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
-
-        <% for(i = 0; i < navLinks.length; i++){ %>
-            <% if(status == navOptions[i]){ %>
-                <a href="/<%= site %>/allOrders/<%= navLinks[i] %>" class = "optionSurrGlen selected"> <%= navOptions[i] %></a>
-            <% } else { %>
-                <a href="/<%= site %>/allOrders/<%= navLinks[i] %>" class = "optionSurrGlen"> <%= navOptions[i] %></a>
-            <% } %>
-        <% } %>
-    </div>
-<% } %>
-
-<br><br>
-
-
-<div class="container-fluid">
-
-    <!-- ************************************ INDICATE SELECTED LOCATION AND DISPLAY LINKS TO OTHER LOCATION PAGES ************************************* -->
-
+<body>
+        
     <% if (site.toLowerCase() == "markham") { %>
-        <h3 class="selected-location" onclick="window.location.href='/markham/allOrders'" ><u>Markham</u></h3>
-        <h3 onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
-        <h3 onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+        <div class="navigation-bar">
+            <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
+            <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
+            <% let navLinks = ["","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
+            <% let navOptions = ["All Orders","Printed","West","East","Parts","Other","Shipped","Invoiced", "Archived"] %>
 
-    <% } else if (site.toLowerCase() == "surrey"){ %>
-        <h3 onclick="window.location.href='/markham/allOrders'"><u>Markham</u></h3>
-        <h3 class="selected-location" onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
-        <h3 onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+            <% for(i = 0; i < navLinks.length; i++){ %>
+                <% if(status == navOptions[i]){ %>
+                    <a href="/markham/allOrders/<%= navLinks[i] %>" class = "optionMarkham selected"> <%= navOptions[i] %></a>
+                <% } else { %>
+                    <a href="/markham/allOrders/<%= navLinks[i] %>" class = "optionMarkham"> <%= navOptions[i] %></a>
+                <% } %>
+            <% } %>
+        </div>
+    <% } else { %>
+        <div class="navigation-bar">
+            <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
+            <a href="/" class = "home"><i class="fa fa-fw fa-home"></i></a>
+            <% let navLinks = ["", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
+            <% let navOptions = ["All Orders", "Printed", "Other", "Shipped", "Invoiced", "Archived"] %>
 
-    <% } else if (site.toLowerCase() == "glenview"){ %>
-        <h3 onclick="window.location.href='/markham/allOrders'"><u>Markham</u></h3>
-        <h3 onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
-        <h3 class="selected-location" onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+            <% for(i = 0; i < navLinks.length; i++){ %>
+                <% if(status == navOptions[i]){ %>
+                    <a href="/<%= site %>/allOrders/<%= navLinks[i] %>" class = "optionSurrGlen selected"> <%= navOptions[i] %></a>
+                <% } else { %>
+                    <a href="/<%= site %>/allOrders/<%= navLinks[i] %>" class = "optionSurrGlen"> <%= navOptions[i] %></a>
+                <% } %>
+            <% } %>
+        </div>
     <% } %>
 
-
-
-    <!-- ******************************* SEARCH BAR ************************************** -->
-
-    <!-- high level logic: putting something in the search bar will call myFunction(), which loads but hides all the orders in the database -->
-    <!-- we then decide what to unhide based on if an order matches our filters/search -->
-
-    <div class="search-box">
-        
-        <!-- search icon -->
-        <i class="fas fa-search"></i>
-
-        <!-- search field -->
-        <div class="search-field">
-            <% site = site.replace(site.charAt(0),site.charAt(0).toUpperCase()) %> 
-            <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="Search <%= status.toLowerCase() %> in <%= site %>">
-        </div>
-
-        <!-- search button -->
-        <button type="button" class="search-button" onclick="myFunction(event)">Search</button>
-
-    </div>
     <br><br>
 
 
+    <div class="container-fluid">
 
-    <!-- time since printed -->
-    <% function timeSince(date) {
+        <!-- ************************************ INDICATE SELECTED LOCATION AND DISPLAY LINKS TO OTHER LOCATION PAGES ************************************* -->
 
-        d = new Date()
-        d.setHours(d.getHours() - 4)
+        <% if (site.toLowerCase() == "markham") { %>
+            <h3 class="selected-location" onclick="window.location.href='/markham/allOrders'" ><u>Markham</u></h3>
+            <h3 onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
+            <h3 onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
 
-        var seconds = Math.floor((d  - date) / 1000);
-    
-        var interval = seconds / 31536000;
-    
-        interval = seconds / 3600;
-        if (interval > 1) {
-        return Math.floor(interval) + " hours";
-        }
+        <% } else if (site.toLowerCase() == "surrey"){ %>
+            <h3 onclick="window.location.href='/markham/allOrders'"><u>Markham</u></h3>
+            <h3 class="selected-location" onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
+            <h3 onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
 
-        return "0 hour"
-    } %>
-    <!-- end of time since printed -->
+        <% } else if (site.toLowerCase() == "glenview"){ %>
+            <h3 onclick="window.location.href='/markham/allOrders'"><u>Markham</u></h3>
+            <h3 onclick="window.location.href='/surrey/allOrders'"> &nbsp &nbsp <u>Surrey</u></h3>
+            <h3 class="selected-location" onclick="window.location.href='/glenview/allOrders'"> &nbsp &nbsp <u>Glenview</u></h3>
+        <% } %>
 
 
-    <!-- ******************************* TABLE THAT DISPLAYS SEARCH RESULTS ************************************** -->
 
-    <table id='my-table' class="table table-sortable" style="width: 100%"> 
+        <!-- ******************************* SEARCH BAR ************************************** -->
 
-        <!-- table headers -->
-        <thead>
-            <tr>
-                <th style="vertical-align: middle">Order Number</th>
-                <th style="vertical-align: middle">PO Number</th>
-                <th style="vertical-align: middle">Shipping Address</th>
-                <th style="vertical-align: middle">Shipping Carrier</th>
-                <th style="vertical-align: middle">Date Received</th>
-                <th style="vertical-align: middle">Time Since Printed</th>
-                <th style="vertical-align: middle">Status</th>
-            </tr>
-        </thead>
+        <!-- high level logic: putting something in the search bar will call myFunction(), which loads but hides all the orders in the database -->
+        <!-- we then decide what to unhide based on if an order matches our filters/search -->
 
-        <!-- rows with data -->
-        <tbody id="mainList">
-            <!-- we are passed a list of all the orders from app.js -->
-            <!-- each order is essentially an object -->
-            <!-- we cycle through the objects and print all the properties (PO, shipping address, date, etc.) of each object -->
-            <% if (lst_orders.length != 0) { %>
-                <% lst_orders.forEach((order)=>{ %>
+        <div class="search-box">
+            
+            <!-- search icon -->
+            <i class="fas fa-search"></i>
 
-                    <tr>
-                        <td class='sig-order' style="vertical-align: middle"><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
-                        <td style="vertical-align: middle"><%= order["PO"] %></td>
-                        <td style="vertical-align: middle"><%= order["shipTo"] %></td>
-                        <td style="vertical-align: middle"><%= order["via"] %></td>
-                        <td style="vertical-align: middle"><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
-                        <td style="vertical-align: middle"><%= timeSince(order["dateReceived"]) %></td>
-                        <%- include("./partials/statusUpdates.ejs", { order }) %>
-                    </tr>
-                    
-                <% }) %>
-            <% } %>
+            <!-- search field -->
+            <div class="search-field">
+                <% site = site.replace(site.charAt(0),site.charAt(0).toUpperCase()) %> 
+                <input type="text" class="input" id="myInput" onkeyup="myFunction(event)" placeholder="Search <%= status.toLowerCase() %> in <%= site %>">
+            </div>
 
-        </tbody>
+            <!-- search button -->
+            <button type="button" class="search-button" onclick="myFunction(event)">Search</button>
 
-    </table>
-</div>
-<br><br>
+        </div>
+        <br><br>
 
-<!-- ******************************* FOOTER ************************************** -->
 
-<%- include("./partials/footer.ejs") %>
+
+        <!-- time since printed -->
+        <% function timeSince(date) {
+
+            d = new Date()
+            d.setHours(d.getHours() - 4)
+
+            var seconds = Math.floor((d  - date) / 1000);
+        
+            var interval = seconds / 31536000;
+        
+            interval = seconds / 3600;
+            if (interval > 1) {
+            return Math.floor(interval) + " hours";
+            }
+
+            return "0 hour"
+        } %>
+        <!-- end of time since printed -->
+
+
+        <!-- ******************************* TABLE THAT DISPLAYS SEARCH RESULTS ************************************** -->
+
+        <table id='my-table' class="table table-sortable" style="width: 100%"> 
+
+            <!-- table headers -->
+            <thead>
+                <tr>
+                    <th style="vertical-align: middle">Order Number</th>
+                    <th style="vertical-align: middle">PO Number</th>
+                    <th style="vertical-align: middle">Shipping Address</th>
+                    <th style="vertical-align: middle">Shipping Carrier</th>
+                    <th style="vertical-align: middle">Date Received</th>
+                    <th style="vertical-align: middle">Time Since Printed</th>
+                    <th style="vertical-align: middle">Status</th>
+                </tr>
+            </thead>
+
+            <!-- rows with data -->
+            <tbody id="mainList">
+                <!-- we are passed a list of all the orders from app.js -->
+                <!-- each order is essentially an object -->
+                <!-- we cycle through the objects and print all the properties (PO, shipping address, date, etc.) of each object -->
+                <% if (lst_orders.length != 0) { %>
+                    <% lst_orders.forEach((order)=>{ %>
+
+                        <tr>
+                            <td class='sig-order' style="vertical-align: middle"><a class='sig-links' href="/orders/<%= order._id %>"><%= order["_id"] %></a></td>
+                            <td style="vertical-align: middle"><%= order["PO"] %></td>
+                            <td style="vertical-align: middle"><%= order["shipTo"] %></td>
+                            <td style="vertical-align: middle"><%= order["via"] %></td>
+                            <td style="vertical-align: middle"><%= order["dateReceived"].toUTCString().slice(4, order["dateReceived"].toUTCString().indexOf("GMT")) %></td>
+                            <td style="vertical-align: middle"><%= timeSince(order["dateReceived"]) %></td>
+                            <%- include("./partials/statusUpdates.ejs", { order }) %>
+                        </tr>
+                        
+                    <% }) %>
+                <% } %>
+
+            </tbody>
+            
+        </table><br>
+        
+        <!-- ******************************* FOOTER ************************************** -->
+        
+        <%- include("./partials/footer.ejs") %><br><br>
+
+
+    </div>
+</body>
+
+
 
 
 <!-- ******************************* FUNCTIONS TO RETRIEVE DATA ************************************** -->
