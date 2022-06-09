@@ -3,7 +3,7 @@
 const express = require('express');
 const path = require('path');
 const { MongoClient } = require('mongodb');
-const PORT = 3000;
+const PORT = 5000;
 
 // create express app
 const app = express();
@@ -11,7 +11,6 @@ const app = express();
 
 // view engine
 app.set('view engine', 'ejs');
-
 
 // ********************* Connect to MongoDB ********************** //
 const uri = 'mongodb://127.0.0.1:27017/';

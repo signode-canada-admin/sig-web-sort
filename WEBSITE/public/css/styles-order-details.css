@@ -79,6 +79,11 @@ table{
     text-align: center;
 }
 
+.table {
+    table-layout: fixed;
+    width: 100%;
+}
+
 /* rounded corners of table */
 th:first-of-type {
     border-top-left-radius: 15px;

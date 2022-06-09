@@ -87,20 +87,20 @@
     <section>
         <% if((typeof(file) !== 'undefined')) { %>
             <!-- if we're displaying the order pickticket pdf -->
-            <% if(file == '404'){ %>
+            <% if(file){ %>
                 <embed class="sig-pdf" src="<%= file %>">
 
-            <!-- if we're displaying an error page -->
-            <% } else { %> 
-                <h1>Oops!</h1> <br>
-                <h3>We can't seem to find the page you were looking for. Click <a href="/">here</a> to go back home.</h3>
-
-                <br><br><br><br>
-
-                <img class="icon-404" src="/css/404-icon.svg" alt="">
-
-                <br><br><br><br><br><br>
             <% } %>
+        <% } else { %> 
+            <!-- if we're displaying an error page -->
+            <h1>Oops!</h1> <br>
+            <h3>We can't seem to find the page you were looking for. Click <a href="/">here</a> to go back home.</h3>
+
+            <br><br><br><br>
+
+            <img class="icon-404" src="/css/404-icon.svg" alt="">
+
+            <br><br><br><br><br><br>
         <% } %>
 
         <br>
