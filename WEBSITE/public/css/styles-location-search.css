@@ -188,6 +188,8 @@ h3:hover {
 /* center text in table */
 table{
     text-align: center;
+    table-layout: fixed;
+
 }
 
 #my-table{
@@ -213,6 +215,7 @@ thead{
     background-color: #b43c25;
     color: white;
     font-size: 22px;
+    height: 3.5vw;
 }
 
 /* rows */
@@ -227,12 +230,15 @@ tbody tr:hover{
 
 /* make table headers not bolded */
 th{
+    font-size: 1.25vw;
     font-weight: normal;
 }
 
 
 td{
+    font-size: 1.25vw;
     padding: 20px;
+    word-wrap:break-word;
 }
 
 .sig-links{
