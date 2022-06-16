@@ -1,4 +1,33 @@
-<%- include("./partials/head.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles-edi.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Signode Picktickets</title>
+</head>
+<body>
+
+
+ <!-- ******************************* NAVIGATION BAR ************************************** -->
+
+ <div class="navigation-bar">
+  <a class="back-button" href="javascript:history.back()"><strong>&#8249;</strong></a>
+  <a class = "home" href="/" ><i class="fa fa-fw fa-home"></i></a> 
+  <a class = "refresh" onclick="window.location.reload();" ><i class="fa-solid fa-arrow-rotate-right"></i></a> 
+  </a> 
+</div><br>
+
+
+<div onmousemove="updateSXPOlist()" style="max-width: 90%; margin: 20px auto 20px auto;">
+
+
+<div class="container">
 
 <br>
 
@@ -34,7 +63,7 @@ width="38px"
 <% } else { %>
 
   <div class="alert alert-info" role="alert">
-    <h6 class="alert-heading">There are no availabe Premium Plus PO's, please wait for <strong>Dept (Y:)</strong> drive to sync or try refreshing this page</h6>
+    <h6 class="alert-heading">There are no available Premium Plus PO's, please wait for <strong>Dept (Y:)</strong> drive to sync or try refreshing this page</h6>
     <hr>
     <p class="mb-0">If the problem persists, Please contact the CI-Team at <a class="sig-links" style="color: tomato;" href = "mailto: CITEAM@PKGconnect.onmicrosoft.com"><strong>CITEAM@PKGconnect.onmicrosoft.com</strong></a></p>
   </div>
@@ -81,4 +110,13 @@ function backToTop() {
 }
 </script>
 
-<%- include("./partials/footnocontainer.ejs") %>
+<br>
+<br>
+
+<div style="position: relative">
+    <p style="position: fixed; bottom: 0; width:100%; text-align: left" style="color:rgb(136,0,0)">&copy;  2021 Signode Canada</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
