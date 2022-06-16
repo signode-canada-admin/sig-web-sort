@@ -3,7 +3,7 @@
 const express = require('express');
 const path = require('path');
 const { MongoClient } = require('mongodb');
-const PORT = 5000;
+const PORT = 3000;
 
 // create express app
 const app = express();
