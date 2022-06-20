@@ -87,7 +87,7 @@ app.get("/", (req, res) => {
 app.get("/:search=:filter", (req, res) => {
     const filter = req.params.filter
     // search active orders
-    if(filter === "Search by..." || filter === "Active orders"){
+    if(filter === "Active orders"){
         markham.find({ "status": { $ne: "Archived" } }).toArray().then((marList) => {
             markhamStatus.find({}).toArray().then((marStat => {
                 surrey.find({ "status": { $ne: "Archived" } }).toArray().then((surrList) => {
@@ -104,6 +104,22 @@ app.get("/:search=:filter", (req, res) => {
         })
     }
     // search archived orders
+    else if(filter === "Archived orders"){
+        markham.find({"status": "Archived"}).toArray().then((marList) => {
+            markhamStatus.find({"status": "Archived"}).toArray().then((marStat => {
+                surrey.find({"status": "Archived"}).toArray().then((surrList) => {
+                    surreyStatus.find({"status": "Archived"}).toArray().then((surrStat) => {
+                        glenview.find({"status": "Archived"}).toArray().then((glenList) => {
+                            glenviewStatus.find({"status": "Archived"}).toArray().then((glenStat) => {
+                                let context = { title: "Main Page", marList, marStat, surrList, surrStat, glenList, glenStat};
+                                res.render("mainSearch", context);
+                            })
+                        })
+                    })
+                })
+            }))
+        })
+    }
     else{
         markham.find({}).toArray().then((marList) => {
             markhamStatus.find({}).toArray().then((marStat => {
